@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:p="http://primefaces.org/ui">
+
+	<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" delay="0"/>
+	<p:dialog styleClass="status-loading"  widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" responsive="true" blockScroll="true" position="center" positionType="absolute">
+	   	<p:graphicImage library="images"  name="loading.svg" />
+	</p:dialog>	
+	
+</html>

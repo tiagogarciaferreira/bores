@@ -1,0 +1,91 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui"
+				template="/WEB-INF/templates/LayoutPadrao.xhtml">
+
+<ui:define name="title">Bores - Subcategorias</ui:define>
+<ui:define name="conteudo">
+	<h:form id="frm" >
+		<div class="card-page">
+			<p:panel styleClass="panel-padrao">
+				<h2>Subcategorias</h2>
+				<p:messages for="msg" showDetail="true" closable="true" globalOnly="true">
+					<p:autoUpdate/>
+				</p:messages>
+				<p:toolbar styleClass="toolbar-menu">
+					<f:facet name="left">
+						<p:commandButton value="Nova" iconPos="left" icon="fa fa-fw fa-plus-circle" 
+							styleClass="btn-info raised-button" onclick="PF('dialogSubcategoria').show();"/>
+					</f:facet>
+				</p:toolbar>
+				<p:dataTable id="tblSubcategoria" reflow="true" var="subcategoria" value="#{subcategoriaBean.lazyDataModel}"
+				    rowKey="#{subcategoria.id}" rows="10" paginator="true" lazy="true" filterDelay="1000" 
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				    emptyMessage="Nenhuma subcategoria encontrada." paginatorAlwaysVisible="false" paginatorPosition="bottom" >
+				    
+				    <f:facet name="header"> 
+				    	<h3>Pesquisar Subcategorias</h3>
+				    </f:facet>
+				    <p:column headerText="ID" field="id" filterBy="#{subcategoria.id}" sortBy="#{subcategoria.id}" styleClass="column-id">
+						<h:outputText value="#{subcategoria.id}"/>
+				    </p:column>
+				    <p:column headerText="Categoria" field="categoria" filterBy="#{subcategoria.categoria.nome}" sortBy="#{subcategoria.categoria.nome}">
+						<h:outputText value="#{subcategoria.categoria.nome}"/>
+				    </p:column>
+				    <p:column headerText="Nome" field="nome" filterBy="#{subcategoria.nome}" sortBy="#{subcategoria.nome}">
+						<h:outputText value="#{subcategoria.nome}"/>
+				    </p:column>    
+				    <p:column headerText="Ações" styleClass="column-acao">
+						<p:commandButton styleClass="btn-primary btn-circle raised-button" icon="fa fa-fw fa-pencil" process="@this" update="frm:dialogSubcategoria"
+							actionListener="#{subcategoriaBean.setSubcategoria(subcategoria)}" oncomplete="PF('dialogSubcategoria').show();"/>
+						<p:commandButton styleClass="btn-danger btn-circle raised-button" icon="fa fa-fw fa-trash-o" actionListener="#{subcategoriaBean.setSubcategoria(subcategoria)}"
+							 action="#{subcategoriaBean.excluir}" process="@this" update="tblSubcategoria" >
+							<p:confirm icon="fa fa-fw fa-exclamation-triangle" header="Confirmação" message="Tem certeza de que deseja continuar?"/>
+						</p:commandButton>	
+				    </p:column>    
+				</p:dataTable>
+
+				<ui:include src="/WEB-INF/templates/components/ConfirmarExclusao.xhtml"/>
+			</p:panel>
+		
+			<p:dialog id="dialogSubcategoria" dynamic="true" styleClass="ui-fluid" widgetVar="dialogSubcategoria" modal="true" draggable="false"
+				resizable="false" responsive="true" closeOnEscape="true" blockScroll="true" position="center" positionType="absolute">
+				
+				<f:facet name="header">
+					<p:outputLabel value="#{subcategoriaBean.subcategoria.id == null ? 'Nova Subcategoria' : 'Editar Subcategoria'}"  styleClass="dialog-title"/>
+				</f:facet>
+	
+				<p:ajax event="close" resetValues="true" process="@this" update="dialogSubcategoria" listener="#{subcategoriaBean.nova}"/>
+				
+				<p:panelGrid layout="grid" columns="1">
+					<p:column>
+						<p:outputLabel styleClass="input-label">Categoria</p:outputLabel>
+						<p:selectOneMenu id="categoria" label="Categoria" styleClass="ui-g-12" converter="#{categoriaConverter}"
+  	 						 filter="true" filterMatchMode="startsWith" value="#{subcategoriaBean.subcategoria.categoria.id}">
+							<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+							<f:selectItems value="#{categoriaBean.listar()}" var="categoria" itemValue="#{categoria.id}" itemLabel="#{categoria.nome}"  />
+						</p:selectOneMenu>
+						<p:message for="categoria" styleClass="msg-invalid"/>
+					</p:column>
+					<p:column>
+					    <p:outputLabel styleClass="input-label">Nome</p:outputLabel>
+						<p:inputText id="nome" label="Nome" styleClass="ui-g-12" type="text" value="#{subcategoriaBean.subcategoria.nome}"
+				  			 required="true" requiredMessage="Campo obrigatório." autocomplete="off">
+							<p:watermark for="nome" value="Nome da subcategoria" />
+							<p:clientValidator event="keyup" />
+						</p:inputText>
+						<p:message for="nome" styleClass="msg-invalid"/>
+					</p:column>
+					<p:column>
+						<p:commandButton validateClient="true" styleClass="btn-primary raised-button" icon="fa fa-fw fa-save" value="Salvar" 
+							process="dialogSubcategoria" ajax="true" action="#{subcategoriaBean.salvar}" update="@form"
+							 oncomplete="if (!args.validationFailed) PF('dialogSubcategoria').hide()"/>
+					</p:column>			
+				</p:panelGrid>
+			</p:dialog>	
+		</div>
+	</h:form>
+</ui:define>
+</ui:composition>

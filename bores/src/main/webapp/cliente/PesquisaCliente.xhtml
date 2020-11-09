@@ -1,0 +1,75 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui"
+				template="/WEB-INF/templates/LayoutPadrao.xhtml">
+
+<ui:define name="title">Bores - Clientes</ui:define>
+<ui:define name="conteudo">
+	<h:form id="frm">
+		<div class="card-page">
+			<p:panel styleClass="panel-padrao">
+				<h2>Clientes</h2>
+				<p:messages for="msg" showDetail="true" closable="true" globalOnly="true">
+					<p:autoUpdate/>
+				</p:messages>
+				<p:toolbar styleClass="toolbar-menu">
+					<f:facet name="left">
+						<p:button value="Novo" outcome="/cliente/CadastroCliente" iconPos="left" icon="fa fa-fw fa-plus-circle"
+							 styleClass="btn-info raised-button"/>
+					</f:facet>
+				</p:toolbar>
+				<p:dataTable id="tblCliente" reflow="true" var="cliente" value="#{clienteBean.lazyDataModel}"
+				    rowKey="#{cliente.id}" rows="10" paginator="true" lazy="true" filterDelay="1000"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				    emptyMessage="Nenhum cliente encontrado." paginatorAlwaysVisible="false" paginatorPosition="bottom">
+				    
+				    <f:facet name="header">
+				    	<h3>Pesquisar Clientes</h3>
+				    </f:facet>
+				    <p:column headerText="Pessoa" styleClass="column-small">
+						<h:outputText value="#{cliente.tipoPessoa.descricao}"/>
+				    </p:column>    
+				    <p:column  headerText="Nome" field="nome" filterBy="#{cliente.nome}" sortBy="#{cliente.nome}">
+						<h:outputText value="#{cliente.nome}"/>
+				    </p:column>
+				    <p:column  headerText="Cpf/Cnpj" field="cpf_cnpj" filterBy="#{cliente.cpfOuCnpj}" sortBy="#{cliente.cpfOuCnpj}" >
+						<h:outputText value="#{cliente.cpfOuCnpj}"/>
+				    </p:column>
+				    <p:column headerText="Ações" styleClass="column-acao">
+						<p:button styleClass="btn-primary btn-circle raised-button btn-distancia" icon="fa fa-fw fa-pencil" outcome="/cliente/CadastroCliente" >
+							<f:param name="cliente" value="#{cliente.id}"/>	
+						</p:button>
+					    <p:commandButton styleClass="btn-secondary btn-circle raised-button" icon="fa fa-fw fa-search" process="@this" update="frm:dialogDetalhes"
+							actionListener="#{clienteBean.setCliente(cliente)}" oncomplete="PF('dialogDetalhes').show();"/>
+						<p:commandButton styleClass="btn-danger btn-circle raised-button" icon="fa fa-fw fa-trash-o" actionListener="#{clienteBean.setCliente(cliente)}"
+							 action="#{clienteBean.excluir}" process="@this" update="tblCliente" >
+							<p:confirm icon="fa fa-fw fa-exclamation-triangle" header="Confirmação" message="Tem certeza de que deseja continuar?"/>
+						</p:commandButton>	
+				    </p:column>    
+				</p:dataTable>
+				<ui:include src="/WEB-INF/templates/components/ConfirmarExclusao.xhtml"/>
+			</p:panel>
+			<p:dialog id="dialogDetalhes" dynamic="true" styleClass="dialog-info" header="Detalhes do cliente" widgetVar="dialogDetalhes" modal="true" draggable="false"
+				resizable="false" responsive="true" closeOnEscape="true" blockScroll="true" position="center" positionType="fixed">
+				<p:ajax event="close" resetValues="true" process="@this" update="dialogDetalhes" listener="#{clienteBean.novo}"/>
+				<p:panelGrid layout="grid" columns="1">
+					<p:column>
+						<p:outputLabel styleClass="label-info" value="ID: "/>
+						<h:outputText value="#{clienteBean.cliente.id}" />
+					</p:column>
+					<p:column>
+						<p:outputLabel styleClass="label-info" value="Email: "/>
+						<h:outputText value="#{clienteBean.cliente.email}" />
+					</p:column>
+					<p:column>
+						<p:outputLabel styleClass="label-info" value="Telefone: "/>
+						<h:outputText value="#{clienteBean.cliente.telefone}" />
+					</p:column>
+				</p:panelGrid>
+			</p:dialog>
+		</div>
+	</h:form>
+</ui:define>
+</ui:composition>

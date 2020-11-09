@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<f:facet name="first">
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</f:facet>
+ 	<title>Bores - Acesso negado</title>
+ 	<link type="image/x-icon" rel="shortcut icon" href="#{resource['images/logo.ico']}" />
+    <h:outputStylesheet library="css" name="style-custom.css" />
+    <h:outputStylesheet library="css" name="primeflex.min.css" />
+</h:head>
+
+
+<h:body styleClass="error-body">
+	<div class="p-grid error-content">
+	    <div class="p-col-12 p-md-6 p-lg-12">
+	        <div class="box">
+				<h1>403</h1>
+			</div>
+	    </div>
+	    <div class="p-col-12 p-md-6 p-lg-12">
+	        <div class="box error-title">
+				<span>Acesso negado</span>
+			</div>
+	    </div>
+	    <div class="p-col-6 p-offset-3">
+	        <div class="box error-footer">
+	        	<span>
+					Desculpe, você não tem permição para acessar esta página. 
+					Entre em contato conosco se precisar de ajuda.
+	        	</span>
+	        </div>
+	    </div>
+	    <div class="p-col-12 p-md-6 p-lg-12">
+	        <div class="box">
+				<p:commandButton styleClass="btn-primary btn-back" onclick="javascript:history.back()" value=" Voltar" 
+					icon="fa fa-fw fa-arrow-circle-left" process="@this"/>
+			</div>
+	    </div>
+	    <div class="p-col-12 p-md-6 p-lg-12">
+	        <div class="box">
+				<p:graphicImage library="images" name="logo.png" />
+			</div>
+	    </div>
+	</div>
+	
+
+</h:body>
+
+</html>

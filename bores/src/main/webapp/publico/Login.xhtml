@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<f:facet name="first">
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</f:facet>
+ 	<title>Bores - Login</title>
+ 	<link type="image/x-icon" rel="shortcut icon" href="#{resource['images/logo.ico']}" />
+    <h:outputStylesheet library="css" name="style-custom.css" />
+    <h:outputStylesheet library="css" name="primeflex.min.css" />
+</h:head>
+
+<h:body styleClass="login-body">
+	<h:form styleClass="ui-g ui-fluid">
+		<div class="login-content ui-g-10 ui-md-10 ui-lg-4">
+			<p:panelGrid columns="1" layout="grid" styleClass="ui-g-12">
+				<p:column>
+					<p:graphicImage library="images" name="logo.png" />
+					<h2>Faça seu login</h2>
+				</p:column>
+				
+				<p:column>
+					<p:staticMessage styleClass="ui-g-12" severity="error" detail="Usuário e/ou senha incorretos."/>
+				</p:column>
+
+				<p:column >
+					<p:outputLabel for="username" styleClass="input-label">Usuário</p:outputLabel>
+					<p:inputText id="username" label="Usuário" styleClass="ui-g-12">
+						<p:watermark for="username" value="Informe seu usuário"/>
+					</p:inputText>
+				</p:column>
+				
+				<p:column>
+					<p:outputLabel for="password" styleClass="input-label">Senha</p:outputLabel>
+					<p:password id="password" label="Senha" styleClass="ui-g-12">
+						<p:watermark for="password" value="Informe sua senha"/>
+					</p:password>
+				</p:column>
+				
+				<p:column>
+					<p:commandLink value="Esqueceu sua senha?" styleClass="sublinhar"/>
+				</p:column>
+				
+				<p:column>
+					<p:commandButton value="Entrar" icon="fa fa-fw fa-lock" styleClass="ui-g-12 btn-center btn-primary raised-button"/>
+				</p:column>
+				
+				<p:column>
+					<p:commandLink value="Não tem conta? Cadastre-se"/>
+				</p:column>
+				
+			</p:panelGrid>
+		</div>	
+	</h:form>
+</h:body>
+</html>

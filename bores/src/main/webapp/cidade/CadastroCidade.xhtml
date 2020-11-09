@@ -1,0 +1,91 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui"
+				template="/WEB-INF/templates/LayoutPadrao.xhtml">
+
+<ui:define name="title">Bores - Cidades</ui:define>
+<ui:define name="conteudo">
+	<h:form id="frm">
+		<div class="card-page">
+			<p:panel styleClass="panel-padrao">
+				<h2>Cidades</h2>
+				<p:messages for="msg" showDetail="true" closable="true" globalOnly="true">
+					<p:autoUpdate/>
+				</p:messages>
+				<p:toolbar styleClass="toolbar-menu">
+					<f:facet name="left">
+						<p:commandButton value="Nova" iconPos="left" icon="fa fa-fw fa-plus-circle" 
+							styleClass="btn-info raised-button" onclick="PF('dialogCidade').show();"/>
+					</f:facet>
+				</p:toolbar>
+				<p:dataTable id="tblCidade" reflow="true" var="cidade" value="#{cidadeBean.lazyDataModel}"
+				    rowKey="#{cidade.id}" rows="10" paginator="true" lazy="true" filterDelay="1000"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				    emptyMessage="Nenhuma cidade encontrada." paginatorAlwaysVisible="false" paginatorPosition="bottom">
+				    
+				    <f:facet name="header">
+				    	<h3>Pesquisar Cidades</h3>
+				    </f:facet>
+				    <p:column headerText="ID" field="id" filterBy="#{cidade.id}" sortBy="#{cidade.id}" styleClass="column-small" >
+						<h:outputText value="#{cidade.id}"/>
+				    </p:column>
+				    <p:column  headerText="Estado" field="estado" filterBy="#{cidade.estado.nome}" sortBy="#{cidade.estado.nome}" >
+						<h:outputText value="#{cidade.estado.nome}"/>
+				    </p:column>
+				    <p:column headerText="Nome" field="nome" filterBy="#{cidade.nome}" sortBy="#{cidade.nome}">
+						<h:outputText value="#{cidade.nome}"/>
+				    </p:column>    
+				    <p:column headerText="Ações" styleClass="column-acao">
+						<p:commandButton styleClass="btn-primary btn-circle raised-button" icon="fa fa-fw fa-pencil" process="@this" update="frm:dialogCidade"
+							actionListener="#{cidadeBean.setCidade(cidade)}" oncomplete="PF('dialogCidade').show();"/>
+						<p:commandButton styleClass="btn-danger btn-circle raised-button" icon="fa fa-fw fa-trash-o" actionListener="#{cidadeBean.setCidade(cidade)}"
+							 action="#{cidadeBean.excluir}" process="@this" update="tblCidade" >
+							<p:confirm icon="fa fa-fw fa-exclamation-triangle" header="Confirmação" message="Tem certeza de que deseja continuar?"/>
+						</p:commandButton>	
+				    </p:column>    
+				</p:dataTable>
+
+				<ui:include src="/WEB-INF/templates/components/ConfirmarExclusao.xhtml"/>
+			</p:panel>
+		
+			<p:dialog id="dialogCidade" dynamic="true" styleClass="ui-fluid" widgetVar="dialogCidade" modal="true" draggable="false"
+				resizable="false" responsive="true" closeOnEscape="true" blockScroll="true" position="center" positionType="absolute">
+				
+				<f:facet name="header">
+					<p:outputLabel value="#{cidadeBean.cidade.id == null ? 'Nova Cidade' : 'Editar Cidade'}"  styleClass="dialog-title"/>
+				</f:facet>
+	
+				<p:ajax event="close" resetValues="true" process="@this" update="dialogCidade" listener="#{cidadeBean.nova}"/>
+				
+				<p:panelGrid layout="grid" columns="1">
+					<p:column>
+						<p:outputLabel styleClass="input-label">Estado</p:outputLabel>
+						<p:selectOneMenu id="estado" label="Estado" styleClass="ui-g-12" converter="#{estadoConverter}"
+  	 						 filter="true" filterMatchMode="startsWith" value="#{cidadeBean.cidade.estado.id}">
+							<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+							<f:selectItems value="#{estadoBean.listar()}" var="estado" itemValue="#{estado.id}" itemLabel="#{estado.nome}"  />
+						</p:selectOneMenu>
+						<p:message for="estado" styleClass="msg-invalid"/>
+					</p:column>
+					<p:column>
+						<p:outputLabel styleClass="input-label">Nome</p:outputLabel>
+						<p:inputText id="nome" label="Nome" styleClass="ui-g-12" type="text" value="#{cidadeBean.cidade.nome}"
+							 required="true" requiredMessage="Campo obrigatório." autocomplete="off">
+							<p:watermark for="nome" value="Nome da cidade" />
+							<p:clientValidator event="keyup" />
+						</p:inputText>
+						<p:message for="nome" styleClass="msg-invalid"/>
+					</p:column>
+					<p:column>
+						<p:commandButton validateClient="true" styleClass="btn-primary raised-button" icon="fa fa-fw fa-save" value="Salvar" 
+							process="dialogCidade" ajax="true" action="#{cidadeBean.salvar}" update="@form"
+							 oncomplete="if (!args.validationFailed) PF('dialogCidade').hide()"/>
+					</p:column>			
+				</p:panelGrid>
+			</p:dialog>	
+		</div>
+	</h:form>
+</ui:define>
+</ui:composition>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:p="http://primefaces.org/ui">
+
+	<p:panel styleClass="no-border js-content">
+		<p:menu styleClass="dashboard-item">
+			<p:menuitem url="#"  icon="fa fa-fw fa-home">Dashboard</p:menuitem>
+		</p:menu>
+	    <p:panelMenu >
+	        <p:submenu label="Pedidos" styleClass="no-space" icon="icone-raiz fa fa-fw fa-cart-plus">
+	            <p:menuitem value="Novo" action="#{menuView.save}" icon="fa fa-fw fa-plus-circle" />
+	            <p:menuitem value="Pesquisar" action="#{menuView.update}"  icon="fa fa-fw fa-search" />
+	        </p:submenu>
+	        <p:submenu label="Produtos" styleClass="no-space" icon="icone-raiz fa fa-fw fa-database">
+	            <p:menuitem value="Novo" outcome="/produto/CadastroProduto"  icon="fa fa-fw fa-plus-circle" />
+	            <p:menuitem value="Pesquisar" outcome="/produto/PesquisaProduto"  icon="fa fa-fw fa-search" />
+	        </p:submenu>
+	        <p:submenu label="Categorias" styleClass="no-space" icon="icone-raiz fa fa-fw fa-list-ol">
+	            <p:menuitem value="Nova" outcome="/categoria/CadastroCategoria"  icon="fa fa-fw fa-plus-circle" />
+	        </p:submenu>
+	        <p:submenu label="Subcategorias" styleClass="no-space" icon="icone-raiz fa fa-fw fa-list-ul">
+	            <p:menuitem value="Nava" outcome="/subcategoria/CadastroSubcategoria" icon="fa fa-fw fa-plus-circle" />
+	        </p:submenu>
+	        <p:submenu label="Clientes" styleClass="no-space" icon="icone-raiz fa fa-fw fa-suitcase">
+	            <p:menuitem value="Novo" outcome="/cliente/CadastroCliente" icon="fa fa-fw fa-plus-circle" />
+	            <p:menuitem value="Pesquisar" outcome="/cliente/PesquisaCliente" icon="fa fa-fw fa-search" />
+	        </p:submenu>
+	        <p:submenu label="Usuários" styleClass="no-space" icon="icone-raiz fa fa-fw fa-user">
+	            <p:menuitem value="Novo" action="#{menuView.save}" icon="fa fa-fw fa-plus-circle" />
+	            <p:menuitem value="Pesquisar" action="#{menuView.update}"  icon="fa fa-fw fa-search" />
+	        </p:submenu>
+	        <p:submenu label="Estados" styleClass="no-space" icon="icone-raiz fa fa-fw fa-map-marker">
+	            <p:menuitem value="Novo" outcome="/estado/CadastroEstado" icon="fa fa-fw fa-plus-circle" />
+	        </p:submenu>
+	        <p:submenu label="Cidades" styleClass="no-space" icon="icone-raiz fa fa-fw fa-road">
+	            <p:menuitem value="Nava" outcome="/cidade/CadastroCidade" icon="fa fa-fw fa-plus-circle" />
+	        </p:submenu>	        
+	        <p:submenu label="Relatórios" styleClass="no-space" icon="icone-raiz fa fa-fw fa-file-pdf-o">
+	            <p:menuitem value="Novo" action="#{menuView.save}" icon="fa fa-fw fa-plus-circle" />
+	        </p:submenu>
+	        <p:submenu label="Notificações" styleClass="no-space" icon="icone-raiz fa fa-fw fa-bullhorn">
+	            <p:menuitem value="Avisos" action="#{menuView.save}" icon="fa fa-fw fa-bell" />
+	            <p:menuitem value="Contatos" action="#{menuView.save}" icon="fa fa-fw fa-envelope" />
+	        </p:submenu>
+	    </p:panelMenu>
+	</p:panel>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:p="http://primefaces.org/ui">
+
+	<p:menu overlay="true" trigger="btnConta" my="left top" at="left bottom" styleClass="div-submenu-header">
+		<p:menuitem value="Usuario logado" url="#" ajax="false" styleClass="user-logado" >
+			<div class="profile-info">
+				<p:graphicImage library="images" name="user.png" width="36px" height="36px"/>
+				<div>
+					<h6>Tiago Garcia Fereira</h6>
+					<span>Administrador</span>
+				</div>
+			</div>
+		</p:menuitem>
+		<p:menuitem value="Meu perfil" action="#{menuView.delete}" ajax="false" icon="fa fa-fw fa-user"/>
+		<p:menuitem value="Alterar senha" url="http://www.primefaces.org" icon="fa fa-fw fa-key"/>
+		<p:menuitem value="Sair" icon="fa fa-fw fa-sign-out"/>
+	</p:menu>
+	
+	<p:menu overlay="true" trigger="btnContato" my="right top" at="right bottom"  styleClass="div-submenu-header">
+		<p:menuitem url="#" styleClass="no-hover">
+			<div class="header-title">
+				<h6>Mensagens</h6>	
+				<p:outputLabel value="99"/>			
+			</div>
+		</p:menuitem>
+		<p:separator/>		
+		<p:menuitem url="#" styleClass="msg">
+			<div class="msg-geral">
+				<i class="fa fa-fw fa-envelope marg"></i>
+				<div class="div-grid">
+					 <p:outputLabel value="Tiago Garcia Ferreira" /> 
+					 <p:outputLabel styleClass="text-footer" value="Pedidos em atraso" />
+					 <p:outputLabel styleClass="text-footer" value="28/09/2020 13:55" />
+				 </div>  
+			</div>
+		</p:menuitem>
+	</p:menu>
+	
+	<p:menu overlay="true" trigger="btnAviso" my="right top" at="right bottom"  styleClass="div-submenu-header" >
+		<p:menuitem url="#" styleClass="no-hover">
+			<div class="header-title">
+				<h6>Notificações</h6>	
+				<p:outputLabel value="99"/>	
+			</div>
+		</p:menuitem>
+		<p:separator/>		
+		<p:menuitem url="#" styleClass="msg">
+			<div class="msg-geral">
+				<i class="fa fa-fw fa-database"></i>
+				<div class="div-grid">
+					 <p:outputLabel value="Alerta/Estoque" /> 
+					 <p:outputLabel styleClass="text-footer" value="Produto Cód: 22652654" />
+					 <p:outputLabel styleClass="text-footer" value="Restante: 99 unidades." />
+				 </div>  
+			</div>
+		</p:menuitem>
+	    <p:menuitem url="#" styleClass="msg">
+			<div class="msg-geral">
+				<i class="fa fa-fw fa-database"></i>
+				<div class="div-grid">
+					 <p:outputLabel value="Alerta/Estoque" /> 
+					 <p:outputLabel styleClass="text-footer" value="Produto Cód: 22652654" />
+					 <p:outputLabel styleClass="text-footer" value="Restante: 99 unidades." />
+				 </div>  
+			</div>
+		</p:menuitem>
+	</p:menu>
+	
+</html>

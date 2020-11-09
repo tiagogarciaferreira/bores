@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_4.xsd"
+	version="2.4">
+	
+	<factory>
+	    <exception-handler-factory>
+	    	com.tgfcodes.bores.exception.JsfExceptionHandlerFactory
+	    </exception-handler-factory>
+	</factory>
+	
+	<render-kit>
+	    <renderer>
+	    	<display-name>CustomPanelMenuRenderer</display-name>
+	        <component-family>org.primefaces.component</component-family>
+	        <renderer-type>org.primefaces.component.PanelMenuRenderer</renderer-type>
+	        <renderer-class>com.tgfcodes.bores.config.component.CustomPanelMenuRenderer</renderer-class>
+	    </renderer>
+	</render-kit>
+	
+</faces-config>

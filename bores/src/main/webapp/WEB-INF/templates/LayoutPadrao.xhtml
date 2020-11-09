@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<f:facet name="first">
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</f:facet>
+	<title><ui:insert name="title">Bores</ui:insert></title>  
+ 	<link type="image/x-icon" rel="shortcut icon" href="#{resource['images/logo.ico']}" />
+    <h:outputStylesheet library="css" name="style-custom.css" />
+    <h:outputStylesheet library="css" name="primeflex.min.css" />
+    <h:outputScript     library="js" name="public/locales.js" target="body"/>
+    <h:outputScript     library="js" name="public/style-custom.js" target="body"/>
+</h:head>
+
+<ui:include src="fragments/Header.xhtml"></ui:include>
+
+<h:body>
+	<h:form id="frm_estrututa">
+		<ui:include src="fragments/HeaderMenuIcones.xhtml"/>
+		<ui:include src="fragments/MenuLateral.xhtml"/>
+	</h:form>
+	<div class="conteudo-central js-conteudo" >
+		<ui:insert name="conteudo" />
+	</div>
+	<ui:include src="components/Loading.xhtml"/>
+</h:body>
+</html>
