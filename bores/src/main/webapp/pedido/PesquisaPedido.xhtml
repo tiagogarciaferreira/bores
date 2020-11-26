@@ -1,0 +1,83 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui"
+				template="/WEB-INF/templates/LayoutPadrao.xhtml">
+
+<ui:define name="title">Bores - Produtos</ui:define>
+<ui:define name="conteudo">
+	<h:form id="frm">
+		<div class="card-page">
+			<p:panel styleClass="panel-padrao">
+				<h2>Produtos</h2>
+				<p:messages for="msg" showDetail="true" closable="true" globalOnly="true">
+					<p:autoUpdate/>
+				</p:messages>
+				<p:toolbar styleClass="toolbar-menu">
+					<f:facet name="left">
+						<p:button value="Novo" outcome="/produto/CadastroProduto" iconPos="left" icon="fa fa-fw fa-plus-circle"
+							 styleClass="btn-info raised-button"/>
+					</f:facet>
+				</p:toolbar>
+				<p:dataTable id="tblProduto" reflow="true" var="produto" value="#{produtoBean.lazyDataModel}"
+				    rowKey="#{produto.id}" rows="10" paginator="true" lazy="true" filterDelay="1000"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				    emptyMessage="Nenhum produto encontrado." paginatorAlwaysVisible="false" paginatorPosition="bottom">
+				    
+				    <f:facet name="header">
+				    	<h3>Pesquisar Produtos</h3>
+				    </f:facet>
+				    <p:column headerText="ID" field="id" filterBy="#{produto.id}" sortBy="#{produto.id}" styleClass="column-small" >
+						<h:outputText value="#{produto.id}"/>
+				    </p:column>
+				    <p:column  headerText="Sku" field="sku" filterBy="#{produto.sku}" sortBy="#{produto.sku}" styleClass="column-small">
+						<h:outputText value="#{produto.sku}"/>
+				    </p:column>
+				    <p:column headerText="Nome" field="nome" filterBy="#{produto.nome}" sortBy="#{produto.nome}">
+						<h:outputText value="#{produto.nome}"/>
+				    </p:column>    
+				    <p:column  headerText="Subcategoria" field="subcategoria" filterBy="#{produto.subcategoria.nome}" sortBy="#{produto.subcategoria.nome}" >
+						<h:outputText value="#{produto.subcategoria.nome}"/>
+				    </p:column>
+				    <p:column headerText="Ações" styleClass="column-acao">
+						<p:button styleClass="btn-primary btn-circle raised-button btn-distancia" icon="fa fa-fw fa-pencil" outcome="/produto/CadastroProduto" >
+							<f:param name="produto" value="#{produto.id}"/>	
+						</p:button>
+					    <p:commandButton styleClass="btn-secondary btn-circle raised-button" icon="fa fa-fw fa-search" process="@this" update="frm:dialogDetalhes"
+							actionListener="#{produtoBean.setProduto(produto)}" oncomplete="PF('dialogDetalhes').show();"/>
+						<p:commandButton styleClass="btn-danger btn-circle raised-button" icon="fa fa-fw fa-trash-o" actionListener="#{produtoBean.setProduto(produto)}"
+							 action="#{produtoBean.excluir}" process="@this" update="tblProduto" >
+							<p:confirm icon="fa fa-fw fa-exclamation-triangle" header="Confirmação" message="Tem certeza de que deseja continuar?"/>
+						</p:commandButton>	
+				    </p:column>    
+				</p:dataTable>
+				<ui:include src="/WEB-INF/templates/components/ConfirmarExclusao.xhtml"/>
+			</p:panel>
+			<p:dialog id="dialogDetalhes" dynamic="true" styleClass="ui-fluid dialog-info" header="Detalhes do produto" widgetVar="dialogDetalhes" modal="true" draggable="false"
+				resizable="false" responsive="true" closeOnEscape="true" blockScroll="true" position="center" positionType="fixed">
+				<p:ajax event="close" resetValues="true" process="@this" update="dialogDetalhes" listener="#{produtoBean.novo}"/>
+				<p:panelGrid layout="grid" columns="1">
+					<p:column>
+						<p:outputLabel styleClass="label-info" value="ID: "/>
+						<h:outputText value="#{produtoBean.produto.id}" />
+					</p:column>
+					<p:column>
+						<p:outputLabel styleClass="label-info" value="Valor unitário(R$): "/>
+						<h:outputText value="#{produtoBean.produto.valorUnitario}" />
+					</p:column>
+					<p:column>
+						<p:outputLabel styleClass="label-info" value="Estoque: "/>
+						<h:outputText value="#{produtoBean.produto.quantidadeEstoque}" />
+					</p:column>
+					<p:column>
+						<p:outputLabel styleClass="status-customer status-emitido" value="Estoque normal" rendered="#{produtoBean.produto.quantidadeEstoque ge produtoBean.estoqueNormal}"/>
+						<p:outputLabel styleClass="status-customer status-pendente" value="Estoque baixo" rendered="#{produtoBean.produto.quantidadeEstoque != 0 and produtoBean.produto.quantidadeEstoque lt produtoBean.estoqueNormal}"/>
+						<p:outputLabel styleClass="status-customer status-cancelado" value="Estoque em falta" rendered="#{produtoBean.produto.quantidadeEstoque eq 0}"/>			
+					</p:column>
+				</p:panelGrid>
+			</p:dialog>
+		</div>
+	</h:form>
+</ui:define>
+</ui:composition>

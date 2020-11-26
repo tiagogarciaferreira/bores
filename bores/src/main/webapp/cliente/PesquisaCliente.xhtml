@@ -28,7 +28,7 @@
 				    <f:facet name="header">
 				    	<h3>Pesquisar Clientes</h3>
 				    </f:facet>
-				    <p:column headerText="Pessoa" styleClass="column-small">
+				    <p:column headerText="Pessoa" styleClass="column-small text-left">
 						<h:outputText value="#{cliente.tipoPessoa.descricao}"/>
 				    </p:column>    
 				    <p:column  headerText="Nome" field="nome" filterBy="#{cliente.nome}" sortBy="#{cliente.nome}">
@@ -58,6 +58,10 @@
 					<p:column>
 						<p:outputLabel styleClass="label-info" value="ID: "/>
 						<h:outputText value="#{clienteBean.cliente.id}" />
+					</p:column>
+					<p:column>
+						<p:outputLabel styleClass="label-info" value="Nome: "/>
+						<h:outputText value="#{clienteBean.cliente.nome}" />
 					</p:column>
 					<p:column>
 						<p:outputLabel styleClass="label-info" value="Email: "/>

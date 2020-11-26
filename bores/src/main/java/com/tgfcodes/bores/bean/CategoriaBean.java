@@ -32,19 +32,23 @@ public class CategoriaBean implements Serializable{
 	}
 	
 	public void salvar() {
-		this.categoriaService.salvar(categoria);
+		this.categoriaService.salvar(this.categoria);
 		Mensagem.info("Categoria: ", "Salva com sucesso.");
 		this.nova();
 	}
 
 	public void excluir() {
-		this.categoriaService.excluir(categoria);
+		this.categoriaService.excluir(this.categoria);
 		Mensagem.info("Categoria: ", "Excluída com sucesso.");
 		this.nova();
 	}
 	
 	public List<Categoria> listar(){
 		return this.categoriaService.listar();
+	}
+	
+	public void selecionar(Categoria categoria) {
+		this.categoria = categoria;
 	}
 	
 	public Categoria getCategoria() {

@@ -1,6 +1,9 @@
 package com.tgfcodes.bores.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -8,9 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.persistence.Version;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "cidade")
@@ -25,8 +30,13 @@ public class Cidade implements Serializable {
 	private String nome;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "estado_id")
-	@NotNull(message = "Estado é obrigatório.")
 	private Estado estado = new Estado();
+	@Transient
+	@OneToMany(mappedBy = "cidade", fetch = FetchType.LAZY)
+	private List<Endereco> enderecos = new ArrayList<>();
+
+	@Version
+	private Long version;
 
 	public Cidade() {
 	}
@@ -55,12 +65,20 @@ public class Cidade implements Serializable {
 		this.estado = estado;
 	}
 
-	public boolean temEstado() {
-		return estado != null;
+	public List<Endereco> getEnderecos() {
+		return enderecos;
 	}
 
-	public boolean isNova() {
-		return id == null;
+	public void setEnderecos(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
+	}
+
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
 	}
 
 	@Override

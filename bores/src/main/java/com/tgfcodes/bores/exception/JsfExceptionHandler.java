@@ -12,6 +12,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ExceptionQueuedEvent;
 import javax.faces.event.ExceptionQueuedEventContext;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
+
 import com.tgfcodes.bores.messages.Mensagem;
 
 public class JsfExceptionHandler extends ExceptionHandlerWrapper {
@@ -35,7 +37,7 @@ public class JsfExceptionHandler extends ExceptionHandlerWrapper {
 			ExceptionQueuedEvent event = events.next();
 			ExceptionQueuedEventContext context = (ExceptionQueuedEventContext) event.getSource();
 			Throwable exception = context.getException();
-			NegocioException negocioException = this.getNegocioException(exception);
+			NegocioException negocioException = (NegocioException) ExceptionUtils.getRootCause(exception);
 			boolean handled = false;
 			try {
 				if (exception instanceof ViewExpiredException) {
@@ -43,10 +45,11 @@ public class JsfExceptionHandler extends ExceptionHandlerWrapper {
 					this.redirect("/admin/Dashboard.xhtml");
 				} else if (negocioException != null) {
 					handled = true;
-					Mensagem.error("Aviso: ", negocioException.getMessage());
+					String message[] = negocioException.getMessage().split(":");
+					Mensagem.error(message[0]+":", message[1]);
 				} else {
 					handled = true;
-					//this.redirect("/error/500.xhtml");
+					this.redirect("/error/500.xhtml");
 				}
 			} finally {
 				if (handled) {
@@ -55,15 +58,6 @@ public class JsfExceptionHandler extends ExceptionHandlerWrapper {
 			}
 		}
 		this.getWrapped().handle();
-	}
-
-	private NegocioException getNegocioException(Throwable exception) {
-		if (exception instanceof NegocioException) {
-			return (NegocioException) exception;
-		} else if (exception.getCause() != null) {
-			return this.getNegocioException(exception.getCause());
-		}
-		return null;
 	}
 
 	private void redirect(String page) {

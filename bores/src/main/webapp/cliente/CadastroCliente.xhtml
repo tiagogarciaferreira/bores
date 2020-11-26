@@ -19,25 +19,17 @@
 				</p:messages>
 				<p:toolbar styleClass="toolbar-menu">
 					<f:facet name="left">
-						<p:button value="Pesquisar" outcome="/cliente/PesquisaCliente" iconPos="left" icon="fa fa-fw fa-plus-circle"
+						<p:button value="Pesquisar" outcome="/cliente/PesquisaCliente" iconPos="left" icon="fa fa-fw fa-search"
 							 styleClass="btn-info raised-button"/>
 					</f:facet>
 				</p:toolbar>
 			</p:panel>
 		
-		    <p:tabView dynamic="true" cache="true" effect="fold" styleClass="tabView-padrao">
-		        <p:tab title="Dados">
+		    <p:tabView id="tabViewCliente" dynamic="true" cache="true" effect="fold" styleClass="tabView-padrao">
+			    <f:attribute name="cliente" value="#{clienteBean.cliente.id}"/>
+	        	<p:ajax event="tabChange" process="@this" listener="#{enderecoBean.selecionarCliente}"/>
+		        <p:tab id="dados" title="Dados">
 					<p:panelGrid id="gridCliente" layout="grid" columns="2">
-						<p:column>
-							<p:outputLabel styleClass="input-label">Tipo/Pessoa</p:outputLabel>
-							<p:selectOneButton id="tipoPessoa" label="TipoPessoa" styleClass="ui-g-12" required="true" requiredMessage="Campo obrigatório."
-								value="#{clienteBean.cliente.tipoPessoa}">
-								<f:selectItems value="#{clienteBean.tiposPessoa()}" var="tipo" itemValue="#{tipo}" itemLabel="#{tipo.descricao}"/>
-								<p:clientValidator event="change" />
-							</p:selectOneButton>
-							<p:message for="tipoPessoa" styleClass="msg-invalid"/>
-						</p:column>				
-						<p:column><h:outputText/></p:column>	
 						<p:column>
 							<p:outputLabel styleClass="input-label">Nome</p:outputLabel>
 							<p:inputText id="nome" label="Nome" styleClass="ui-g-12" type="text" value="#{clienteBean.cliente.nome}"
@@ -56,33 +48,61 @@
 							</p:inputText>
 							<p:message for="email" styleClass="msg-invalid"/>
 						</p:column>
+
+						<p:column styleClass="ui-g-12">
+							<div class="ui-g-6 pad-zero">
+								<p:outputLabel styleClass="input-label">Tipo/Pessoa</p:outputLabel>
+								<p:selectOneButton id="tipoPessoa" label="TipoPessoa" styleClass="ui-g-12" required="true" requiredMessage="Campo obrigatório."
+									value="#{clienteBean.cliente.tipoPessoa}" >
+									<f:selectItems value="#{clienteBean.tiposPessoa()}" var="tipo" itemValue="#{tipo}" itemLabel="#{tipo.descricao}" />
+									<p:ajax event="change" process="@this" update="textCpfCnpj cpfCnpj"/>
+								</p:selectOneButton>
+								<p:message for="tipoPessoa" styleClass="msg-invalid"/>
+						     </div>
+						     <div class="ui-g-6 pad-zero">
+								<p:outputLabel styleClass="input-label" id="textCpfCnpj">
+									<h:outputText value="#{clienteBean.cliente.tipoPessoa eq 'FISICA' ? 'Cpf':'Cnpj'}"/>
+								</p:outputLabel>
+								<p:inputMask disabled="#{clienteBean.cliente.tipoPessoa == null}" id="cpfCnpj" label="#{clienteBean.cliente.tipoPessoa eq 'FISICA' ? 'Cpf':'Cnpj'}" styleClass="ui-g-12" type="text" 
+									value="#{clienteBean.cliente.cpfOuCnpj}" required="true" requiredMessage="Campo obrigatório." 
+									mask="#{clienteBean.cliente.tipoPessoa eq 'FISICA' ? '999.999.999-99':'99.999.999/9999-99'}" 
+									autocomplete="off">
+									<p:watermark for="cpfCnpj" value="#{clienteBean.cliente.tipoPessoa eq 'FISICA' ? 'Cpf do cliente':'Cnpj do cliente'}" />
+									<p:clientValidator event="keyup" />
+								</p:inputMask>
+								<p:message for="cpfCnpj" styleClass="msg-invalid"/>
+						     </div>
+						</p:column>
+						<p:column styleClass="ui-g-12">
+							<div class="ui-g-6 pad-zero">
+								<p:outputLabel styleClass="input-label">Tipo/Telefone</p:outputLabel>
+								<p:selectOneRadio id="tipoTelefone" label="TipoTelefone" styleClass="ui-g-12 radio-button" required="true" requiredMessage="Campo obrigatório."
+									value="#{clienteBean.cliente.tipoTelefone}" layout="grid" columns="2">
+									<f:selectItems value="#{clienteBean.tiposTelefone()}" var="tipo" itemValue="#{tipo}" itemLabel="#{tipo.descricao}"/>
+									<p:ajax event="change" process="@this" update="telefone"/>
+								</p:selectOneRadio>
+								<p:message for="tipoTelefone" styleClass="msg-invalid"/>
+						     </div>
+						     <div class="ui-g-6 pad-zero">
+								<p:outputLabel styleClass="input-label">Telefone</p:outputLabel>
+								<p:inputMask id="telefone" label="Telefone" styleClass="ui-g-12" type="text" 
+									value="#{clienteBean.cliente.telefone}" required="true" requiredMessage="Campo obrigatório." 
+									mask="#{clienteBean.cliente.tipoTelefone eq 'MOVEL' ? '(99) 9 9999-9999':'(99) 9999-9999'}" 
+									disabled="#{clienteBean.cliente.tipoTelefone == null}" autocomplete="off">
+									<p:watermark for="telefone" value="Telefone do cliente" />
+									<p:clientValidator event="keyup" />
+								</p:inputMask>
+								<p:message for="telefone" styleClass="msg-invalid"/>
+						     </div>
+						</p:column>
 						<p:column>
-							<p:outputLabel styleClass="input-label">Telefone</p:outputLabel>
-							<p:inputMask id="telefone" label="Telefone" styleClass="ui-g-12" type="text" 
-								value="#{clienteBean.cliente.telefone}" required="true" requiredMessage="Campo obrigatório." 
-								mask="(99) 9999?{9-9999}?{9999}" autocomplete="off">
-								<p:watermark for="telefone" value="Telefone do cliente" />
-								<p:clientValidator event="keyup" />
-							</p:inputMask>
-							<p:message for="telefone" styleClass="msg-invalid"/>
-						</p:column>					
-						<p:column>
-							<p:outputLabel styleClass="input-label">Cpf/Cnpj</p:outputLabel>
-							<p:inputMask id="cpfCnpj" label="Cpf/Cnpj" styleClass="ui-g-12" type="text" 
-								value="#{clienteBean.cliente.cpfOuCnpj}" required="true" requiredMessage="Campo obrigatório." 
-								mask="999.999.999-99" autocomplete="off">
-								<p:watermark for="cpfCnpj" value="Cpf/Cnpj do cliente" />
-								<p:clientValidator event="keyup" />
-							</p:inputMask>
-							<p:message for="cpfCnpj" styleClass="msg-invalid"/>
-						</p:column>	
-						<p:column>
-							<p:commandButton validateClient="true" styleClass="btn-primary raised-button" icon="fa fa-fw fa-save" value="Salvar" 
+							<p:commandButton validateClient="true" styleClass="btn-primary raised-button" icon="fa fa-fw fa-save" 
+								value="#{clienteBean.cliente.id == null ? 'Salvar':'Salvar alterações'}" 
 								process="gridCliente" ajax="true" action="#{clienteBean.salvar}" update="@form"/>
 						</p:column>			
 					</p:panelGrid>
 		        </p:tab>
-		        <p:tab title="Endereço" disabled="#{clienteBean.cliente.id == null}">
+		        <p:tab id="endereco" title="Endereço" disabled="#{clienteBean.cliente.id == null}" >
 					<p:panelGrid id="gridEndereco" layout="grid" columns="2">
 						<p:column>
 							<p:outputLabel styleClass="input-label">Estado</p:outputLabel>
@@ -123,6 +143,15 @@
 							<p:message for="logradouro" styleClass="msg-invalid"/>
 						</p:column>					
 						<p:column>
+							<p:outputLabel styleClass="input-label">Numero</p:outputLabel>
+							<p:inputText id="numero" label="Numero" styleClass="ui-g-12" type="text" value="#{enderecoBean.endereco.numero}"
+								 required="true" requiredMessage="Campo obrigatório." autocomplete="off" >
+								<p:watermark for="numero" value="Numero do local" />
+								<p:clientValidator event="keyup" />
+							</p:inputText>
+							<p:message for="numero" styleClass="msg-invalid"/>
+						</p:column>
+						<p:column>
 							<p:outputLabel styleClass="input-label-not-obriga">Complemento</p:outputLabel>
 							<p:inputText id="complemento" label="Complemento" styleClass="ui-g-12" type="text" value="#{enderecoBean.endereco.complemento}"
 								 required="true" requiredMessage="Campo obrigatório." autocomplete="off" >
@@ -131,12 +160,15 @@
 							</p:inputText>
 							<p:message for="complemento" styleClass="msg-invalid"/>
 						</p:column>
-						<p:column><h:outputText/></p:column>
 						<p:column>
-							<p:commandButton validateClient="true" styleClass="btn-primary raised-button" icon="fa fa-fw fa-save" value="Salvar" 
+							<p:commandButton validateClient="true" styleClass="btn-primary raised-button" icon="fa fa-fw fa-save" 
+								value="#{enderecoBean.endereco.id == null ? 'Salvar':'Salvar alterações'}" 
 								process="gridEndereco" ajax="true" action="#{enderecoBean.salvar}" update="@form"/>
 						</p:column>	
 					</p:panelGrid>
+					
+					<ui:include src="/WEB-INF/templates/components/DatatableEndereco.xhtml"/>
+					
 		        </p:tab>
 		    </p:tabView>
 		</div>

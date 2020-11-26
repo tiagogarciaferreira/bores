@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+
+	<p:panelGrid id="gridEndereco" layout="grid" columns="2">
+		<p:column>
+			<p:outputLabel styleClass="input-label">Estado</p:outputLabel>
+			<p:selectOneMenu id="estado" label="Estado" styleClass="ui-g-12" converter="#{estadoConverter}"
+							 filter="true" filterMatchMode="startsWith" value="#{enderecoBean.endereco.estado.id}">
+				<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+				<f:selectItems value="#{estadoBean.listar()}" var="estado" itemValue="#{estado.id}" itemLabel="#{estado.nome}"  />
+				<p:ajax event="itemSelect" process="@this" listener="#{enderecoBean.buscarCidades}" update="cidade"/>
+			</p:selectOneMenu>
+			<p:message for="estado" styleClass="msg-invalid"/>
+		</p:column>
+		<p:column>
+			<p:outputLabel styleClass="input-label">Cidade</p:outputLabel>
+			<p:selectOneMenu id="cidade" label="Cidade" styleClass="ui-g-12" converter="#{cidadeConverter}"
+							 filter="true" filterMatchMode="startsWith" value="#{enderecoBean.endereco.cidade.id}"
+							disabled="#{empty enderecoBean.cidades}">
+				<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+				<f:selectItems value="#{enderecoBean.cidades}" var="cidade" itemValue="#{cidade.id}" itemLabel="#{cidade.nome}"  />
+			</p:selectOneMenu>
+			<p:message for="cidade" styleClass="msg-invalid"/>
+		</p:column>		
+		<p:column>
+			<p:outputLabel styleClass="input-label">Cep</p:outputLabel>
+			<p:inputMask id="cep" label="Cep" styleClass="ui-g-12" type="text" value="#{enderecoBean.endereco.cep}"
+				 required="true" requiredMessage="Campo obrigatório." autocomplete="off" mask="99999-999">
+				<p:watermark for="cep" value="Cep do local" />
+				<p:clientValidator event="keyup" />
+			</p:inputMask>
+			<p:message for="cep" styleClass="msg-invalid"/>
+		</p:column>
+		<p:column>
+			<p:outputLabel styleClass="input-label">Logradouro</p:outputLabel>
+			<p:inputText id="logradouro" label="Logradouro" styleClass="ui-g-12" type="text" value="#{enderecoBean.endereco.logradouro}"
+				 required="true" requiredMessage="Campo obrigatório." autocomplete="off" >
+				<p:watermark for="logradouro" value="Endereço do cliente" />
+				<p:clientValidator event="keyup" />
+			</p:inputText>
+			<p:message for="logradouro" styleClass="msg-invalid"/>
+		</p:column>					
+		<p:column>
+			<p:outputLabel styleClass="input-label">Numero</p:outputLabel>
+			<p:inputText id="numero" label="Numero" styleClass="ui-g-12" type="text" value="#{enderecoBean.endereco.numero}"
+				 required="true" requiredMessage="Campo obrigatório." autocomplete="off" >
+				<p:watermark for="numero" value="Numero do local" />
+				<p:clientValidator event="keyup" />
+			</p:inputText>
+			<p:message for="numero" styleClass="msg-invalid"/>
+		</p:column>
+		<p:column>
+			<p:outputLabel styleClass="input-label-not-obriga">Complemento</p:outputLabel>
+			<p:inputText id="complemento" label="Complemento" styleClass="ui-g-12" type="text" value="#{enderecoBean.endereco.complemento}"
+				 required="true" requiredMessage="Campo obrigatório." autocomplete="off" >
+				<p:watermark for="complemento" value="Complemente o endereço do cliente" />
+				<p:clientValidator event="keyup" />
+			</p:inputText>
+			<p:message for="complemento" styleClass="msg-invalid"/>
+		</p:column>
+	</p:panelGrid>
+	
+</html>

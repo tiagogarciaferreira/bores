@@ -58,10 +58,7 @@ public class CidadeRepositoryImpl implements CidadeQueries {
 			for (FilterMeta meta : filterBy.values()) {
 				if(meta.getFilterValue() !=  null) {
 					var pesquisarPor = meta.getFilterValue().toString().toLowerCase();
-					if (meta.getFilterField().equals("id")) {
-						criteriaQuery.where(builder.equal(cidadeRoot.get("id"), pesquisarPor));
-					}
-					else if(meta.getFilterField().equals("nome")) {
+					if(meta.getFilterField().equals("nome")) {
 						criteriaQuery.where(builder.like(builder.lower(cidadeRoot.get("nome")), "%"+pesquisarPor+"%"));
 					}
 					else if(meta.getFilterField().equals("estado")) {

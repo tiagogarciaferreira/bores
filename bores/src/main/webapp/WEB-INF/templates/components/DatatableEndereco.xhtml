@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+	
+	<p:dataTable id="tblEndereco" reflow="true" var="endereco" value="#{enderecoBean.enderecos}"
+	    rowKey="#{endereco.id}" rows="10" paginator="true" lazy="true" paginatorTemplate="{PageLinks}"
+	    emptyMessage="Nenhum endereço encontrado." paginatorAlwaysVisible="false" paginatorPosition="bottom" >
+	    
+	    <f:facet name="header">
+	    	<h3>Lista de endereços</h3>
+	    </f:facet>
+	    <p:column headerText="Estado">
+			<h:outputText value="#{endereco.uf}"/>
+	    </p:column>
+	    <p:column headerText="Cidade">
+			<h:outputText value="#{endereco.cidade.nome}"/>
+	    </p:column>
+	    <p:column headerText="Logradouro">
+			<h:outputText value="#{endereco.logradouro}"/>
+	    </p:column>
+	    <p:column headerText="Ações" styleClass="column-acao">
+			<p:commandButton styleClass="btn-primary btn-circle raised-button" icon="fa fa-fw fa-pencil" process="@this" update="frm:tabViewCliente:gridEndereco"
+				 actionListener="#{enderecoBean.setEndereco(endereco)}" action="#{enderecoBean.selecionarEndereco}"/>
+			<p:commandButton styleClass="btn-danger btn-circle raised-button" icon="fa fa-fw fa-trash-o" actionListener="#{enderecoBean.setEndereco(endereco)}"
+				 action="#{enderecoBean.excluir}" process="@this" update="frm:tabViewCliente:tblEndereco" >
+				<p:confirm icon="fa fa-fw fa-exclamation-triangle" header="Confirmação" message="Tem certeza de que deseja continuar?"/>
+			</p:commandButton>	
+	    </p:column>    
+	</p:dataTable>
+	<ui:include src="/WEB-INF/templates/components/ConfirmarExclusao.xhtml"/>
+</html>

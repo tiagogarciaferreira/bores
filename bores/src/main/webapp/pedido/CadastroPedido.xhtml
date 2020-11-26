@@ -1,0 +1,137 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui"
+				template="/WEB-INF/templates/LayoutPadrao.xhtml">
+
+<ui:define name="title">Bores - Pedidos</ui:define>
+<ui:define name="conteudo">
+	<f:metadata>
+		<f:viewParam name="reload" value="noreload"/>
+	</f:metadata>
+	<h:form id="frm">
+		<div class="card-page">
+			<p:panel styleClass="panel-padrao">
+				<h2><h:outputText value="#{pedidoBean.pedido.id == null ? 'Novo pedido' : 'Editar pedido'}"/></h2>
+				<p:messages for="msg" showDetail="true" closable="true" globalOnly="true">
+					<p:autoUpdate/>
+				</p:messages>
+				<p:toolbar styleClass="toolbar-menu">
+					<f:facet name="left">
+					<p:commandButton styleClass="btn-info raised-button" icon="fa fa-fw fa-plus-circle" value="Novo" 
+						process="@this" ajax="true"/>
+						<p:button value="Pesquisar" iconPos="left" icon="fa fa-fw fa-search" outcome="/pedido/PesquisaPedido"
+							 styleClass="btn-info raised-button"/>
+					</f:facet>
+					<f:facet name="right">
+				        <p:splitButton styleClass="btn-option" value="Salvar" icon="fa fa-fw fa-save">
+				            <p:menuitem value="Emitir"  icon="fa fa-fw fa-file-text" />
+				            <p:menuitem value="Enviar por e-mail" icon="fa fa-fw fa-paper-plane" />
+				            <p:menuitem value="Cancelar" icon="fa fa-fw fa-times-circle" />
+				        </p:splitButton>
+					</f:facet>
+				</p:toolbar>
+			</p:panel>
+		
+			<p:panelGrid id="gridProduto" layout="grid" columns="2">
+
+				<p:column styleClass="ui-g-12">
+					<div class="ui-g-4 pad-zero">
+						<p:outputLabel styleClass="input-label-not-obriga">Numero</p:outputLabel>
+						<h:outputText styleClass="ui-g-12 text-left" value="123456789"/>	
+				     </div>
+				     <div class="ui-g-4 pad-zero">
+						<p:outputLabel styleClass="input-label-not-obriga">Status</p:outputLabel>
+						<h:outputText styleClass="ui-g-12 text-left" value="Orçamento"/>	
+				     </div>
+		      	     <div class="ui-g-4 pad-zero">
+						<p:outputLabel styleClass="input-label-not-obriga">Data/Criação</p:outputLabel>
+						<h:outputText styleClass="ui-g-12 text-left" value="13/11/2020 15:19:45"/>	
+				     </div>
+				</p:column>
+
+				<p:column>
+					<p:outputLabel styleClass="input-label">Vendedor</p:outputLabel>
+					<p:selectOneMenu id="vendedor" label="Vendedor" styleClass="ui-g-12" converter="#{usuarioConverter}"
+ 	 						 filter="true" filterMatchMode="startsWith" >
+						<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+						<!-- <f:selectItems value="#{usuarioBean.listar()}" var="usuario" itemValue="#{usuario.id}" itemLabel="#{usuario.nome}"/> -->
+					</p:selectOneMenu>
+					<p:message for="vendedor" styleClass="msg-invalid"/>
+				</p:column>
+
+				<p:column>
+					<p:outputLabel styleClass="input-label">Cliente</p:outputLabel>
+					<p:autoComplete id="cliente" styleClass="ui-g-12" dropdown="true" value="#{autoCompleteView.txt6}" completeMethod="#{autoCompleteView.completeText}" />
+					<p:message for="cliente" styleClass="msg-invalid"/>
+				</p:column>
+				
+				<p:column>
+					<p:outputLabel styleClass="input-label">Forma/Pagamento</p:outputLabel>
+					<p:selectOneMenu id="formaPagamento" label="Forma/Pagamento" styleClass="ui-g-12">
+						<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+						<!-- <f:selectItems value="#{pedidoBean.formasPagemento()}" var="forma" itemValue="#{forma}" itemLabel="#{forma.descricao}"/> -->
+					</p:selectOneMenu>
+					<p:message for="formaPagamento" styleClass="msg-invalid"/>
+				</p:column>		
+				
+				
+				<p:column styleClass="ui-g-12">
+					<div class="ui-g-6 pad-zero">
+						<p:outputLabel styleClass="input-label">Valor/Frete</p:outputLabel>
+						<p:inputText id="valorFrete" label="Valor/Frete" styleClass="ui-g-12" type="text"
+							 required="true" requiredMessage="Campo obrigatório." autocomplete="off">
+							<p:clientValidator event="keyup" />
+						</p:inputText>
+						<p:message for="valorFrete" styleClass="msg-invalid"/>	
+				     </div>
+				     <div class="ui-g-6 pad-right">
+				     	<p:outputLabel styleClass="input-label">Valor/Desconto</p:outputLabel>
+						<p:inputText id="valorDesconto" label="Valor/Desconto" styleClass="ui-g-12" type="text"
+							 required="true" requiredMessage="Campo obrigatório." autocomplete="off">
+							<p:clientValidator event="keyup" />
+						</p:inputText>
+						<p:message for="valorDesconto" styleClass="msg-invalid"/>	
+				     </div>
+				</p:column>				
+				
+				<p:column styleClass="ui-g-12">
+					<div class="ui-g-4 pad-zero">
+						<p:outputLabel styleClass="input-label-not-obriga">Subtotal</p:outputLabel>
+						<h:outputText styleClass="ui-g-12 text-left" value="R$: 784,48"/>	
+				     </div>
+				     <div class="ui-g-4 pad-zero">
+						<p:outputLabel styleClass="input-label-not-obriga">Total</p:outputLabel>
+						<h:outputText styleClass="ui-g-12 text-left" value="R$: 154,00"/>	
+				     </div>
+				</p:column>
+			</p:panelGrid>
+			
+			<p:tabView id="tabViewCliente" dynamic="true" cache="true" effect="fold" styleClass="tabView-padrao">
+				<p:tab id="itens-tab" title="Itens">
+					<ui:include src="/WEB-INF/templates/components/PedidoItens.xhtml"/>
+				</p:tab>
+				<p:tab id="entrega-tab" title="Dados/Entrega">
+					<ui:include src="/WEB-INF/templates/components/PedidoEndereco.xhtml"/>
+				</p:tab>
+				<p:tab id="observacao-tab" title="Observação">
+					<p:panelGrid id="gridObservacao" layout="grid" columns="1">
+						<p:column>
+							<p:outputLabel styleClass="input-label-not-obriga">Observação</p:outputLabel>
+							<p:inputTextarea id="observacao" label="Observação" styleClass="ui-g-12" autocomplete="off"
+								 maxlength="500" counter="display" counterTemplate="{0} caracteres restantes." autoResize="true">
+								<p:watermark for="observacao" value="Observação pertinente ao pedido" />
+							</p:inputTextarea>
+							<br />
+  						    <h:outputText id="display" />
+							<p:message for="observacao" styleClass="msg-invalid"/>
+						</p:column>
+					</p:panelGrid>
+				</p:tab>
+			</p:tabView>
+			
+		</div>
+	</h:form>
+</ui:define>
+</ui:composition>

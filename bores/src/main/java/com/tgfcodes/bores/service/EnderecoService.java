@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tgfcodes.bores.exception.NegocioException;
 import com.tgfcodes.bores.model.Cliente;
 import com.tgfcodes.bores.model.Endereco;
 import com.tgfcodes.bores.repository.ClienteRepository;
@@ -27,6 +28,9 @@ public class EnderecoService {
 	@Transactional(readOnly = false)
 	public void excluir(Endereco endereco) {
 		endereco = this.buscarPorId(endereco.getId());
+		if(endereco.getCliente().getId() != null) {
+			throw new NegocioException("Endereço: Não pode ser excluído. Possue cliente associado.");
+		}
 		this.enderecoRepository.delete(endereco);
 	}
 	

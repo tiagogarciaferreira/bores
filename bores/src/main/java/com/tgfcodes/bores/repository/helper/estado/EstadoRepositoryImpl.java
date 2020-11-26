@@ -58,10 +58,7 @@ public class EstadoRepositoryImpl implements EstadoQueries {
 			for (FilterMeta meta : filterBy.values()) {
 				if(meta.getFilterValue() !=  null) {
 					var pesquisarPor = meta.getFilterValue().toString().toLowerCase();
-					if (meta.getFilterField().equals("id")) {
-						criteriaQuery.where(builder.equal(estadoRoot.get("id"), pesquisarPor));
-					}
-					else if(meta.getFilterField().equals("sigla")) {
+					if(meta.getFilterField().equals("sigla")) {
 						criteriaQuery.where(builder.like(builder.lower(estadoRoot.get("sigla")), "%"+pesquisarPor+"%"));
 					}
 					else if(meta.getFilterField().equals("nome")) {

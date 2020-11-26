@@ -28,9 +28,6 @@
 				    <f:facet name="header">
 				    	<h3>Pesquisar Cidades</h3>
 				    </f:facet>
-				    <p:column headerText="ID" field="id" filterBy="#{cidade.id}" sortBy="#{cidade.id}" styleClass="column-small" >
-						<h:outputText value="#{cidade.id}"/>
-				    </p:column>
 				    <p:column  headerText="Estado" field="estado" filterBy="#{cidade.estado.nome}" sortBy="#{cidade.estado.nome}" >
 						<h:outputText value="#{cidade.estado.nome}"/>
 				    </p:column>

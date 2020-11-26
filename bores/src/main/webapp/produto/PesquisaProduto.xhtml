@@ -28,17 +28,14 @@
 				    <f:facet name="header">
 				    	<h3>Pesquisar Produtos</h3>
 				    </f:facet>
-				    <p:column headerText="ID" field="id" filterBy="#{produto.id}" sortBy="#{produto.id}" styleClass="column-small" >
-						<h:outputText value="#{produto.id}"/>
-				    </p:column>
 				    <p:column  headerText="Sku" field="sku" filterBy="#{produto.sku}" sortBy="#{produto.sku}" styleClass="column-small">
 						<h:outputText value="#{produto.sku}"/>
 				    </p:column>
 				    <p:column headerText="Nome" field="nome" filterBy="#{produto.nome}" sortBy="#{produto.nome}">
 						<h:outputText value="#{produto.nome}"/>
 				    </p:column>    
-				    <p:column  headerText="Subcategoria" field="subcategoria" filterBy="#{produto.subcategoria.nome}" sortBy="#{produto.subcategoria.nome}" >
-						<h:outputText value="#{produto.subcategoria.nome}"/>
+				    <p:column  headerText="Categoria" field="subcategoria" filterBy="#{produto.subcategoria.nome}" sortBy="#{produto.subcategoria.nome}" >
+						<h:outputText value="#{produto.subcategoria.categoria.nome} - #{produto.subcategoria.nome}"/>
 				    </p:column>
 				    <p:column headerText="Ações" styleClass="column-acao">
 						<p:button styleClass="btn-primary btn-circle raised-button btn-distancia" icon="fa fa-fw fa-pencil" outcome="/produto/CadastroProduto" >
@@ -61,6 +58,10 @@
 					<p:column>
 						<p:outputLabel styleClass="label-info" value="ID: "/>
 						<h:outputText value="#{produtoBean.produto.id}" />
+					</p:column>
+					<p:column>
+						<p:outputLabel styleClass="label-info" value="Nome: "/>
+						<h:outputText value="#{produtoBean.produto.nome}" />
 					</p:column>
 					<p:column>
 						<p:outputLabel styleClass="label-info" value="Valor unitário(R$): "/>

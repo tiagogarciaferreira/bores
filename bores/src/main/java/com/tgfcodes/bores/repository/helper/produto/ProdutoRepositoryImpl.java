@@ -61,10 +61,7 @@ public class ProdutoRepositoryImpl implements ProdutoQueries {
 			for (FilterMeta meta : filterBy.values()) {
 				if(meta.getFilterValue() !=  null) {
 					var pesquisarPor = meta.getFilterValue().toString().toLowerCase();
-					if (meta.getFilterField().equals("id")) {
-						criteriaQuery.where(builder.equal(produtoRoot.get("id"), pesquisarPor));
-					}
-					else if(meta.getFilterField().equals("sku")) {
+					if(meta.getFilterField().equals("sku")) {
 						criteriaQuery.where(builder.like(builder.lower(produtoRoot.get("sku")), pesquisarPor));
 					}
 					else if(meta.getFilterField().equals("nome")) {

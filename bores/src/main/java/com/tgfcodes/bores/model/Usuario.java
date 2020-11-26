@@ -1,6 +1,7 @@
 package com.tgfcodes.bores.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -11,9 +12,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.PostLoad;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.Version;
+import javax.validation.constraints.Size;
+
+import com.tgfcodes.bores.validation.annotation.Mail;
+import com.tgfcodes.bores.validation.annotation.Required;
+
 
 @Entity
 @Table(name = "usuario")
@@ -29,17 +37,14 @@ public class Usuario implements Serializable {
 	private String senha;
 	@Transient
 	private String confirmacaoSenha;
-	private Boolean ativo;
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "codigo_usuario"), inverseJoinColumns = @JoinColumn(name = "codigo_grupo"))
-	private List<Grupo> grupos;
+	@JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "grupo_id"))
+	private List<Grupo> grupos = new ArrayList<>();
+	private Boolean ativo;
+	@Version
+	private Integer version;
 
 	public Usuario() {
-	}
-
-	@PreUpdate
-	private void preUpdate() {
-		this.confirmacaoSenha = this.senha;
 	}
 
 	public Long getId() {
@@ -50,6 +55,8 @@ public class Usuario implements Serializable {
 		this.id = id;
 	}
 
+	@Required//Deve conter entre {min} e {max} caracteres.
+	@Size(min = 5, max = 50, message = "{teste}")
 	public String getNome() {
 		return nome;
 	}
@@ -58,6 +65,8 @@ public class Usuario implements Serializable {
 		this.nome = nome;
 	}
 
+	@Required
+	@Mail
 	public String getEmail() {
 		return email;
 	}
@@ -90,6 +99,7 @@ public class Usuario implements Serializable {
 		this.ativo = ativo;
 	}
 
+	@Size(min = 1 ,message = "Selecione pelo menos um grupo.")
 	public List<Grupo> getGrupos() {
 		return grupos;
 	}
@@ -98,6 +108,19 @@ public class Usuario implements Serializable {
 		this.grupos = grupos;
 	}
 
+	public Integer getVersion() {
+		return version;
+	}
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+	
+	@PreUpdate
+	@PostLoad
+	private void preUpdate() {
+		this.confirmacaoSenha = this.senha;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

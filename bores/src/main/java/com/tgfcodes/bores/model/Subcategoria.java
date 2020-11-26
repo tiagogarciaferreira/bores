@@ -1,20 +1,18 @@
 package com.tgfcodes.bores.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
+import javax.validation.constraints.Size;
+
+import com.tgfcodes.bores.validation.annotation.Required;
 
 @Entity
 @Table(name = "subcategoria")
@@ -26,11 +24,15 @@ public class Subcategoria implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "categoria_id")
 	private Categoria categoria = new Categoria();
-	@OneToMany(mappedBy = "subcategoria", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Produto> produtos = new ArrayList<>();
+	/*
+	 * @Transient
+	 * 
+	 * @OneToMany(mappedBy = "subcategoria", fetch = FetchType.LAZY) private
+	 * List<Produto> produtos = new ArrayList<>();
+	 */
 	@Version
 	private Long version;
 
@@ -45,6 +47,8 @@ public class Subcategoria implements Serializable {
 		this.id = id;
 	}
 
+	@Required
+	@Size(min = 4, max = 30, message = "Deve conter entre 4 e 30 caracteres.")
 	public String getNome() {
 		return nome;
 	}
@@ -61,13 +65,11 @@ public class Subcategoria implements Serializable {
 		this.categoria = categoria;
 	}
 	
-	public List<Produto> getProdutos() {
-		return produtos;
-	}
-	
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
-	}
+	/*
+	 * public List<Produto> getProdutos() { return produtos; }
+	 * 
+	 * public void setProdutos(List<Produto> produtos) { this.produtos = produtos; }
+	 */
 
 	public Long getVersion() {
 		return version;

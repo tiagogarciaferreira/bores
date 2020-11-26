@@ -28,10 +28,7 @@
 				    <f:facet name="header">
 				    	<h3>Pesquisar Estados</h3>
 				    </f:facet>
-				    <p:column headerText="ID" field="id" filterBy="#{estado.id}" sortBy="#{estado.id}" styleClass="column-small">
-						<h:outputText value="#{estado.id}"/>
-				    </p:column>
-				    <p:column headerText="Uf" field="sigla" filterBy="#{estado.sigla}" sortBy="#{estado.sigla}" styleClass="column-small">
+				    <p:column headerText="Uf" field="sigla" filterBy="#{estado.sigla}" sortBy="#{estado.sigla}" styleClass="column-small text-left">
 						<h:outputText value="#{estado.sigla}"/>
 				    </p:column> 
 				    <p:column headerText="Nome" field="nome" filterBy="#{estado.nome}" sortBy="#{estado.nome}">
@@ -68,6 +65,15 @@
 							<p:clientValidator event="keyup" />
 						</p:inputText>
 						<p:message for="nome" styleClass="msg-invalid"/>
+					</p:column>
+					<p:column>
+						<p:outputLabel styleClass="input-label">Sigla</p:outputLabel>
+						<p:inputText id="sigla" label="Sigla" styleClass="ui-g-12" type="text" value="#{estadoBean.estado.sigla}"
+							 required="true" requiredMessage="Campo obrigatório." autocomplete="off">
+							<p:watermark for="sigla" value="Sigla do estado" />
+							<p:clientValidator event="keyup" />
+						</p:inputText>
+						<p:message for="sigla" styleClass="msg-invalid"/>
 					</p:column>
 					<p:column>
 						<p:commandButton validateClient="true" styleClass="btn-primary raised-button" icon="fa fa-fw fa-save" value="Salvar" 

@@ -26,8 +26,8 @@
 	            <p:menuitem value="Pesquisar" outcome="/cliente/PesquisaCliente" icon="fa fa-fw fa-search" />
 	        </p:submenu>
 	        <p:submenu label="Usuários" styleClass="no-space" icon="icone-raiz fa fa-fw fa-user">
-	            <p:menuitem value="Novo" action="#{menuView.save}" icon="fa fa-fw fa-plus-circle" />
-	            <p:menuitem value="Pesquisar" action="#{menuView.update}"  icon="fa fa-fw fa-search" />
+	            <p:menuitem value="Novo" outcome="/usuario/CadastroUsuario" icon="fa fa-fw fa-plus-circle" />
+	            <p:menuitem value="Pesquisar" outcome="/usuario/PesquisaUsuario"  icon="fa fa-fw fa-search" />
 	        </p:submenu>
 	        <p:submenu label="Estados" styleClass="no-space" icon="icone-raiz fa fa-fw fa-map-marker">
 	            <p:menuitem value="Novo" outcome="/estado/CadastroEstado" icon="fa fa-fw fa-plus-circle" />

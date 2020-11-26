@@ -22,6 +22,7 @@ public class ClienteService {
 	@Transactional(readOnly = false)
 	public void excluir(Cliente cliente) {
 		cliente = this.buscarPorId(cliente.getId());
+		//TODO: não pode excluir se pertencer a algum pedido
 		this.clienteRepository.delete(cliente);
 	}
 	

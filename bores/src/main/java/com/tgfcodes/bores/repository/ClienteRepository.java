@@ -9,5 +9,6 @@ import com.tgfcodes.bores.repository.helper.cliente.ClienteQueries;
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long>, ClienteQueries {
 
-	
+	public Cliente findByEmailIgnoreCase(String email);
+
 }

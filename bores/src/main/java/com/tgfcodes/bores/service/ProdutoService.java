@@ -4,6 +4,7 @@ import org.primefaces.model.LazyDataModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.tgfcodes.bores.model.Produto;
 import com.tgfcodes.bores.repository.ProdutoRepository;
 
@@ -21,6 +22,7 @@ public class ProdutoService {
 	@Transactional(readOnly = false)
 	public void excluir(Produto produto) {
 		produto = this.buscarPorId(produto.getId());
+		//TODO: não pode excluir se pertencer a algum pedido
 		this.produtoRepository.delete(produto);
 	}
 	

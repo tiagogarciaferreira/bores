@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tgfcodes.bores.exception.NegocioException;
 import com.tgfcodes.bores.model.Categoria;
 import com.tgfcodes.bores.repository.CategoriaRepository;
 
@@ -24,6 +25,9 @@ public class CategoriaService {
 	@Transactional(readOnly = false)
 	public void excluir(Categoria categoria) {
 		categoria = this.buscarPorId(categoria.getId());
+		if(!categoria.getSubcategorias().isEmpty()) {
+			throw new NegocioException("Categoria: Não pode ser excluída. Possue subcategorias associadas.");
+		}
 		this.categoriaRepository.delete(categoria);
 	}
 	

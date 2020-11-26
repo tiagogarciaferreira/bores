@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+
+	<p:dataTable id="tblItens" reflow="true" value="#{pedidoBean.listaInit}"
+	   rows="10" paginator="true" lazy="true" paginatorTemplate="{PageLinks}"
+	    emptyMessage="Nenhum item encontrado." paginatorAlwaysVisible="false" paginatorPosition="bottom" >
+	    
+	    <p:column headerText="SKU">
+			<p:inputText value="45"/>
+	    </p:column>
+
+		<p:column headerText="Produto">
+			<p:autoComplete id="produto" styleClass="ui-g-12" dropdown="true" value="#{autoCompleteView.txt6}" completeMethod="#{autoCompleteView.completeText}" />
+		</p:column>
+
+	    <p:column headerText="Valor/Unitário">
+			<h:outputText value="R$: 45,74" styleClass="text-center"/>
+	    </p:column>
+	    
+	    <p:column headerText="Quantidade">
+			<p:inputText value="1000" styleClass="text-center"/>
+	    </p:column>
+	    
+	    <p:column headerText="Estoque" >
+			<h:outputText value="100un" styleClass="text-center"/>
+	    </p:column>
+	    
+	    <p:column headerText="Valor/Total">
+			<h:outputText value="R$: 4522,74" styleClass="text-center"/>
+	    </p:column>
+
+		<p:columnGroup type="footer">
+			<p:row styleClass="footer-table-item">
+				<p:column footerText="Subtotal" colspan="5"/>
+				<p:column footerText="R$: 548,78" styleClass="col-total" colspan="5"/>
+			</p:row>
+		</p:columnGroup>
+    
+	</p:dataTable>
+	
+</html>

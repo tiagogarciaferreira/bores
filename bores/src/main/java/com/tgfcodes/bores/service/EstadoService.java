@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tgfcodes.bores.exception.NegocioException;
 import com.tgfcodes.bores.model.Estado;
 import com.tgfcodes.bores.repository.EstadoRepository;
 
@@ -24,6 +25,9 @@ public class EstadoService {
 	@Transactional(readOnly = false)
 	public void excluir(Estado estado) {
 		estado = this.buscarPorId(estado.getId());
+		if(!estado.getCidades().isEmpty()) {
+			throw new NegocioException("Estado: Não pode ser excluído. Possue cidades associadas.");
+		}
 		this.estadoRepository.delete(estado);
 	}
 	
@@ -38,8 +42,8 @@ public class EstadoService {
 	}
 	
 	@Transactional(readOnly = true)
-	public Estado buscarPorId(Long id) {
-		return this.estadoRepository.findById(id).get();
+	public Estado buscarPorId(Long estadoId) {
+		return this.estadoRepository.findById(estadoId).get();
 	}
 	
 }

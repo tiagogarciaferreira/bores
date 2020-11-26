@@ -42,13 +42,13 @@ public class ProdutoBean implements Serializable {
 	}
 
 	public void salvar() {
-		this.produtoService.salvar(produto);
+		this.produtoService.salvar(this.produto);
 		Mensagem.info("Produto: ", "Salvo com sucesso.");
 		this.novo();
 	}
 
 	public void excluir() {
-		this.produtoService.excluir(produto);
+		this.produtoService.excluir(this.produto);
 		Mensagem.info("Produto: ", "Excluído com sucesso.");
 		this.novo();
 	}

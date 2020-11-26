@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,8 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import com.tgfcodes.bores.validation.annotation.Required;
 
 @Entity
 @Table(name = "categoria")
@@ -25,10 +25,8 @@ public class Categoria implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@NotBlank(message = "Campo obrigatório.")
-	@Size(max = 50, message = "Deve conter entre 1 e 50 caracteres.")
 	private String nome;
-	@OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "categoria", fetch = FetchType.LAZY)
 	private List<Subcategoria> subcategorias = new ArrayList<>();
 	@Version
 	private Long version;
@@ -44,6 +42,8 @@ public class Categoria implements Serializable {
 		this.id = id;
 	}
 
+	@Required
+	@Size(min = 4, max = 30, message = "Deve conter entre 4 e 30 caracteres.")
 	public String getNome() {
 		return nome;
 	}

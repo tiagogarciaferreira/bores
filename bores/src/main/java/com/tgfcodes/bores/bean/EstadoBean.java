@@ -32,13 +32,13 @@ public class EstadoBean implements Serializable{
 	}
 	
 	public void salvar() {
-		this.estadoService.salvar(estado);
+		this.estadoService.salvar(this.estado);
 		Mensagem.info("Estado: ", "Salvo com sucesso.");
 		this.novo();
 	}
 
 	public void excluir() {
-		this.estadoService.excluir(estado);
+		this.estadoService.excluir(this.estado);
 		Mensagem.info("Estado: ", "Excluído com sucesso.");
 		this.novo();
 	}

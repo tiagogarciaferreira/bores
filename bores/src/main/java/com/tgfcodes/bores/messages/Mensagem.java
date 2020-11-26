@@ -9,6 +9,10 @@ public class Mensagem {
     	facesContext().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_INFO, entidade, mensagen));
     }
 
+    public static void alert(String entidade, String mensagen) {
+    	facesContext().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_WARN, entidade, mensagen));
+    }
+    
     public static void error(String entidade, String mensagen) {
     	facesContext().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_ERROR, entidade, mensagen));
     }

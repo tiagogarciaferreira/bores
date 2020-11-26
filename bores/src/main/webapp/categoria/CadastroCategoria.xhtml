@@ -28,16 +28,13 @@
 				    <f:facet name="header">
 				    	<h3>Pesquisar Categorias</h3>
 				    </f:facet>
-				    <p:column headerText="ID" field="id" filterBy="#{categoria.id}" sortBy="#{categoria.id}" styleClass="column-small">
-						<h:outputText value="#{categoria.id}"/>
-				    </p:column>
 				    <p:column headerText="Nome" field="nome" filterBy="#{categoria.nome}" sortBy="#{categoria.nome}">
 						<h:outputText value="#{categoria.nome}"/>
 				    </p:column>    
 				    <p:column headerText="Ações" styleClass="column-acao">
 						<p:commandButton styleClass="btn-primary btn-circle raised-button" icon="fa fa-fw fa-pencil" process="@this" update="frm:dialogCategoria"
-							actionListener="#{categoriaBean.setCategoria(categoria)}" oncomplete="PF('dialogCategoria').show();"/>
-						<p:commandButton styleClass="btn-danger btn-circle raised-button" icon="fa fa-fw fa-trash-o" actionListener="#{categoriaBean.setCategoria(categoria)}"
+							actionListener="#{categoriaBean.selecionar(categoria)}" oncomplete="PF('dialogCategoria').show();"/>
+						<p:commandButton styleClass="btn-danger btn-circle raised-button" icon="fa fa-fw fa-trash-o" actionListener="#{categoriaBean.selecionar(categoria)}"
 							 action="#{categoriaBean.excluir}" process="@this" update="tblCategoria" >
 							<p:confirm icon="fa fa-fw fa-exclamation-triangle" header="Confirmação" message="Tem certeza de que deseja continuar?"/>
 						</p:commandButton>	
@@ -60,8 +57,7 @@
 					<p:column>
 						<p:outputLabel styleClass="input-label">Nome</p:outputLabel>
 						<p:inputText id="nome" label="Nome" styleClass="ui-g-12" type="text" value="#{categoriaBean.categoria.nome}"
-							 required="true" requiredMessage="Campo obrigatório." autocomplete="off">
-							<p:watermark for="nome" value="Nome da categoria" />
+							 required="true" requiredMessage="Campo obrigatório." autocomplete="off" placeholder="Nome">
 							<p:clientValidator event="keyup" />
 						</p:inputText>
 						<p:message for="nome" styleClass="msg-invalid"/>

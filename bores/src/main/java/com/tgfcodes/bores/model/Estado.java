@@ -1,11 +1,18 @@
 package com.tgfcodes.bores.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.persistence.Version;
 
 @Entity
 @Table(name = "estado")
@@ -18,6 +25,11 @@ public class Estado implements Serializable {
 	private Long id;
 	private String nome;
 	private String sigla;
+	@Transient
+	@OneToMany(mappedBy = "estado", fetch = FetchType.LAZY)
+	private List<Cidade> cidades = new ArrayList<>();
+	@Version
+	private Long version;
 
 	public Estado() {
 	}
@@ -44,6 +56,22 @@ public class Estado implements Serializable {
 
 	public void setSigla(String sigla) {
 		this.sigla = sigla;
+	}
+
+	public List<Cidade> getCidades() {
+		return cidades;
+	}
+
+	public void setCidades(List<Cidade> cidades) {
+		this.cidades = cidades;
+	}
+
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
 	}
 
 	@Override

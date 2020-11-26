@@ -17,11 +17,13 @@ import javax.persistence.PostLoad;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.Version;
 
 import org.hibernate.validator.group.GroupSequenceProvider;
 
 import com.tgfcodes.bores.model.enumeration.TipoPessoa;
+import com.tgfcodes.bores.model.enumeration.TipoTelefone;
 import com.tgfcodes.bores.validation.ClienteGroupSequenceProvider;
 
 @Entity
@@ -44,6 +46,10 @@ public class Cliente implements Serializable {
 	private TipoPessoa tipoPessoa;
 	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
 	private List<Endereco> enderecos = new ArrayList<>();
+	@Transient
+	@Enumerated(EnumType.STRING)
+	private TipoTelefone tipoTelefone;
+	
 	@Version
 	private Integer version;
 	
@@ -106,6 +112,14 @@ public class Cliente implements Serializable {
 		this.enderecos = enderecos;
 	}
 	
+	public TipoTelefone getTipoTelefone() {
+		return tipoTelefone;
+	}
+	
+	public void setTipoTelefone(TipoTelefone tipoTelefone) {
+		this.tipoTelefone = tipoTelefone;
+	}
+	
 	public Integer getVersion() {
 		return version;
 	}
@@ -123,6 +137,7 @@ public class Cliente implements Serializable {
 	@PostLoad
 	private void postLoad() {
 		this.cpfOuCnpj = this.tipoPessoa.formatar(this.cpfOuCnpj);
+		this.tipoTelefone = TipoTelefone.verificarTipo(this.telefone);
 	}
 
 	@Override

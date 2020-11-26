@@ -9,8 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PostLoad;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.Version;
 
 @Entity
 @Table(name = "endereco")
@@ -32,6 +36,8 @@ public class Endereco implements Serializable {
 	@JoinColumn(name = "cliente_id")
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Cliente cliente = new Cliente();
+	@Version
+	private Integer version;
 	@Transient
 	private Estado estado = new Estado();
 
@@ -102,12 +108,32 @@ public class Endereco implements Serializable {
 		this.cliente = cliente;
 	}
 	
+	public Integer getVersion() {
+		return version;
+	}
+	
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+	
 	public Estado getEstado() {
 		return estado;
 	}
 	
 	public void setEstado(Estado estado) {
 		this.estado = estado;
+	}
+	
+	@PrePersist
+	@PreUpdate
+	private void prePersistOrUpdate() {
+		this.uf = this.estado.getNome(); 
+	}
+	
+	@PostLoad
+	private void postLoad() {
+		this.estado = this.cidade.getEstado();
+		this.uf = this.estado.getNome(); 
 	}
 
 	@Override

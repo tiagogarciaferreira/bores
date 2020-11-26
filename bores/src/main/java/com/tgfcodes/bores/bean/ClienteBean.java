@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.tgfcodes.bores.messages.Mensagem;
 import com.tgfcodes.bores.model.Cliente;
 import com.tgfcodes.bores.model.enumeration.TipoPessoa;
+import com.tgfcodes.bores.model.enumeration.TipoTelefone;
 import com.tgfcodes.bores.service.ClienteService;
 import com.tgfcodes.bores.util.FacesUtil;
 
@@ -32,13 +33,13 @@ public class ClienteBean implements Serializable{
 	}
 	
 	public void salvar() {
-		this.clienteService.salvar(cliente);
+		this.clienteService.salvar(this.cliente);
 		Mensagem.info("Cliente: ", "Salvo com sucesso.");
 		this.novo();
 	}
 
 	public void excluir() {
-		this.clienteService.excluir(cliente);
+		this.clienteService.excluir(this.cliente);
 		Mensagem.info("Cliente: ", "Excluído com sucesso.");
 		this.novo();
 	}
@@ -55,6 +56,10 @@ public class ClienteBean implements Serializable{
 	
 	public TipoPessoa[] tiposPessoa() {
 		return TipoPessoa.values();
+	}
+
+	public TipoTelefone[] tiposTelefone() {
+		return TipoTelefone.values();
 	}
 	
 	public Cliente getCliente() {

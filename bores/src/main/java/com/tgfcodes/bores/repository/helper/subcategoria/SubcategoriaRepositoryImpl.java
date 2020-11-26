@@ -60,10 +60,7 @@ public class SubcategoriaRepositoryImpl implements SubcategoriaQueries {
 			for (FilterMeta meta : filterBy.values()) {
 				if(meta.getFilterValue() !=  null) {
 					var pesquisarPor = meta.getFilterValue().toString().toLowerCase();
-					if (meta.getFilterField().equals("id")) {
-						criteriaQuery.where(builder.equal(subcategoriaRoot.get("id"), pesquisarPor));
-					}
-					else if(meta.getFilterField().equals("nome")) {
+					if(meta.getFilterField().equals("nome")) {
 						criteriaQuery.where(builder.like(builder.lower(subcategoriaRoot.get("nome")), "%"+pesquisarPor+"%"));
 					}
 					else if (meta.getFilterField().equals("categoria")) {

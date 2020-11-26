@@ -9752,3 +9752,85 @@ INSERT INTO cliente (nome, email, telefone, cpf_cnpj, tipo_pessoa, version) VALU
 INSERT INTO cliente (nome, email, telefone, cpf_cnpj, tipo_pessoa, version) VALUES('Cliente 28', 'cliente28@gmail.com', '(55)3251-4597', '41538641000181', 'JURIDICA', 0);
 INSERT INTO cliente (nome, email, telefone, cpf_cnpj, tipo_pessoa, version) VALUES('Cliente 29', 'cliente29@gmail.com', '(55)98427-8000', '02414697083', 'FISICA', 0);
 INSERT INTO cliente (nome, email, telefone, cpf_cnpj, tipo_pessoa, version) VALUES('Cliente 30', 'cliente30@gmail.com', '(55)3251-4597', '41538641000181', 'JURIDICA', 0);
+
+-- BASE DE ENDEREÇOS
+INSERT INTO endereco (cep, uf, cidade_id, logradouro, numero, complemento, cliente_id, version) VALUES ('97700-001)', 'Paraná', 5597, 'Logradoura A', 'Numero A', 'Complemnto A', 2, 0);
+INSERT INTO endereco (cep, uf, cidade_id, logradouro, numero, complemento, cliente_id, version) VALUES ('97700-002)', 'Paraná', 5598, 'Logradoura BY', 'Numero B', 'Complemnto B', 2, 0);
+INSERT INTO endereco (cep, uf, cidade_id, logradouro, numero, complemento, cliente_id, version) VALUES ('97700-003)', 'Pará', 4494, 'Logradoura AY', 'Numero C', 'Complemnto AV', 3, 0);
+INSERT INTO endereco (cep, uf, cidade_id, logradouro, numero, complemento, cliente_id, version) VALUES ('97700-004)', 'Pará', 4495, 'Logradoura BV', 'Numero D', 'Complemnto BF', 3, 0);
+INSERT INTO endereco (cep, uf, cidade_id, logradouro, numero, complemento, cliente_id, version) VALUES ('97700-005)', 'Amazonas', 28, 'Logradoura AV', 'Numero E', 'Complemnto AH', 4, 0);
+INSERT INTO endereco (cep, uf, cidade_id, logradouro, numero, complemento, cliente_id, version) VALUES ('97700-006)', 'Amazonas', 29, 'Logradoura AK', 'Numero F', 'Complemnto AR', 4, 0);
+INSERT INTO endereco (cep, uf, cidade_id, logradouro, numero, complemento, cliente_id, version) VALUES ('97700-007)', 'São Paulo', 8507, 'Logradoura BC', 'Numero G', 'Complemnto BÇ', 5, 0);
+INSERT INTO endereco (cep, uf, cidade_id, logradouro, numero, complemento, cliente_id, version) VALUES ('97700-008)', 'São Paulo', 8508, 'Logradoura AK', 'Numero H', 'Complemnto AD', 5, 0);
+INSERT INTO endereco (cep, uf, cidade_id, logradouro, numero, complemento, cliente_id, version) VALUES ('97700-009)', 'Acre', 213, 'Logradoura BK', 'Numero I', 'Complemnto B', 6, 0);
+INSERT INTO endereco (cep, uf, cidade_id, logradouro, numero, complemento, cliente_id, version) VALUES ('97700-010)', 'Acre', 214, 'Logradoura AD', 'Numero J', 'Complemnto A', 6, 0);
+INSERT INTO endereco (cep, uf, cidade_id, logradouro, numero, complemento, cliente_id, version) VALUES ('97700-011)', 'Alagoas', 1, 'Logradoura A', 'Numero K', 'Complemnto A', 7, 0);
+INSERT INTO endereco (cep, uf, cidade_id, logradouro, numero, complemento, cliente_id, version) VALUES ('97700-012)', 'Alagoas', 2, 'Logradoura B', 'Numero L', 'Complemnto B', 7, 0);
+INSERT INTO endereco (cep, uf, cidade_id, logradouro, numero, complemento, cliente_id, version) VALUES ('97700-013)', 'Amapá', 115, 'Logradoura A', 'Numero M', 'Complemnto A', 8, 0);
+INSERT INTO endereco (cep, uf, cidade_id, logradouro, numero, complemento, cliente_id, version) VALUES ('97700-014)', 'Amapá', 116, 'Logradoura B', 'Numero N', 'Complemnto BL', 8, 0);
+INSERT INTO endereco (cep, uf, cidade_id, logradouro, numero, complemento, cliente_id, version) VALUES ('97700-015)', 'Bahia', 161, 'Logradoura A', 'Numero O', 'Complemnto AB', 9, 0);
+INSERT INTO endereco (cep, uf, cidade_id, logradouro, numero, complemento, cliente_id, version) VALUES ('97700-016)', 'Bahia', 162, 'Logradoura A', 'Numero P', 'Complemnto A', 9, 0);
+INSERT INTO endereco (cep, uf, cidade_id, logradouro, numero, complemento, cliente_id, version) VALUES ('97700-017)', 'Ceará', 1288, 'Logradoura BF', 'Numero QN', 'Complemnto B', 10, 0);
+INSERT INTO endereco (cep, uf, cidade_id, logradouro, numero, complemento, cliente_id, version) VALUES ('97700-018)', 'Ceará', 1289, 'Logradoura GG', 'Numero WN', 'Complemnto AJ', 10, 0);
+INSERT INTO endereco (cep, uf, cidade_id, logradouro, numero, complemento, cliente_id, version) VALUES ('97700-019)', 'Roraima', 7133, 'Logradoura BJ', 'Numero RJ', 'Complemnto BG', 11, 0);
+INSERT INTO endereco (cep, uf, cidade_id, logradouro, numero, complemento, cliente_id, version) VALUES ('97700-020)', 'Roraima', 7134, 'Logradoura AB', 'Numero TB', 'Complemnto A', 11, 0);
+INSERT INTO endereco (cep, uf, cidade_id, logradouro, numero, complemento, cliente_id, version) VALUES ('97700-021)', 'Rio de Janeiro', 6613, 'Logradoura AZ', 'Numero YG', 'Complemnto AG', 12, 0);
+INSERT INTO endereco (cep, uf, cidade_id, logradouro, numero, complemento, cliente_id, version) VALUES ('97700-022)', 'Rio de Janeiro', 6614, 'Logradoura BZ', 'Numero ZG', 'Complemnto BZ', 12, 0);
+INSERT INTO endereco (cep, uf, cidade_id, logradouro, numero, complemento, cliente_id, version) VALUES ('97700-023)', 'Sergipe', 8422, 'Logradoura AXQ', 'Numero XQ', 'Complemnto AXQ', 13, 0);
+INSERT INTO endereco (cep, uf, cidade_id, logradouro, numero, complemento, cliente_id, version) VALUES ('97700-024)', 'Sergipe', 8423, 'Logradoura BW', 'Numero BW', 'Complemnto BW', 13, 0);
+INSERT INTO endereco (cep, uf, cidade_id, logradouro, numero, complemento, cliente_id, version) VALUES ('97700-025)', 'Tocantins', 9439, 'Logradoura AF', 'Numero AF', 'Complemnto AF', 14, 0);
+INSERT INTO endereco (cep, uf, cidade_id, logradouro, numero, complemento, cliente_id, version) VALUES ('97700-026)', 'Tocantins', 9440, 'Logradoura AH', 'Numero AH', 'Complemnto AH', 14, 0);
+INSERT INTO endereco (cep, uf, cidade_id, logradouro, numero, complemento, cliente_id, version) VALUES ('97700-027)', 'Mato Grosso', 4248, 'Logradoura BF', 'Numero BF', 'Complemnto BF', 15, 0);
+INSERT INTO endereco (cep, uf, cidade_id, logradouro, numero, complemento, cliente_id, version) VALUES ('97700-028)', 'Mato Grosso', 4249, 'Logradoura AK', 'Numero AK', 'Complemnto AK', 15, 0);
+INSERT INTO endereco (cep, uf, cidade_id, logradouro, numero, complemento, cliente_id, version) VALUES ('97700-029)', 'Pernambuco', 5082, 'Logradoura BV', 'Numero BV', 'Complemnto BV', 16, 0);
+INSERT INTO endereco (cep, uf, cidade_id, logradouro, numero, complemento, cliente_id, version) VALUES ('97700-030)', 'Pernambuco', 5082, 'Logradoura AK', 'Numero AK', 'Complemnto AK', 16, 0);
+
+--BASE DE GRUPOS
+INSERT INTO grupo (nome, version) VALUES ('Administrador', 0);
+INSERT INTO grupo (nome, version) VALUES ('Vendedor', 0);
+INSERT INTO grupo (nome, version) VALUES ('Auxiliar', 0);
+
+--BASE DE USUARIOS
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Tiago', 'tiago30@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'true', 0);
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Marcos', 'tiago29@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'true', 0);
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Pedro', 'tiago28@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'true', 0);
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Luis', 'tiago27@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'true', 0);
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Felipe', 'tiago26@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'true', 0);
+
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Tiago2', 'tiago25@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'false', 0);
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Marcos2', 'tiago24@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'false', 0);
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Pedro2', 'tiago23@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'false', 0);
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Luis2', 'tiago22@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'false', 0);
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Felipe3', 'tiago21@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'false', 0);
+
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Tiago4', 'tiago20@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'true', 0);
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Marcos5', 'tiago19@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'true', 0);
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Pedro6', 'tiago18@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'true', 0);
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Luis7', 'tiago17@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'true', 0);
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Felipe8', 'tiago16@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'true', 0);
+
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Tiago9', 'tiago15@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'false', 0);
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Marcos7', 'tiago14@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'false', 0);
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Pedro6', 'tiago13@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'false', 0);
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Luis5', 'tiago12@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'false', 0);
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Felipe4', 'tiago11@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'false', 0);
+
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Tiago4', 'tiago10@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'true', 0);
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Marcos4', 'tiago9@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'true', 0);
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Pedro3', 'tiago8@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'true', 0);
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Luis2', 'tiago7@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'true', 0);
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Felipe0', 'tiago6@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'true', 0);
+
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Tiago0', 'tiago5@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'false', 0);
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Marcos8', 'tiago4@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'false', 0);
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Pedro7', 'tiago3@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'false', 0);
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Luis0', 'tiago2@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'false', 0);
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Felipe3', 'tiago1@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'false', 0);
+
+
+-- BASE USUARIO GRUPO
+INSERT INTO usuario_grupo(grupo_id, usuario_id) VALUES (2, 1);
+INSERT INTO usuario_grupo(grupo_id, usuario_id) VALUES (2, 2);
+INSERT INTO usuario_grupo(grupo_id, usuario_id) VALUES (2, 3);
+INSERT INTO usuario_grupo(grupo_id, usuario_id) VALUES (2, 4);
+INSERT INTO usuario_grupo(grupo_id, usuario_id) VALUES (2, 5);
