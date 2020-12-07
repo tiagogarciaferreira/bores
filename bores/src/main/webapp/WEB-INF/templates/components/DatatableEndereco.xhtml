@@ -23,8 +23,8 @@
 	    </p:column>
 	    <p:column headerText="Ações" styleClass="column-acao">
 			<p:commandButton styleClass="btn-primary btn-circle raised-button" icon="fa fa-fw fa-pencil" process="@this" update="frm:tabViewCliente:gridEndereco"
-				 actionListener="#{enderecoBean.setEndereco(endereco)}" action="#{enderecoBean.selecionarEndereco}"/>
-			<p:commandButton styleClass="btn-danger btn-circle raised-button" icon="fa fa-fw fa-trash-o" actionListener="#{enderecoBean.setEndereco(endereco)}"
+				 actionListener="#{enderecoBean.selecionar(endereco)}" />
+			<p:commandButton styleClass="btn-danger btn-circle raised-button" icon="fa fa-fw fa-trash-o" actionListener="#{enderecoBean.selecionar(endereco)}"
 				 action="#{enderecoBean.excluir}" process="@this" update="frm:tabViewCliente:tblEndereco" >
 				<p:confirm icon="fa fa-fw fa-exclamation-triangle" header="Confirmação" message="Tem certeza de que deseja continuar?"/>
 			</p:commandButton>	

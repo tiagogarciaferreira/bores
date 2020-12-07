@@ -53,7 +53,7 @@ public class ProdutoRepositoryImpl implements ProdutoQueries {
 		Root<Produto> produtoRoot = criteriaQuery.from(Produto.class);
 		criteriaQuery = (sortOrder == null) ? criteriaQuery.select(builder.count(produtoRoot)) : criteriaQuery.select(produtoRoot);
 		
-		if (sortOrder != null && !sortOrder.equals(SortOrder.UNSORTED) && !StringUtils.isEmpty(sortField)) {
+		if (sortOrder != null && !sortOrder.equals(SortOrder.UNSORTED) && StringUtils.hasText(sortField)) {
 			criteriaQuery.orderBy(sortOrder.equals(SortOrder.ASCENDING) ? builder.asc(produtoRoot.get(sortField)) : builder.desc(produtoRoot.get(sortField)));
 		}
 		

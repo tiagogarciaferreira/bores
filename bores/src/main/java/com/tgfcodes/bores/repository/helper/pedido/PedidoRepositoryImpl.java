@@ -51,7 +51,7 @@ public class PedidoRepositoryImpl implements PedidoQueries {
 		Root<Pedido> pedidoRoot = criteriaQuery.from(Pedido.class);
 		criteriaQuery = (sortOrder == null) ? criteriaQuery.select(builder.count(pedidoRoot)) : criteriaQuery.select(pedidoRoot);
 		
-		if (sortOrder != null && !sortOrder.equals(SortOrder.UNSORTED) && !StringUtils.isEmpty(sortField)) {
+		if (sortOrder != null && !sortOrder.equals(SortOrder.UNSORTED) && StringUtils.hasText(sortField)) {
 			criteriaQuery.orderBy(sortOrder.equals(SortOrder.ASCENDING) ? builder.asc(pedidoRoot.get(sortField)) : builder.desc(pedidoRoot.get(sortField)));
 		}
 		

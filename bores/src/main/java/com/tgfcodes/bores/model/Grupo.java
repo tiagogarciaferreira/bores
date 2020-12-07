@@ -25,7 +25,7 @@ public class Grupo implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
-	@ManyToMany(fetch = FetchType.LAZY )
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "grupo_permissao", joinColumns = @JoinColumn(name = "grupo_id"), inverseJoinColumns = @JoinColumn(name = "permissao_id"))
 	private List<Permissao> permissoes = new ArrayList<>();
 	@Version
@@ -33,7 +33,7 @@ public class Grupo implements Serializable {
 
 	public Grupo() {
 	}
-
+	
 	public Long getId() {
 		return id;
 	}

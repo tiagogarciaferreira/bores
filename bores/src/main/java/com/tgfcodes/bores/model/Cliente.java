@@ -1,30 +1,33 @@
 package com.tgfcodes.bores.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.PostLoad;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
+import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.br.CNPJ;
+import org.hibernate.validator.constraints.br.CPF;
 import org.hibernate.validator.group.GroupSequenceProvider;
 
 import com.tgfcodes.bores.model.enumeration.TipoPessoa;
 import com.tgfcodes.bores.model.enumeration.TipoTelefone;
 import com.tgfcodes.bores.validation.ClienteGroupSequenceProvider;
+import com.tgfcodes.bores.validation.annotation.Mail;
+import com.tgfcodes.bores.validation.annotation.Required;
+import com.tgfcodes.bores.validation.group.CnpjGroup;
+import com.tgfcodes.bores.validation.group.CpfGroup;
 
 @Entity
 @Table(name = "cliente")
@@ -36,20 +39,27 @@ public class Cliente implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Required
+	@Size(min = 5, max = 60, message = "Deve conter entre 5 e 60 caracteres.")
 	private String nome;
+	@Required
+	@Mail
+	@Size(max = 40, message = "Tamanho máximo de 40 caracteres.")
 	private String email;
+	@Required
 	private String telefone;
+	@Required
+	@CPF(groups = CpfGroup.class)
+	@CNPJ(groups = CnpjGroup.class)
 	@Column(name = "cpf_cnpj")
 	private String cpfOuCnpj;
+	@Required
 	@Enumerated(EnumType.STRING)
 	@Column(name = "tipo_pessoa")
 	private TipoPessoa tipoPessoa;
-	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
-	private List<Endereco> enderecos = new ArrayList<>();
 	@Transient
 	@Enumerated(EnumType.STRING)
 	private TipoTelefone tipoTelefone;
-	
 	@Version
 	private Integer version;
 	
@@ -104,14 +114,6 @@ public class Cliente implements Serializable {
 		this.tipoPessoa = tipoPessoa;
 	}
 	
-	public List<Endereco> getEnderecos() {
-		return enderecos;
-	}
-
-	public void setEnderecos(List<Endereco> enderecos) {
-		this.enderecos = enderecos;
-	}
-	
 	public TipoTelefone getTipoTelefone() {
 		return tipoTelefone;
 	}
@@ -128,10 +130,15 @@ public class Cliente implements Serializable {
 		this.version = version;
 	}
 	
+	public boolean isNovo() {
+		return this.id == null;
+	}
+	
 	@PrePersist
 	@PreUpdate
 	private void prePersistOrUpdate() {
 		this.cpfOuCnpj = TipoPessoa.removerFormatacao(this.cpfOuCnpj);
+		this.email = this.email.toLowerCase();
 	}
 	
 	@PostLoad

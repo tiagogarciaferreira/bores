@@ -73,6 +73,10 @@ public class ProdutoBean implements Serializable {
 		return produto;
 	}
 
+	public void selecionar(Produto produto) {
+		this.produto = produto;
+	}
+	
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}

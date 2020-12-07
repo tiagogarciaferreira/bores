@@ -12,6 +12,8 @@ import com.tgfcodes.bores.model.Endereco;
 @Repository
 public interface EnderecoRepository extends JpaRepository<Endereco, Long>{
 
-	List<Endereco> findByCliente(Cliente cliente);
-	List<Endereco> findByCidade(Cidade cidade);
+	public List<Endereco> findByCliente(Cliente cliente);
+	public boolean existsByCidade(Cidade cidade);
+	
+	
 }

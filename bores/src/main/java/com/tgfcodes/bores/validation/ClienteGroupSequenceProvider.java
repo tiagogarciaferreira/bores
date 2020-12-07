@@ -11,11 +11,9 @@ public class ClienteGroupSequenceProvider implements DefaultGroupSequenceProvide
 	public List<Class<?>> getValidationGroups(Cliente cliente) {
 		List<Class<?>> grupos = new ArrayList<>();
 		grupos.add(Cliente.class);
-		
 		if (isPessoaSelecionada(cliente)) {
 			grupos.add(cliente.getTipoPessoa().getGrupo());
 		}
-		
 		return grupos;
 	}
 

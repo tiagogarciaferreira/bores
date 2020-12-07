@@ -51,7 +51,7 @@ public class CategoriaRepositoryImpl implements CategoriaQueries {
 		Root<Categoria> categoriaRoot = criteriaQuery.from(Categoria.class);
 		criteriaQuery = (sortOrder == null) ? criteriaQuery.select(builder.count(categoriaRoot)) : criteriaQuery.select(categoriaRoot);
 		
-		if (sortOrder != null && !sortOrder.equals(SortOrder.UNSORTED) && !StringUtils.isEmpty(sortField)) {
+		if (sortOrder != null && !sortOrder.equals(SortOrder.UNSORTED) && StringUtils.hasText(sortField)) {
 			criteriaQuery.orderBy(sortOrder.equals(SortOrder.ASCENDING) ? builder.asc(categoriaRoot.get(sortField)) : builder.desc(categoriaRoot.get(sortField)));
 		}
 		

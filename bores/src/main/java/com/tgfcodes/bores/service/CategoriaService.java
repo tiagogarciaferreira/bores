@@ -10,12 +10,15 @@ import org.springframework.transaction.annotation.Transactional;
 import com.tgfcodes.bores.exception.NegocioException;
 import com.tgfcodes.bores.model.Categoria;
 import com.tgfcodes.bores.repository.CategoriaRepository;
+import com.tgfcodes.bores.repository.SubcategoriaRepository;
 
 @Service
 public class CategoriaService {
 
 	@Autowired
 	private CategoriaRepository categoriaRepository;
+	@Autowired
+	private SubcategoriaRepository subcategoriaRepository;
 	
 	@Transactional(readOnly = false)
 	public void salvar(Categoria categoria) {
@@ -24,10 +27,11 @@ public class CategoriaService {
 	
 	@Transactional(readOnly = false)
 	public void excluir(Categoria categoria) {
-		categoria = this.buscarPorId(categoria.getId());
-		if(!categoria.getSubcategorias().isEmpty()) {
+		boolean remover =  this.subcategoriaRepository.existsByCategoria(categoria);
+		if(remover) {
 			throw new NegocioException("Categoria: Não pode ser excluída. Possue subcategorias associadas.");
 		}
+		categoria = this.buscarPorId(categoria.getId());
 		this.categoriaRepository.delete(categoria);
 	}
 	

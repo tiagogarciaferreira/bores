@@ -43,6 +43,10 @@ public class EstadoBean implements Serializable{
 		this.novo();
 	}
 	
+	public void selecionar(Estado estado) {
+		this.estado = estado;
+	}
+	
 	public List<Estado> listar(){
 		return this.estadoService.listar();
 	}

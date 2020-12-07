@@ -7,13 +7,10 @@
 
 <ui:define name="title">Bores - Produtos</ui:define>
 <ui:define name="conteudo">
-	<f:metadata>
-		<f:viewParam name="reload" value="noreload"/>
-	</f:metadata>
 	<h:form id="frm">
 		<div class="card-page">
 			<p:panel styleClass="panel-padrao">
-				<h2><h:outputText value="#{produtoBean.produto.id == null ? 'Novo produto' : 'Editar produto'}"/></h2>
+				<h2><h:outputText value="#{produtoBean.produto.novo eq true ? 'Novo produto' : 'Editar produto'}"/></h2>
 				<p:messages for="msg" showDetail="true" closable="true" globalOnly="true">
 					<p:autoUpdate/>
 				</p:messages>
@@ -29,8 +26,7 @@
 				<p:column>
 					<p:outputLabel styleClass="input-label">Nome</p:outputLabel>
 					<p:inputText id="nome" label="Nome" styleClass="ui-g-12" type="text" value="#{produtoBean.produto.nome}"
-						 required="true" requiredMessage="Campo obrigatório." autocomplete="off">
-						<p:watermark for="nome" value="Nome do produto" />
+						 required="true" requiredMessage="Campo obrigatório." autocomplete="off" placeholder="Nome do produto">
 						<p:clientValidator event="keyup" />
 					</p:inputText>
 					<p:message for="nome" styleClass="msg-invalid"/>
@@ -38,8 +34,7 @@
 				<p:column>
 					<p:outputLabel styleClass="input-label">SKU</p:outputLabel>
 					<p:inputText id="sku" label="Sku" styleClass="ui-g-12" type="text" value="#{produtoBean.produto.sku}"
-						 required="true" requiredMessage="Campo obrigatório." autocomplete="off">
-						<p:watermark for="sku" value="SKU do produto" />
+						 required="true" requiredMessage="Campo obrigatório." autocomplete="off" placeholder="SKU do produto" >
 						<p:clientValidator event="keyup" />
 					</p:inputText>
 					<p:message for="sku" styleClass="msg-invalid"/>
@@ -48,7 +43,7 @@
 					<p:outputLabel styleClass="input-label">Categoria</p:outputLabel>
 					<p:selectOneMenu id="categoria" label="Categoria" styleClass="ui-g-12" converter="#{categoriaConverter}"
  	 						 filter="true" filterMatchMode="startsWith" value="#{produtoBean.produto.subcategoria.categoria.id}">
-						<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+						<f:selectItem itemLabel="Selecione a categoria" noSelectionOption="true" />
 						<f:selectItems value="#{categoriaBean.listar()}" var="categoria" itemValue="#{categoria.id}" itemLabel="#{categoria.nome}"/>
 						<p:ajax event="itemSelect" process="@this" listener="#{produtoBean.buscarSubcategorias}" update="subcategoria"/>
 					</p:selectOneMenu>
@@ -59,32 +54,32 @@
 					<p:selectOneMenu id="subcategoria" label="Subcategoria" styleClass="ui-g-12" converter="#{subcategoriaConverter}"
  	 						 filter="true" filterMatchMode="startsWith" value="#{produtoBean.produto.subcategoria.id}"
  	 						disabled="#{empty produtoBean.subcategorias}">
-						<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+						<f:selectItem itemLabel="Selecione a subcategoria" noSelectionOption="true" />
 						<f:selectItems value="#{produtoBean.subcategorias}" var="subcategoria" itemValue="#{subcategoria.id}" itemLabel="#{subcategoria.nome}"  />
 					</p:selectOneMenu>
 					<p:message for="subcategoria" styleClass="msg-invalid"/>
 				</p:column>
 				
-				<p:column>
-					<p:outputLabel styleClass="input-label">Valor Unitário</p:outputLabel>
-					<p:inputText id="valorUnitario" label="Valor Unitário" styleClass="ui-g-12" type="text" value="#{produtoBean.produto.valorUnitario}"
-						 required="true" requiredMessage="Campo obrigatório." autocomplete="off">
-						<p:watermark for="valorUnitario" value="Valor unitário do produto" />
-						<p:clientValidator event="keyup" />
-					</p:inputText>
+				<p:column styleClass="pad-zero">
+					<p:outputLabel styleClass="input-label">Valor Unitário(R$)</p:outputLabel>
+					<p:inputNumber id="valorUnitario" label="Valor Unitário" styleClass="ui-g-12" type="text" value="#{produtoBean.produto.valorUnitario}"
+						 required="true" requiredMessage="Campo obrigatório." autocomplete="off" minValue="1" placeholder="Valor do produto"
+						 decimalSeparator="," thousandSeparator="." decimalPlaces="2" padControl="true" >
+						 <p:clientValidator event="keyup" />
+					</p:inputNumber>
 					<p:message for="valorUnitario" styleClass="msg-invalid"/>
 				</p:column>		
 				<p:column>
-					<p:outputLabel styleClass="input-label">Quantidade Estoque</p:outputLabel>
-					<p:inputText id="quantidadeEstoque" label="Quantidade Estoque" styleClass="ui-g-12" type="text" value="#{produtoBean.produto.quantidadeEstoque}"
-						 required="true" requiredMessage="Campo obrigatório." autocomplete="off">
-						<p:watermark for="quantidadeEstoque" value="Estoque do produto" />
+					<p:outputLabel styleClass="input-label">Quantidade/Estoque</p:outputLabel>
+					<p:spinner id="quantidadeEstoque" label="Quantidade Estoque" styleClass="ui-g-12" type="text" value="#{produtoBean.produto.quantidadeEstoque}"
+						 required="true" requiredMessage="Campo obrigatório." autocomplete="off" placeholder="Estoque do produto" min="0" >
 						<p:clientValidator event="keyup" />
-					</p:inputText>
+					</p:spinner>
 					<p:message for="quantidadeEstoque" styleClass="msg-invalid"/>
 				</p:column>			
 				<p:column>
-					<p:commandButton validateClient="true" styleClass="btn-primary raised-button" icon="fa fa-fw fa-save" value="Salvar" 
+					<p:commandButton validateClient="true" styleClass="btn-primary raised-button" icon="fa fa-fw fa-save" 
+						value="#{produtoBean.produto.novo eq true ? 'Salvar':'Salvar alterações'}" 
 						process="gridProduto" ajax="true" action="#{produtoBean.salvar}" update="@form"/>
 				</p:column>			
 			</p:panelGrid>

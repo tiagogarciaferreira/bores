@@ -1,8 +1,8 @@
 CREATE TABLE "cidade" (
   "id" serial8,
-  "nome" varchar(100) NOT NULL,
+  "nome" varchar(35) NOT NULL,
   "estado_id" int8 NOT NULL,
-  "version" int8 NOT NULL,
+  "version" int4 NOT NULL,
   PRIMARY KEY ("id")
 );
 

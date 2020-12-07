@@ -38,8 +38,8 @@ public class UsuarioBean implements Serializable{
 	
 	public void salvar() {
 		this.usuarioService.salvar(this.usuario);
-		Mensagem.alert("Email: ", "Já esta cadastrado em outro usuário.");
-		//this.novo();
+		Mensagem.info("Usuário: ", "Salvo com sucesso.");
+		this.novo();
 	}
 
 	public void excluir() {
@@ -55,7 +55,7 @@ public class UsuarioBean implements Serializable{
 		Mensagem.info("Usuário: ", "Status atualizado com sucesso.");
 	}
 	
-	public List<Usuario> listar() {
+	public List<Usuario> buscarVendedores() {
 		return this.usuarioService.buscarPorGrupo(true, "Vendedor");
 	}
 	 
@@ -63,7 +63,6 @@ public class UsuarioBean implements Serializable{
 		var usuarioId = FacesUtil.getParameter("usuario");
 		if (usuarioId != null) {
 			this.usuario = this.usuarioService.buscarPorId(Long.parseLong(usuarioId));
-			this.usuario.getGrupos().forEach(grupo -> System.out.println(grupo.getId()));
 		} else {
 			this.novo();
 			this.lazyDataModel = this.usuarioService.pesquisar();
@@ -74,6 +73,10 @@ public class UsuarioBean implements Serializable{
 		return usuario;
 	}
 
+	public void selecionar(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}

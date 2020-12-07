@@ -1,6 +1,7 @@
 package com.tgfcodes.bores.bean;
 
 import java.io.Serializable;
+
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -42,6 +43,10 @@ public class CidadeBean implements Serializable{
 		this.cidadeService.excluir(this.cidade);
 		Mensagem.info("Cidade: ", "Excluída com sucesso.");
 		this.nova();
+	}
+	
+	public void selecionar(Cidade cidade) {
+		this.cidade = cidade;
 	}
 	
 	public Cidade getCidade() {

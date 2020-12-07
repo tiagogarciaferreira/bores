@@ -51,7 +51,7 @@
 				resizable="false" responsive="true" closeOnEscape="true" blockScroll="true" position="center" positionType="absolute">
 				
 				<f:facet name="header">
-					<p:outputLabel value="#{subcategoriaBean.subcategoria.id == null ? 'Nova Subcategoria' : 'Editar Subcategoria'}"  styleClass="dialog-title"/>
+					<p:outputLabel value="#{subcategoriaBean.subcategoria.nova eq true ? 'Nova Subcategoria' : 'Editar Subcategoria'}"  styleClass="dialog-title"/>
 				</f:facet>
 	
 				<p:ajax event="close" resetValues="true" process="@this" update="dialogSubcategoria" listener="#{subcategoriaBean.nova}"/>
@@ -62,7 +62,7 @@
 						<p:selectOneMenu id="categoria" label="Categoria" styleClass="ui-g-12" converter="#{categoriaConverter}"
   	 						 filter="true" filterMatchMode="startsWith" value="#{subcategoriaBean.subcategoria.categoria.id}"
   	 						 required="true" requiredMessage="Campo obrigatório.">
-							<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+							<f:selectItem itemLabel="Selecione a categoria" noSelectionOption="true" />
 							<f:selectItems value="#{categoriaBean.listar()}" var="categoria" itemValue="#{categoria.id}" itemLabel="#{categoria.nome}"  />
 						</p:selectOneMenu>
 						<p:message for="categoria" styleClass="msg-invalid"/>
@@ -70,15 +70,16 @@
 					<p:column>
 					    <p:outputLabel styleClass="input-label">Nome</p:outputLabel>
 						<p:inputText id="nome" label="Nome" styleClass="ui-g-12" type="text" value="#{subcategoriaBean.subcategoria.nome}"
-				  			 required="true" requiredMessage="Campo obrigatório." autocomplete="off" placeholder="Nome">
+				  			 required="true" requiredMessage="Campo obrigatório." autocomplete="off" placeholder="Nome da subcategoria">
 							<p:clientValidator event="keyup" />
 						</p:inputText>
 						<p:message for="nome" styleClass="msg-invalid"/>
 					</p:column>
 					<p:column>
-						<p:commandButton validateClient="true" styleClass="btn-primary raised-button" icon="fa fa-fw fa-save" value="Salvar" 
+						<p:commandButton validateClient="true" styleClass="btn-primary raised-button" icon="fa fa-fw fa-save" 
+						    value="#{subcategoriaBean.subcategoria.nova eq true ? 'Salvar':'Salvar alterações'}"  
 							process="dialogSubcategoria" ajax="true" action="#{subcategoriaBean.salvar}" update="@form"
-							 oncomplete="if (!args.validationFailed) PF('dialogSubcategoria').hide()"/>
+							oncomplete="if (!args.validationFailed) PF('dialogSubcategoria').hide()"/>
 					</p:column>			
 				</p:panelGrid>
 			</p:dialog>	

@@ -1,8 +1,6 @@
 package com.tgfcodes.bores.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,11 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.persistence.Version;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+import com.tgfcodes.bores.validation.annotation.Required;
 
 @Entity
 @Table(name = "cidade")
@@ -26,20 +24,16 @@ public class Cidade implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@NotBlank(message = "Nome é obrigatório.")
+	@Required
+	@Size(min = 5, max = 35, message = "Deve conter entre 5 e 35 carateres.")
 	private String nome;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "estado_id")
 	private Estado estado = new Estado();
-	@Transient
-	@OneToMany(mappedBy = "cidade", fetch = FetchType.LAZY)
-	private List<Endereco> enderecos = new ArrayList<>();
-
 	@Version
-	private Long version;
+	private Integer version;
 
-	public Cidade() {
-	}
+	public Cidade() {}
 
 	public Long getId() {
 		return id;
@@ -65,20 +59,16 @@ public class Cidade implements Serializable {
 		this.estado = estado;
 	}
 
-	public List<Endereco> getEnderecos() {
-		return enderecos;
-	}
-
-	public void setEnderecos(List<Endereco> enderecos) {
-		this.enderecos = enderecos;
-	}
-
-	public Long getVersion() {
+	public Integer getVersion() {
 		return version;
 	}
 
-	public void setVersion(Long version) {
+	public void setVersion(Integer version) {
 		this.version = version;
+	}
+	
+	public boolean isNova(){
+		return this.id == null;
 	}
 
 	@Override
@@ -105,4 +95,5 @@ public class Cidade implements Serializable {
 			return false;
 		return true;
 	}
+
 }

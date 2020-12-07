@@ -16,7 +16,7 @@ public class PedidoService {
 
 	@Transactional(readOnly = false)
 	public void salvar(Pedido pedido) {
-		this.pedidoRepository.save(pedido);
+		//this.pedidoRepository.save(pedido);
 	}
 	
 	@Transactional(readOnly = true)

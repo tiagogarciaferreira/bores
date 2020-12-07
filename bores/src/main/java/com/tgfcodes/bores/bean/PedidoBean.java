@@ -8,12 +8,17 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import org.primefaces.event.SelectEvent;
 import org.primefaces.model.LazyDataModel;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tgfcodes.bores.messages.Mensagem;
+import com.tgfcodes.bores.model.Cidade;
 import com.tgfcodes.bores.model.Pedido;
 import com.tgfcodes.bores.model.Produto;
+import com.tgfcodes.bores.model.enumeration.FormaPagamento;
+import com.tgfcodes.bores.service.CidadeService;
+import com.tgfcodes.bores.service.EstadoService;
 import com.tgfcodes.bores.service.PedidoService;
 import com.tgfcodes.bores.util.FacesUtil;
 
@@ -24,6 +29,10 @@ public class PedidoBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Autowired
 	private PedidoService pedidoService;
+	@Autowired
+	private EstadoService estadoService;
+	@Autowired
+	private CidadeService cidadeService;
 	private Pedido pedido;
 	private LazyDataModel<Pedido> lazyDataModel;
 	
@@ -60,7 +69,23 @@ public class PedidoBean implements Serializable {
 			//this.lazyDataModel = this.pedidoService.pesquisar();
 		}
 	}
+	
+	public FormaPagamento[] formasPagemento() {
+		return FormaPagamento.values();
+	}
 
+	public void buscarCidades(SelectEvent<EnderecoBean> event) {
+		var estadoId = (event.getObject() != null) ? String.valueOf(event.getObject()) : "0";
+		this.pedido.getEnderecoEntrega().setEstado(this.estadoService.buscarPorId(Long.parseLong(estadoId)));
+	}
+	
+	public List<Cidade> listarCidades(){
+		if(this.pedido.getEnderecoEntrega().getEstado().getId() != null){
+			return this.cidadeService.listar(this.pedido.getEnderecoEntrega().getEstado().getId());
+		}
+		return null;
+	}
+	
 	public Pedido getPedido() {
 		return pedido;
 	}

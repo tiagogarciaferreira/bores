@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.PostLoad;
+import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -32,11 +33,17 @@ public class Usuario implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Required
+	@Size(min = 5, max = 60, message = "Deve conter entre 5 e 60 caracteres.")
 	private String nome;
+	@Required
+	@Mail
+	@Size(max = 40, message = "Tamanho máximo de 40 caracteres.")
 	private String email;
 	private String senha;
 	@Transient
 	private String confirmacaoSenha;
+	@Size(min = 1 ,message = "Selecione pelo menos um grupo.")
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "grupo_id"))
 	private List<Grupo> grupos = new ArrayList<>();
@@ -55,8 +62,6 @@ public class Usuario implements Serializable {
 		this.id = id;
 	}
 
-	@Required//Deve conter entre {min} e {max} caracteres.
-	@Size(min = 5, max = 50, message = "{teste}")
 	public String getNome() {
 		return nome;
 	}
@@ -65,8 +70,6 @@ public class Usuario implements Serializable {
 		this.nome = nome;
 	}
 
-	@Required
-	@Mail
 	public String getEmail() {
 		return email;
 	}
@@ -90,7 +93,7 @@ public class Usuario implements Serializable {
 	public void setConfirmacaoSenha(String confirmacaoSenha) {
 		this.confirmacaoSenha = confirmacaoSenha;
 	}
-
+	
 	public Boolean getAtivo() {
 		return ativo;
 	}
@@ -99,7 +102,6 @@ public class Usuario implements Serializable {
 		this.ativo = ativo;
 	}
 
-	@Size(min = 1 ,message = "Selecione pelo menos um grupo.")
 	public List<Grupo> getGrupos() {
 		return grupos;
 	}
@@ -115,11 +117,21 @@ public class Usuario implements Serializable {
 		this.version = version;
 	}
 	
-	@PreUpdate
+	public boolean isNovo() {
+		return this.id == null;
+	}
+	
 	@PostLoad
-	private void preUpdate() {
+	private void postLoad() {
 		this.confirmacaoSenha = this.senha;
 	}
+	
+	@PrePersist
+	@PreUpdate
+	private void prePersistOrUpdate() {
+		this.email = this.email.toLowerCase();
+	}
+	
 	
 	@Override
 	public int hashCode() {

@@ -1,15 +1,11 @@
 package com.tgfcodes.bores.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.validation.constraints.Size;
@@ -25,11 +21,11 @@ public class Categoria implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Required
+	@Size(min = 5, max = 30, message = "Deve conter entre 5 e 30 carateres.")
 	private String nome;
-	@OneToMany(mappedBy = "categoria", fetch = FetchType.LAZY)
-	private List<Subcategoria> subcategorias = new ArrayList<>();
 	@Version
-	private Long version;
+	private Integer version;
 
 	public Categoria() {
 	}
@@ -42,8 +38,6 @@ public class Categoria implements Serializable {
 		this.id = id;
 	}
 
-	@Required
-	@Size(min = 4, max = 30, message = "Deve conter entre 4 e 30 caracteres.")
 	public String getNome() {
 		return nome;
 	}
@@ -52,20 +46,16 @@ public class Categoria implements Serializable {
 		this.nome = nome;
 	}
 	
-	public List<Subcategoria> getSubcategorias() {
-		return subcategorias;
-	}
-	
-	public void setSubcategorias(List<Subcategoria> subcategorias) {
-		this.subcategorias = subcategorias;
-	}
-
-	public Long getVersion() {
+	public Integer getVersion() {
 		return version;
 	}
-
-	public void setVersion(Long version) {
+	
+	public void setVersion(Integer version) {
 		this.version = version;
+	}
+	
+	public boolean isNova() {
+		return this.id == null;
 	}
 
 	@Override

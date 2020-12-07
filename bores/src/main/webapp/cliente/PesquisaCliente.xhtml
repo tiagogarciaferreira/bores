@@ -41,7 +41,7 @@
 						<p:button styleClass="btn-primary btn-circle raised-button btn-distancia" icon="fa fa-fw fa-pencil" outcome="/cliente/CadastroCliente" >
 							<f:param name="cliente" value="#{cliente.id}"/>	
 						</p:button>
-					    <p:commandButton styleClass="btn-secondary btn-circle raised-button" icon="fa fa-fw fa-search" process="@this" update="frm:dialogDetalhes"
+					    <p:commandButton styleClass="btn-secondary btn-circle raised-button btn-distancia" icon="fa fa-fw fa-search" process="@this" update="frm:dialogDetalhes"
 							actionListener="#{clienteBean.setCliente(cliente)}" oncomplete="PF('dialogDetalhes').show();"/>
 						<p:commandButton styleClass="btn-danger btn-circle raised-button" icon="fa fa-fw fa-trash-o" actionListener="#{clienteBean.setCliente(cliente)}"
 							 action="#{clienteBean.excluir}" process="@this" update="tblCliente" >

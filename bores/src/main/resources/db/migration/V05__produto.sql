@@ -1,11 +1,12 @@
 CREATE TABLE "produto" (
   "id" serial8,
+  "descricao" varchar(255) NOT NULL,
   "nome" varchar(50) NOT NULL,
   "sku" varchar(10) NOT NULL,
   "valor_unitario" numeric(10,2) NOT NULL,
   "quantidade_estoque" int4 NOT NULL,
   "subcategoria_id" int8 NOT NULL,
-  "version" int8 NOT NULL,
+  "version" int4 NOT NULL,
   PRIMARY KEY ("id")
 );
 

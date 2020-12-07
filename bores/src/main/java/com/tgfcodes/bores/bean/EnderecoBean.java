@@ -30,26 +30,29 @@ public class EnderecoBean implements Serializable {
 	@Autowired
 	private EstadoService estadoService;
 	private Endereco endereco;
-	private List<Cidade> cidades;
 	private List<Endereco> enderecos;
+	private String tabAtiva;
 
 	@PostConstruct
 	public void inicializar() {
 		this.novo();
 	}
 
-	private void novo() {
+	public void novo() {
 		Long clienteAtual = null;
 		if(this.endereco != null && this.endereco.getCliente().getId() != null) {
 			clienteAtual = this.endereco.getCliente().getId();
 		}
 		this.endereco = new Endereco();
 		this.endereco.getCliente().setId(clienteAtual);
+		
 	}
 
 	public void salvar() {
 		this.enderecoService.salvar(this.endereco);
 		Mensagem.info("Endereço: ", "Salvo com sucesso.");
+		this.enderecos.remove(this.endereco);
+		this.enderecos.add(this.endereco);
 		this.novo();
 	}
 
@@ -61,7 +64,7 @@ public class EnderecoBean implements Serializable {
 	}
 	
 	public void selecionarCliente(TabChangeEvent<EnderecoBean> event) {
-		var tabAtiva = event.getTab().getId();
+		tabAtiva = event.getTab().getId();
 		if(tabAtiva.equals("endereco")) {
 			var clienteId = (Long) event.getComponent().getAttributes().get("cliente");
 			this.endereco.getCliente().setId(clienteId);
@@ -69,18 +72,24 @@ public class EnderecoBean implements Serializable {
 		}
 	}
 	
-	public void selecionarEndereco() {
-		this.cidades = this.cidadeService.listar(this.endereco.getEstado().getId());
-	}
-	
 	public void buscarCidades(SelectEvent<EnderecoBean> event) {
 		var estadoId = (event.getObject() != null) ? String.valueOf(event.getObject()) : "0";
 		this.endereco.setEstado(this.estadoService.buscarPorId(Long.parseLong(estadoId)));
-		this.cidades = this.cidadeService.listar(Long.parseLong(estadoId));
 	}
 	
-	public List<Cidade> getCidades() {
-		return cidades;
+	public List<Cidade> listarCidades(){
+		if(this.endereco.getEstado().getId() != null){
+			return this.cidadeService.listar(this.endereco.getEstado().getId());
+		}
+		return null;
+	}
+	
+	public void selecionar(Endereco endereco) {
+		this.endereco = endereco;
+	}
+	
+	public String getTabAtiva() {
+		return tabAtiva;
 	}
 
 	public Endereco getEndereco() {
@@ -93,10 +102,6 @@ public class EnderecoBean implements Serializable {
 
 	public List<Endereco> getEnderecos() {
 		return enderecos;
-	}
-	
-	public void setEnderecos(List<Endereco> enderecos) {
-		this.enderecos = enderecos;
 	}
 	
 }

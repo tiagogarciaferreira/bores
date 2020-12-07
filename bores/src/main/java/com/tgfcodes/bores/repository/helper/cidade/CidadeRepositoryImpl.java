@@ -50,7 +50,7 @@ public class CidadeRepositoryImpl implements CidadeQueries {
 		Root<Cidade> cidadeRoot = criteriaQuery.from(Cidade.class);
 		criteriaQuery = (sortOrder == null) ? criteriaQuery.select(builder.count(cidadeRoot)) : criteriaQuery.select(cidadeRoot);
 		
-		if (sortOrder != null && !sortOrder.equals(SortOrder.UNSORTED) && !StringUtils.isEmpty(sortField)) {
+		if (sortOrder != null && !sortOrder.equals(SortOrder.UNSORTED) && StringUtils.hasText(sortField)) {
 			criteriaQuery.orderBy(sortOrder.equals(SortOrder.ASCENDING) ? builder.asc(cidadeRoot.get(sortField)) : builder.desc(cidadeRoot.get(sortField)));
 		}
 		

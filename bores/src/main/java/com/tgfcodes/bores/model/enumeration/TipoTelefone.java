@@ -2,7 +2,7 @@ package com.tgfcodes.bores.model.enumeration;
 
 public enum TipoTelefone {
 
-	MOVEL("Movel"), 
+	MOVEL("Móvel"), 
 	FIXO("Fixo");
 
 	private String descricao;

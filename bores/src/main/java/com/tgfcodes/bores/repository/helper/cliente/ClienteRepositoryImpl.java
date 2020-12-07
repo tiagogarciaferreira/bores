@@ -51,7 +51,7 @@ public class ClienteRepositoryImpl implements ClienteQueries {
 		Root<Cliente> clienteRoot = criteriaQuery.from(Cliente.class);
 		criteriaQuery = (sortOrder == null) ? criteriaQuery.select(builder.count(clienteRoot)) : criteriaQuery.select(clienteRoot);
 		
-		if (sortOrder != null && !sortOrder.equals(SortOrder.UNSORTED) && !StringUtils.isEmpty(sortField)) {
+		if (sortOrder != null && !sortOrder.equals(SortOrder.UNSORTED) && StringUtils.hasText(sortField)) {
 			criteriaQuery.orderBy(sortOrder.equals(SortOrder.ASCENDING) ? builder.asc(clienteRoot.get(sortField)) : builder.desc(clienteRoot.get(sortField)));
 		}
 		

@@ -45,9 +45,9 @@
 						<p:button styleClass="btn-primary btn-circle raised-button btn-distancia" icon="fa fa-fw fa-pencil" outcome="/usuario/CadastroUsuario" >
 							<f:param name="usuario" value="#{usuario.id}"/>	
 						</p:button>
-					    <p:commandButton styleClass="btn-secondary btn-circle raised-button" icon="fa fa-fw fa-search" process="@this" update="frm:dialogDetalhes"
-							actionListener="#{usuarioBean.setUsuario(usuario)}" oncomplete="PF('dialogDetalhes').show();"/>
-						<p:commandButton styleClass="btn-danger btn-circle raised-button" icon="fa fa-fw fa-trash-o" actionListener="#{usuarioBean.setUsuario(usuario)}"
+					    <p:commandButton styleClass="btn-secondary btn-circle raised-button btn-distancia" icon="fa fa-fw fa-search" process="@this" update="frm:dialogDetalhes"
+							actionListener="#{usuarioBean.selecionar(usuario)}" oncomplete="PF('dialogDetalhes').show();"/>
+						<p:commandButton styleClass="btn-danger btn-circle raised-button" icon="fa fa-fw fa-trash-o" actionListener="#{usuarioBean.selecionar(usuario)}"
 							 action="#{usuarioBean.excluir}" process="@this" update="tblUsuario" >
 							<p:confirm icon="fa fa-fw fa-exclamation-triangle" header="Confirmação" message="Tem certeza de que deseja continuar?"/>
 						</p:commandButton>	
@@ -64,8 +64,14 @@
 						<h:outputText value="#{usuarioBean.usuario.id}" />
 					</p:column>
 					<p:column>
+						<p:outputLabel styleClass="label-info" value="Nome: "/>
+						<h:outputText value="#{usuarioBean.usuario.nome}" />
+					</p:column>
+					<p:column>
 						<p:outputLabel styleClass="label-info" value="Grupos: "/>
-						<h:outputText value="#{usuarioBean.usuario.grupos}" />
+						<ui:repeat value="#{usuarioBean.usuario.grupos}" var="grupo">
+						    <h:outputText value="#{grupo.nome}|" />
+						</ui:repeat>
 					</p:column>
 				</p:panelGrid>
 			</p:dialog>

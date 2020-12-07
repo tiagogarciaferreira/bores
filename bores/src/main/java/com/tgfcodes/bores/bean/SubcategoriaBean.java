@@ -35,7 +35,7 @@ public class SubcategoriaBean implements Serializable {
 	}
 
 	public void salvar() {
-		this.subcategoriaService.salvar(subcategoria);
+		this.subcategoriaService.salvar(this.subcategoria);
 		Mensagem.info("Subcategoria: ", "Salva com sucesso.");
 		this.nova();
 	}

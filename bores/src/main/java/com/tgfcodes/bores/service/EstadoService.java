@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tgfcodes.bores.exception.NegocioException;
 import com.tgfcodes.bores.model.Estado;
+import com.tgfcodes.bores.repository.CidadeRepository;
 import com.tgfcodes.bores.repository.EstadoRepository;
 
 @Service
@@ -16,6 +17,8 @@ public class EstadoService {
 
 	@Autowired
 	private EstadoRepository estadoRepository;
+	@Autowired
+	private CidadeRepository cidadeRepository;
 	
 	@Transactional(readOnly = false)
 	public void salvar(Estado estado) {
@@ -24,10 +27,11 @@ public class EstadoService {
 	
 	@Transactional(readOnly = false)
 	public void excluir(Estado estado) {
-		estado = this.buscarPorId(estado.getId());
-		if(!estado.getCidades().isEmpty()) {
-			throw new NegocioException("Estado: Não pode ser excluído. Possue cidades associadas.");
+		boolean remover = this.cidadeRepository.existsByEstado(estado);
+		if(remover) { 
+			throw new NegocioException("Estado: Não pode ser excluído. Possue cidades associadas."); 
 		}
+		estado = this.buscarPorId(estado.getId());
 		this.estadoRepository.delete(estado);
 	}
 	

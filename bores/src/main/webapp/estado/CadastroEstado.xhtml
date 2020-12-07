@@ -36,8 +36,8 @@
 				    </p:column>    
 				    <p:column headerText="Ações" styleClass="column-acao">
 						<p:commandButton styleClass="btn-primary btn-circle raised-button" icon="fa fa-fw fa-pencil" process="@this" update="frm:dialogEstado"
-							actionListener="#{estadoBean.setEstado(estado)}" oncomplete="PF('dialogEstado').show();"/>
-						<p:commandButton styleClass="btn-danger btn-circle raised-button" icon="fa fa-fw fa-trash-o" actionListener="#{estadoBean.setEstado(estado)}"
+							actionListener="#{estadoBean.selecionar(estado)}" oncomplete="PF('dialogEstado').show();"/>
+						<p:commandButton styleClass="btn-danger btn-circle raised-button" icon="fa fa-fw fa-trash-o" actionListener="#{estadoBean.selecionar(estado)}"
 							 action="#{estadoBean.excluir}" process="@this" update="tblEstado" >
 							<p:confirm icon="fa fa-fw fa-exclamation-triangle" header="Confirmação" message="Tem certeza de que deseja continuar?"/>
 						</p:commandButton>	
@@ -51,7 +51,7 @@
 				resizable="false" responsive="true" closeOnEscape="true" blockScroll="true" position="center" positionType="absolute">
 				
 				<f:facet name="header">
-					<p:outputLabel value="#{estadoBean.estado.id == null ? 'Novo Estado' : 'Editar Estado'}"  styleClass="dialog-title"/>
+					<p:outputLabel value="#{estadoBean.estado.novo eq true ? 'Novo Estado' : 'Editar Estado'}"  styleClass="dialog-title"/>
 				</f:facet>
 	
 				<p:ajax event="close" resetValues="true" process="@this" update="dialogEstado" listener="#{estadoBean.novo}"/>
@@ -60,8 +60,7 @@
 					<p:column>
 						<p:outputLabel styleClass="input-label">Nome</p:outputLabel>
 						<p:inputText id="nome" label="Nome" styleClass="ui-g-12" type="text" value="#{estadoBean.estado.nome}"
-							 required="true" requiredMessage="Campo obrigatório." autocomplete="off">
-							<p:watermark for="nome" value="Nome do estado" />
+							 required="true" requiredMessage="Campo obrigatório." autocomplete="off" placeholder="Nome do estado">
 							<p:clientValidator event="keyup" />
 						</p:inputText>
 						<p:message for="nome" styleClass="msg-invalid"/>
@@ -69,15 +68,15 @@
 					<p:column>
 						<p:outputLabel styleClass="input-label">Sigla</p:outputLabel>
 						<p:inputText id="sigla" label="Sigla" styleClass="ui-g-12" type="text" value="#{estadoBean.estado.sigla}"
-							 required="true" requiredMessage="Campo obrigatório." autocomplete="off">
-							<p:watermark for="sigla" value="Sigla do estado" />
+							 required="true" requiredMessage="Campo obrigatório." autocomplete="off" placeholder="Sigla do estado">
 							<p:clientValidator event="keyup" />
 						</p:inputText>
 						<p:message for="sigla" styleClass="msg-invalid"/>
 					</p:column>
 					<p:column>
-						<p:commandButton validateClient="true" styleClass="btn-primary raised-button" icon="fa fa-fw fa-save" value="Salvar" 
-							process="dialogEstado" ajax="true" action="#{estadoBean.salvar}" update="@form"
+						<p:commandButton validateClient="true" styleClass="btn-primary raised-button" icon="fa fa-fw fa-save" 
+						     value="#{estadoBean.estado.novo eq true ? 'Salvar':'Salvar alterações'}" 
+							 process="dialogEstado" ajax="true" action="#{estadoBean.salvar}" update="@form"
 							 oncomplete="if (!args.validationFailed) PF('dialogEstado').hide()"/>
 					</p:column>			
 				</p:panelGrid>

@@ -48,7 +48,7 @@
 				resizable="false" responsive="true" closeOnEscape="true" blockScroll="true" position="center" positionType="absolute">
 				
 				<f:facet name="header">
-					<p:outputLabel value="#{categoriaBean.categoria.id == null ? 'Nova Categoria' : 'Editar Categoria'}"  styleClass="dialog-title"/>
+					<p:outputLabel value="#{categoriaBean.categoria.nova eq true ? 'Nova Categoria' : 'Editar Categoria'}"  styleClass="dialog-title"/>
 				</f:facet>
 	
 				<p:ajax event="close" resetValues="true" process="@this" update="dialogCategoria" listener="#{categoriaBean.nova}"/>
@@ -57,15 +57,16 @@
 					<p:column>
 						<p:outputLabel styleClass="input-label">Nome</p:outputLabel>
 						<p:inputText id="nome" label="Nome" styleClass="ui-g-12" type="text" value="#{categoriaBean.categoria.nome}"
-							 required="true" requiredMessage="Campo obrigatório." autocomplete="off" placeholder="Nome">
+							 required="true" requiredMessage="Campo obrigatório." autocomplete="off" placeholder="Nome da categoria">
 							<p:clientValidator event="keyup" />
 						</p:inputText>
 						<p:message for="nome" styleClass="msg-invalid"/>
 					</p:column>
 					<p:column>
-						<p:commandButton validateClient="true" styleClass="btn-primary raised-button" icon="fa fa-fw fa-save" value="Salvar" 
+						<p:commandButton validateClient="true" styleClass="btn-primary raised-button" icon="fa fa-fw fa-save" 
+							value="#{categoriaBean.categoria.nova eq true ? 'Salvar':'Salvar alterações'}" 
 							process="dialogCategoria" ajax="true" action="#{categoriaBean.salvar}" update="@form"
-							 oncomplete="if (!args.validationFailed) PF('dialogCategoria').hide()"/>
+							oncomplete="if (!args.validationFailed) PF('dialogCategoria').hide()"/>
 					</p:column>			
 				</p:panelGrid>
 			</p:dialog>	

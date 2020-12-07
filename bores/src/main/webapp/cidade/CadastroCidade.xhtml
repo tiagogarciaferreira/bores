@@ -36,8 +36,8 @@
 				    </p:column>    
 				    <p:column headerText="Ações" styleClass="column-acao">
 						<p:commandButton styleClass="btn-primary btn-circle raised-button" icon="fa fa-fw fa-pencil" process="@this" update="frm:dialogCidade"
-							actionListener="#{cidadeBean.setCidade(cidade)}" oncomplete="PF('dialogCidade').show();"/>
-						<p:commandButton styleClass="btn-danger btn-circle raised-button" icon="fa fa-fw fa-trash-o" actionListener="#{cidadeBean.setCidade(cidade)}"
+							actionListener="#{cidadeBean.selecionar(cidade)}" oncomplete="PF('dialogCidade').show();"/>
+						<p:commandButton styleClass="btn-danger btn-circle raised-button" icon="fa fa-fw fa-trash-o" actionListener="#{cidadeBean.selecionar(cidade)}"
 							 action="#{cidadeBean.excluir}" process="@this" update="tblCidade" >
 							<p:confirm icon="fa fa-fw fa-exclamation-triangle" header="Confirmação" message="Tem certeza de que deseja continuar?"/>
 						</p:commandButton>	
@@ -51,33 +51,34 @@
 				resizable="false" responsive="true" closeOnEscape="true" blockScroll="true" position="center" positionType="absolute">
 				
 				<f:facet name="header">
-					<p:outputLabel value="#{cidadeBean.cidade.id == null ? 'Nova Cidade' : 'Editar Cidade'}"  styleClass="dialog-title"/>
+					<p:outputLabel value="#{cidadeBean.cidade.nova eq true ? 'Nova Cidade' : 'Editar Cidade'}"  styleClass="dialog-title"/>
 				</f:facet>
 	
 				<p:ajax event="close" resetValues="true" process="@this" update="dialogCidade" listener="#{cidadeBean.nova}"/>
 				
 				<p:panelGrid layout="grid" columns="1">
 					<p:column>
-						<p:outputLabel styleClass="input-label">Estado</p:outputLabel>
-						<p:selectOneMenu id="estado" label="Estado" styleClass="ui-g-12" converter="#{estadoConverter}"
-  	 						 filter="true" filterMatchMode="startsWith" value="#{cidadeBean.cidade.estado.id}">
-							<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
-							<f:selectItems value="#{estadoBean.listar()}" var="estado" itemValue="#{estado.id}" itemLabel="#{estado.nome}"  />
+						<p:outputLabel styleClass="input-label">Estado</p:outputLabel> 
+						<p:selectOneMenu id="estado" label="Estado" styleClass="ui-g-12" converter="#{estadoConverter}" 
+  	 						 filter="true" filterMatchMode="startsWith" value="#{cidadeBean.cidade.estado.id}"
+  	 						 required="true" requiredMessage="Campo obrigatório.">
+							<f:selectItem itemLabel="Selecione o estado" noSelectionOption="true" />
+							<f:selectItems value="#{estadoBean.listar()}" var="estado" itemValue="#{estado.id}" itemLabel="#{estado.nome}"/>
 						</p:selectOneMenu>
 						<p:message for="estado" styleClass="msg-invalid"/>
 					</p:column>
 					<p:column>
 						<p:outputLabel styleClass="input-label">Nome</p:outputLabel>
 						<p:inputText id="nome" label="Nome" styleClass="ui-g-12" type="text" value="#{cidadeBean.cidade.nome}"
-							 required="true" requiredMessage="Campo obrigatório." autocomplete="off">
-							<p:watermark for="nome" value="Nome da cidade" />
+							 required="true" requiredMessage="Campo obrigatório." autocomplete="off" placeholder="Nome da cidade">
 							<p:clientValidator event="keyup" />
 						</p:inputText>
 						<p:message for="nome" styleClass="msg-invalid"/>
 					</p:column>
 					<p:column>
-						<p:commandButton validateClient="true" styleClass="btn-primary raised-button" icon="fa fa-fw fa-save" value="Salvar" 
-							process="dialogCidade" ajax="true" action="#{cidadeBean.salvar}" update="@form"
+						<p:commandButton validateClient="true" styleClass="btn-primary raised-button" icon="fa fa-fw fa-save"
+							 value="#{cidadeBean.cidade.nova eq true ? 'Salvar':'Salvar alterações'}" 
+							 process="dialogCidade" ajax="true" action="#{cidadeBean.salvar}" update="@form"
 							 oncomplete="if (!args.validationFailed) PF('dialogCidade').hide()"/>
 					</p:column>			
 				</p:panelGrid>

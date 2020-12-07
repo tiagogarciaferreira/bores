@@ -15,6 +15,9 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
+import javax.validation.constraints.Size;
+
+import com.tgfcodes.bores.validation.annotation.Required;
 
 @Entity
 @Table(name = "endereco")
@@ -25,10 +28,16 @@ public class Endereco implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Required
+	@Size(min = 5, max = 80, message = "Deve conter entre 5 e 80 caracteres.")
 	private String logradouro;
+	@Required
+	@Size(max = 10, message = "Tamanho máximo de 10 caracteres.")
 	private String numero;
+	@Size(max = 100, message = "Tamanho máximo de 100 caracteres.")
 	private String complemento;
 	private String uf;
+	@Required
 	private String cep;
 	@JoinColumn(name = "cidade_id")
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -108,6 +117,7 @@ public class Endereco implements Serializable {
 		this.cliente = cliente;
 	}
 	
+	
 	public Integer getVersion() {
 		return version;
 	}
@@ -115,13 +125,17 @@ public class Endereco implements Serializable {
 	public void setVersion(Integer version) {
 		this.version = version;
 	}
-	
+
 	public Estado getEstado() {
 		return estado;
 	}
 	
 	public void setEstado(Estado estado) {
 		this.estado = estado;
+	}
+	
+	public boolean isNovo() {
+		return this.id == null;
 	}
 	
 	@PrePersist

@@ -1,18 +1,18 @@
 package com.tgfcodes.bores.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.persistence.Version;
+import javax.validation.constraints.Size;
+
+import com.tgfcodes.bores.validation.annotation.Required;
 
 @Entity
 @Table(name = "estado")
@@ -23,13 +23,14 @@ public class Estado implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Required
+	@Size(min = 4, max = 30, message = "Deve conter entre 4 e 30 carateres.")
 	private String nome;
+	@Required
+	@Size(min = 2, max = 2, message = "Deve conter 2 letras.")
 	private String sigla;
-	@Transient
-	@OneToMany(mappedBy = "estado", fetch = FetchType.LAZY)
-	private List<Cidade> cidades = new ArrayList<>();
 	@Version
-	private Long version;
+	private Integer version;
 
 	public Estado() {
 	}
@@ -58,22 +59,24 @@ public class Estado implements Serializable {
 		this.sigla = sigla;
 	}
 
-	public List<Cidade> getCidades() {
-		return cidades;
-	}
-
-	public void setCidades(List<Cidade> cidades) {
-		this.cidades = cidades;
-	}
-
-	public Long getVersion() {
+	public Integer getVersion() {
 		return version;
 	}
-
-	public void setVersion(Long version) {
+	
+	public void setVersion(Integer version) {
 		this.version = version;
 	}
+	
+	public boolean isNovo() {
+		return this.id == null;
+	}
 
+	@PrePersist
+	@PreUpdate
+	private void prePersistOrUpdate() {
+		this.sigla = this.sigla.toUpperCase(); 
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

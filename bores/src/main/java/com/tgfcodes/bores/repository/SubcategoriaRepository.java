@@ -12,6 +12,6 @@ import com.tgfcodes.bores.repository.helper.subcategoria.SubcategoriaQueries;
 @Repository
 public interface SubcategoriaRepository extends JpaRepository<Subcategoria, Long>, SubcategoriaQueries {
 
-	List<Subcategoria> findByCategoria(Categoria categoria);
-	
+	public List<Subcategoria> findByCategoria(Categoria categoria);
+	public boolean existsByCategoria(Categoria categoria);
 }

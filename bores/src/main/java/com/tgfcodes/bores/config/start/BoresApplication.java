@@ -10,8 +10,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
-@EntityScan(basePackages = {"com.tgfcodes.bores.model"})
 @ComponentScan(basePackages = {"com.tgfcodes.bores.*"})
+@EntityScan(basePackages = {"com.tgfcodes.bores.model"})
 @EnableJpaRepositories(basePackages = {"com.tgfcodes.bores.repository"})
 @EnableTransactionManagement
 public class BoresApplication extends SpringBootServletInitializer {

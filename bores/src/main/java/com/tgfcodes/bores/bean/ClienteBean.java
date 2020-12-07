@@ -1,6 +1,8 @@
 package com.tgfcodes.bores.bean;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -53,6 +55,10 @@ public class ClienteBean implements Serializable{
 			this.lazyDataModel = this.clienteService.pesquisar();
 		}
 	}
+	
+	public List<Cliente> completarCliente(String nome){
+		return this.clienteService.completar(nome);
+	} 
 	
 	public TipoPessoa[] tiposPessoa() {
 		return TipoPessoa.values();

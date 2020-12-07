@@ -36,17 +36,16 @@ public class JsfExceptionHandler extends ExceptionHandlerWrapper {
 		while (events.hasNext()) {
 			ExceptionQueuedEvent event = events.next();
 			ExceptionQueuedEventContext context = (ExceptionQueuedEventContext) event.getSource();
-			Throwable exception = context.getException();
-			NegocioException negocioException = (NegocioException) ExceptionUtils.getRootCause(exception);
+			Throwable exception = ExceptionUtils.getRootCause(context.getException());
 			boolean handled = false;
 			try {
 				if (exception instanceof ViewExpiredException) {
 					handled = true;
 					this.redirect("/admin/Dashboard.xhtml");
-				} else if (negocioException != null) {
+				} else if (exception instanceof NegocioException) {
 					handled = true;
-					String message[] = negocioException.getMessage().split(":");
-					Mensagem.error(message[0]+":", message[1]);
+					String message[] = exception.getMessage().split(":");
+					Mensagem.error(message[0] + ":", message[1]);
 				} else {
 					handled = true;
 					this.redirect("/error/500.xhtml");

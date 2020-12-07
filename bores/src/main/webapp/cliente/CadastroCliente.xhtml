@@ -7,34 +7,34 @@
 
 <ui:define name="title">Bores - Clientes</ui:define>
 <ui:define name="conteudo">
-	<f:metadata>
-		<f:viewParam name="reload" value="noreload"/>
-	</f:metadata>
 	<h:form id="frm">
 		<div class="card-page">
 			<p:panel styleClass="panel-padrao">
-				<h2><h:outputText value="#{clienteBean.cliente.id == null ? 'Novo Cliente' : 'Editar Cliente'}"/></h2>
+				<h2><h:outputText value="#{clienteBean.cliente.novo eq true ? 'Novo Cliente' : 'Editar Cliente'}"/></h2>
 				<p:messages for="msg" showDetail="true" closable="true" globalOnly="true">
 					<p:autoUpdate/>
 				</p:messages>
-				<p:toolbar styleClass="toolbar-menu">
+				<p:toolbar styleClass="toolbar-menu" id="btns">
 					<f:facet name="left">
 						<p:button value="Pesquisar" outcome="/cliente/PesquisaCliente" iconPos="left" icon="fa fa-fw fa-search"
 							 styleClass="btn-info raised-button"/>
+						<p:commandButton styleClass="btn-info raised-button" icon="fa fa-fw fa-plus-circle" rendered="#{enderecoBean.tabAtiva ne 'endereco'}"
+    						 value="Novo cliente" process="frm:tabViewCliente:gridCliente" ajax="true" actionListener="#{clienteBean.novo}" update="@form"/>
+						<p:commandButton styleClass="btn-info raised-button" icon="fa fa-fw fa-plus-circle" rendered="#{enderecoBean.tabAtiva eq 'endereco'}"
+							 value="Novo endereço" process="frm:tabViewCliente:gridEndereco" ajax="true" actionListener="#{enderecoBean.novo}" update="@form"/>							 
 					</f:facet>
 				</p:toolbar>
 			</p:panel>
 		
 		    <p:tabView id="tabViewCliente" dynamic="true" cache="true" effect="fold" styleClass="tabView-padrao">
 			    <f:attribute name="cliente" value="#{clienteBean.cliente.id}"/>
-	        	<p:ajax event="tabChange" process="@this" listener="#{enderecoBean.selecionarCliente}"/>
+	        	<p:ajax event="tabChange" process="@this" listener="#{enderecoBean.selecionarCliente}" update="frm:btns"/>
 		        <p:tab id="dados" title="Dados">
 					<p:panelGrid id="gridCliente" layout="grid" columns="2">
 						<p:column>
 							<p:outputLabel styleClass="input-label">Nome</p:outputLabel>
 							<p:inputText id="nome" label="Nome" styleClass="ui-g-12" type="text" value="#{clienteBean.cliente.nome}"
-								 required="true" requiredMessage="Campo obrigatório." autocomplete="off">
-								<p:watermark for="nome" value="Nome do cliente" />
+								 required="true" requiredMessage="Campo obrigatório." autocomplete="off" placeholder="Nome do cliente">
 								<p:clientValidator event="keyup" />
 							</p:inputText>
 							<p:message for="nome" styleClass="msg-invalid"/>
@@ -42,8 +42,7 @@
 						<p:column>
 							<p:outputLabel styleClass="input-label">Email</p:outputLabel>
 							<p:inputText id="email" label="Email" styleClass="ui-g-12" type="text" value="#{clienteBean.cliente.email}"
-								 required="true" requiredMessage="Campo obrigatório." autocomplete="off">
-								<p:watermark for="email" value="Email do cliente" />
+								 required="true" requiredMessage="Campo obrigatório." autocomplete="off" placeholder="Email do cliente" >
 								<p:clientValidator event="keyup" />
 							</p:inputText>
 							<p:message for="email" styleClass="msg-invalid"/>
@@ -56,18 +55,19 @@
 									value="#{clienteBean.cliente.tipoPessoa}" >
 									<f:selectItems value="#{clienteBean.tiposPessoa()}" var="tipo" itemValue="#{tipo}" itemLabel="#{tipo.descricao}" />
 									<p:ajax event="change" process="@this" update="textCpfCnpj cpfCnpj"/>
+									<p:clientValidator event="change"/>
 								</p:selectOneButton>
 								<p:message for="tipoPessoa" styleClass="msg-invalid"/>
 						     </div>
 						     <div class="ui-g-6 pad-zero">
 								<p:outputLabel styleClass="input-label" id="textCpfCnpj">
-									<h:outputText value="#{clienteBean.cliente.tipoPessoa eq 'FISICA' ? 'Cpf':'Cnpj'}"/>
+									<h:outputText value="#{clienteBean.cliente.tipoPessoa eq 'FISICA' ? 'CPF':'CNPJ'}"/>
 								</p:outputLabel>
 								<p:inputMask disabled="#{clienteBean.cliente.tipoPessoa == null}" id="cpfCnpj" label="#{clienteBean.cliente.tipoPessoa eq 'FISICA' ? 'Cpf':'Cnpj'}" styleClass="ui-g-12" type="text" 
 									value="#{clienteBean.cliente.cpfOuCnpj}" required="true" requiredMessage="Campo obrigatório." 
 									mask="#{clienteBean.cliente.tipoPessoa eq 'FISICA' ? '999.999.999-99':'99.999.999/9999-99'}" 
 									autocomplete="off">
-									<p:watermark for="cpfCnpj" value="#{clienteBean.cliente.tipoPessoa eq 'FISICA' ? 'Cpf do cliente':'Cnpj do cliente'}" />
+									<p:watermark for="cpfCnpj" value="#{clienteBean.cliente.tipoPessoa eq 'FISICA' ? 'CPF do cliente':'CNPJ do cliente'}" />
 									<p:clientValidator event="keyup" />
 								</p:inputMask>
 								<p:message for="cpfCnpj" styleClass="msg-invalid"/>
@@ -80,6 +80,7 @@
 									value="#{clienteBean.cliente.tipoTelefone}" layout="grid" columns="2">
 									<f:selectItems value="#{clienteBean.tiposTelefone()}" var="tipo" itemValue="#{tipo}" itemLabel="#{tipo.descricao}"/>
 									<p:ajax event="change" process="@this" update="telefone"/>
+									<p:clientValidator event="change"/>
 								</p:selectOneRadio>
 								<p:message for="tipoTelefone" styleClass="msg-invalid"/>
 						     </div>
@@ -88,26 +89,28 @@
 								<p:inputMask id="telefone" label="Telefone" styleClass="ui-g-12" type="text" 
 									value="#{clienteBean.cliente.telefone}" required="true" requiredMessage="Campo obrigatório." 
 									mask="#{clienteBean.cliente.tipoTelefone eq 'MOVEL' ? '(99) 9 9999-9999':'(99) 9999-9999'}" 
-									disabled="#{clienteBean.cliente.tipoTelefone == null}" autocomplete="off">
-									<p:watermark for="telefone" value="Telefone do cliente" />
+									disabled="#{clienteBean.cliente.tipoTelefone == null}" autocomplete="off" placeholder="Telefone do cliente">
 									<p:clientValidator event="keyup" />
 								</p:inputMask>
 								<p:message for="telefone" styleClass="msg-invalid"/>
 						     </div>
 						</p:column>
 						<p:column>
+							<p:commandButton styleClass="btn-info raised-button" icon="fa fa-fw fa-plus-circle" rendered="#{clienteBean.cliente.novo eq true}"
+								value="Novo" process="gridCliente" ajax="true" actionListener="#{clienteBean.novo}" update="@form"/>
 							<p:commandButton validateClient="true" styleClass="btn-primary raised-button" icon="fa fa-fw fa-save" 
-								value="#{clienteBean.cliente.id == null ? 'Salvar':'Salvar alterações'}" 
+								value="#{clienteBean.cliente.novo eq true ? 'Salvar':'Salvar alterações'}" 
 								process="gridCliente" ajax="true" action="#{clienteBean.salvar}" update="@form"/>
 						</p:column>			
 					</p:panelGrid>
 		        </p:tab>
-		        <p:tab id="endereco" title="Endereço" disabled="#{clienteBean.cliente.id == null}" >
+		        <p:tab id="endereco" title="Endereço" disabled="#{clienteBean.cliente.novo eq true}" >
 					<p:panelGrid id="gridEndereco" layout="grid" columns="2">
 						<p:column>
 							<p:outputLabel styleClass="input-label">Estado</p:outputLabel>
 							<p:selectOneMenu id="estado" label="Estado" styleClass="ui-g-12" converter="#{estadoConverter}"
-	  	 						 filter="true" filterMatchMode="startsWith" value="#{enderecoBean.endereco.estado.id}">
+	  	 						 filter="true" filterMatchMode="startsWith" value="#{enderecoBean.endereco.estado.id}"
+	  	 						 required="true" requiredMessage="Campo obrigatório.">
 								<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
 								<f:selectItems value="#{estadoBean.listar()}" var="estado" itemValue="#{estado.id}" itemLabel="#{estado.nome}"  />
 								<p:ajax event="itemSelect" process="@this" listener="#{enderecoBean.buscarCidades}" update="cidade"/>
@@ -118,17 +121,16 @@
 							<p:outputLabel styleClass="input-label">Cidade</p:outputLabel>
 							<p:selectOneMenu id="cidade" label="Cidade" styleClass="ui-g-12" converter="#{cidadeConverter}"
 		 	 						 filter="true" filterMatchMode="startsWith" value="#{enderecoBean.endereco.cidade.id}"
-		 	 						disabled="#{empty enderecoBean.cidades}">
-								<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
-								<f:selectItems value="#{enderecoBean.cidades}" var="cidade" itemValue="#{cidade.id}" itemLabel="#{cidade.nome}"  />
+		 	 						 required="true" requiredMessage="Campo obrigatório.">
+		 	 						 <f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+								<f:selectItems value="#{enderecoBean.listarCidades()}" var="cidade" itemValue="#{cidade.id}" itemLabel="#{cidade.nome}"  />
 							</p:selectOneMenu>
 							<p:message for="cidade" styleClass="msg-invalid"/>
 						</p:column>		
 						<p:column>
 							<p:outputLabel styleClass="input-label">Cep</p:outputLabel>
 							<p:inputMask id="cep" label="Cep" styleClass="ui-g-12" type="text" value="#{enderecoBean.endereco.cep}"
-								 required="true" requiredMessage="Campo obrigatório." autocomplete="off" mask="99999-999">
-								<p:watermark for="cep" value="Cep do local" />
+								 required="true" requiredMessage="Campo obrigatório." autocomplete="off" mask="99999-999" placeholder="Cep do local">
 								<p:clientValidator event="keyup" />
 							</p:inputMask>
 							<p:message for="cep" styleClass="msg-invalid"/>
@@ -136,8 +138,7 @@
 						<p:column>
 							<p:outputLabel styleClass="input-label">Logradouro</p:outputLabel>
 							<p:inputText id="logradouro" label="Logradouro" styleClass="ui-g-12" type="text" value="#{enderecoBean.endereco.logradouro}"
-								 required="true" requiredMessage="Campo obrigatório." autocomplete="off" >
-								<p:watermark for="logradouro" value="Endereço do cliente" />
+								 required="true" requiredMessage="Campo obrigatório." autocomplete="off" placeholder="Endereço do cliente">
 								<p:clientValidator event="keyup" />
 							</p:inputText>
 							<p:message for="logradouro" styleClass="msg-invalid"/>
@@ -145,8 +146,7 @@
 						<p:column>
 							<p:outputLabel styleClass="input-label">Numero</p:outputLabel>
 							<p:inputText id="numero" label="Numero" styleClass="ui-g-12" type="text" value="#{enderecoBean.endereco.numero}"
-								 required="true" requiredMessage="Campo obrigatório." autocomplete="off" >
-								<p:watermark for="numero" value="Numero do local" />
+								 required="true" requiredMessage="Campo obrigatório." autocomplete="off" placeholder="Numero do local">
 								<p:clientValidator event="keyup" />
 							</p:inputText>
 							<p:message for="numero" styleClass="msg-invalid"/>
@@ -154,16 +154,19 @@
 						<p:column>
 							<p:outputLabel styleClass="input-label-not-obriga">Complemento</p:outputLabel>
 							<p:inputText id="complemento" label="Complemento" styleClass="ui-g-12" type="text" value="#{enderecoBean.endereco.complemento}"
-								 required="true" requiredMessage="Campo obrigatório." autocomplete="off" >
-								<p:watermark for="complemento" value="Complemente o endereço do cliente" />
+								 autocomplete="off" placeholder="Complemente o endereço">
 								<p:clientValidator event="keyup" />
 							</p:inputText>
 							<p:message for="complemento" styleClass="msg-invalid"/>
 						</p:column>
 						<p:column>
+							<p:commandButton styleClass="btn-info raised-button" icon="fa fa-fw fa-plus-circle" rendered="#{enderecoBean.endereco.novo != true}"
+								value="Novo" process="gridEndereco" ajax="true" actionListener="#{enderecoBean.novo}" update="@form"/>
+								
 							<p:commandButton validateClient="true" styleClass="btn-primary raised-button" icon="fa fa-fw fa-save" 
-								value="#{enderecoBean.endereco.id == null ? 'Salvar':'Salvar alterações'}" 
+								value="#{enderecoBean.endereco.novo eq true ? 'Salvar':'Salvar alterações'}" 
 								process="gridEndereco" ajax="true" action="#{enderecoBean.salvar}" update="@form"/>
+								
 						</p:column>	
 					</p:panelGrid>
 					

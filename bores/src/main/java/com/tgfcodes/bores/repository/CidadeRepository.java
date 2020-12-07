@@ -12,5 +12,6 @@ import com.tgfcodes.bores.repository.helper.cidade.CidadeQueries;
 @Repository
 public interface CidadeRepository extends JpaRepository<Cidade, Long>, CidadeQueries {
 
-	List<Cidade> findByEstado(Estado estado);
+	public List<Cidade> findByEstado(Estado estado);
+	public boolean existsByEstado(Estado estado);
 }

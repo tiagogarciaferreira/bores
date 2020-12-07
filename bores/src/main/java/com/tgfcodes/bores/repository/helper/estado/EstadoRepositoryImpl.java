@@ -50,7 +50,7 @@ public class EstadoRepositoryImpl implements EstadoQueries {
 		Root<Estado> estadoRoot = criteriaQuery.from(Estado.class);
 		criteriaQuery = (sortOrder == null) ? criteriaQuery.select(builder.count(estadoRoot)) : criteriaQuery.select(estadoRoot);
 		
-		if (sortOrder != null && !sortOrder.equals(SortOrder.UNSORTED) && !StringUtils.isEmpty(sortField)) {
+		if (sortOrder != null && !sortOrder.equals(SortOrder.UNSORTED) && StringUtils.hasText(sortField)) {
 			criteriaQuery.orderBy(sortOrder.equals(SortOrder.ASCENDING) ? builder.asc(estadoRoot.get(sortField)) : builder.desc(estadoRoot.get(sortField)));
 		}
 		

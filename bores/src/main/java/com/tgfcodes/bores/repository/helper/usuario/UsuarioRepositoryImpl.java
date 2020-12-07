@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 
 import org.primefaces.model.FilterMeta;
@@ -51,12 +52,16 @@ public class UsuarioRepositoryImpl implements UsuarioQueries {
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
      	CriteriaQuery criteriaQuery = (sortOrder == null) ? builder.createQuery(Long.class) : builder.createQuery(Usuario.class);
 		Root<Usuario> usuarioRoot = criteriaQuery.from(Usuario.class);
-		criteriaQuery = (sortOrder == null) ? criteriaQuery.select(builder.count(usuarioRoot)) : criteriaQuery.select(usuarioRoot);
 		
-		if (sortOrder != null && !sortOrder.equals(SortOrder.UNSORTED) && !StringUtils.isEmpty(sortField)) {
+		if(sortOrder != null) {
+			usuarioRoot.fetch("grupos", JoinType.LEFT);
+			criteriaQuery = criteriaQuery.select(usuarioRoot);
+		}else {
+			criteriaQuery = criteriaQuery.select(builder.count(usuarioRoot));
+		}
+		if (sortOrder != null && !sortOrder.equals(SortOrder.UNSORTED) && StringUtils.hasText(sortField)) {
 			criteriaQuery.orderBy(sortOrder.equals(SortOrder.ASCENDING) ? builder.asc(usuarioRoot.get(sortField)) : builder.desc(usuarioRoot.get(sortField)));
 		}
-		
 		if (filterBy.size() > 0) {
 			for (FilterMeta meta : filterBy.values()) {
 				if(meta.getFilterValue() !=  null) {

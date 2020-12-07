@@ -50,6 +50,9 @@ header div .div-icon-bars{
 	text-align: left;
 	top: 15px;
 }
+header div .div-icon-bars button span{
+	padding: 1px;
+}
 header div .div-btn-conta{
 	text-align: right;
 	padding-right: 5px;
@@ -816,19 +819,6 @@ body div.pad-right{
     color: #C63737;
 }
 
-/* ### PEDIDO ### */
-body table tr.footer-table-item td{
-    text-align: right;
-    border: none;
-    padding-top: 5px;
-    padding-bottom: 0px;
-}
-body table tr.footer-table-item td.col-total{
-	text-align: center;
-	border-left: 0 solid #dbdbdb;
-	border-left-width: 1px;	
-}
-
 /* ### TOGGLE SWITCH ### */
 .ui-toggleswitch.toggle-status .ui-toggleswitch-slider, .ui-toggleswitch.toggle-status.ui-toggleswitch-focus .ui-toggleswitch-slider,
 .ui-toggleswitch.toggle-status:not(.ui-state-disabled):hover .ui-toggleswitch-slider{
@@ -840,6 +830,35 @@ body .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link .ui-menuitem-icon.ui-
 	height: 1em;
 	width: 1em;
     color: #007ad9;
+}
+
+/* ### INPUT NUMBER ### */
+body .ui-inputnumber{
+	display:inline-table;
+	width: 100%;
+}
+body .ui-inputnumber .ui-inputfield{
+	width: 100%;
+}
+
+/* ### INPUT SPINNER ### */
+body .ui-spinner .ui-spinner-input {
+    padding-bottom: .600em;
+    text-align: left;
+}
+
+
+/* ### PEDIDO ### */
+body table tr.footer-table-item td{
+    text-align: right;
+    border: none;
+    padding-top: 5px;
+    padding-bottom: 0px;
+}
+body table tr.footer-table-item td.col-total{
+	text-align: center;
+	border-left: 0 solid #dbdbdb;
+	border-left-width: 1px;	
 }
 
 /* ### BUTTON ### */

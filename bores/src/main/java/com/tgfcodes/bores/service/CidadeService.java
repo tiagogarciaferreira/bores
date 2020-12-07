@@ -11,6 +11,7 @@ import com.tgfcodes.bores.exception.NegocioException;
 import com.tgfcodes.bores.model.Cidade;
 import com.tgfcodes.bores.model.Estado;
 import com.tgfcodes.bores.repository.CidadeRepository;
+import com.tgfcodes.bores.repository.EnderecoRepository;
 import com.tgfcodes.bores.repository.EstadoRepository;
 
 @Service
@@ -19,24 +20,26 @@ public class CidadeService {
 	@Autowired
 	private CidadeRepository cidadeRepository;
 	@Autowired
+	private EnderecoRepository enderecoRepository;
+	@Autowired
 	private EstadoRepository estadoRepository;
-
+	
 	@Transactional(readOnly = false)
 	public void salvar(Cidade cidade) {
+		cidade.setEstado((cidade.getId() == null) ? this.estadoRepository.getOne(cidade.getEstado().getId()) : cidade.getEstado());	
 		this.cidadeRepository.save(cidade);
 	}
-
+	
 	@Transactional(readOnly = false)
 	public void excluir(Cidade cidade) {
-		cidade = this.buscarPorId(cidade.getId());
-
-		if (!cidade.getEnderecos().isEmpty()) {
+		boolean remover = this.enderecoRepository.existsByCidade(cidade);
+		if(remover) {
 			throw new NegocioException("Cidade: Não pode ser excluída. Possue endereços associados.");
 		}
-
+		cidade = this.buscarPorId(cidade.getId());
 		this.cidadeRepository.delete(cidade);
 	}
-
+	
 	@Transactional(readOnly = true)
 	public LazyDataModel<Cidade> pesquisar() {
 		return this.cidadeRepository.pesquisar();
