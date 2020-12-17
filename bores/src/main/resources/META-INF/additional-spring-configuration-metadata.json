@@ -18,5 +18,25 @@
     "name": "hibernate.enable_lazy_load_no_trans",
     "type": "java.lang.String",
     "description": "A description for 'hibernate.enable_lazy_load_no_trans'"
+  },
+  {
+    "name": "mailjet.mail.username",
+    "type": "java.lang.String",
+    "description": "A description for 'mailjet.mail.username'"
+  },
+  {
+    "name": "mailjet.mail.password",
+    "type": "java.lang.String",
+    "description": "A description for 'mailjet.mail.password'"
+  },
+  {
+    "name": "mailjet.mail.host",
+    "type": "java.lang.String",
+    "description": "A description for 'mailjet.mail.host'"
+  },
+  {
+    "name": "mailjet.mail.port",
+    "type": "java.lang.String",
+    "description": "A description for 'mailjet.mail.port'"
   }
 ]}

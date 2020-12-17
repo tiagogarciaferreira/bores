@@ -84,7 +84,7 @@
 	
 				<p:column>
 					<p:commandButton validateClient="true" styleClass="btn-primary raised-button" icon="fa fa-fw fa-save" 
-						value="#{usuarioBean.usuario.novo eq true ? 'Salvar':'Salvar alterações'}" 
+						value="#{usuarioBean.usuario.novo ? 'Salvar':'Salvar alterações'}" 
 						process="gridUsuario" ajax="true" action="#{usuarioBean.salvar}" update="@form"/>
 				</p:column>			
 			</p:panelGrid>

@@ -11,6 +11,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,13 +20,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.PostLoad;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.tgfcodes.bores.model.enumeration.FormaPagamento;
 import com.tgfcodes.bores.model.enumeration.StatusPedido;
@@ -39,9 +41,11 @@ public class Pedido implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	@CreationTimestamp
 	@Column(name = "data_criacao")
 	private LocalDateTime dataCriacao;
+	@Size(max = 255, message = "Tamanho máximo de 255 caracteres.")
 	private String observacao;
 	@Column(name = "valor_frete")
 	private BigDecimal valorFrete = BigDecimal.ZERO;
@@ -50,8 +54,10 @@ public class Pedido implements Serializable {
 	@Column(name = "valor_total")
 	private BigDecimal valorTotal = BigDecimal.ZERO;
 	@Required
+	@Enumerated(EnumType.STRING)
 	private StatusPedido status = StatusPedido.ORCAMENTO;
 	@Required
+	@Enumerated(EnumType.STRING)
 	@Column(name = "forma_pagamento")
 	private FormaPagamento formaPagamento;
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -65,8 +71,10 @@ public class Pedido implements Serializable {
 	private LocalDateTime dataEntrega;
 	@Embedded
 	private EnderecoEntrega enderecoEntrega = new EnderecoEntrega();
-	@OneToMany(mappedBy = "pedido", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<ItemPedido> itens = new ArrayList<>();
+	@Version
+	private Integer version;
 
 	public Pedido() {
 	}
@@ -86,7 +94,7 @@ public class Pedido implements Serializable {
 	public void setDataCriacao(LocalDateTime dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
-
+	
 	public String getObservacao() {
 		return observacao;
 	}
@@ -175,24 +183,48 @@ public class Pedido implements Serializable {
 		this.itens = itens;
 	}
 	
+	public Integer getVersion() {
+		return version;
+	}
+	
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+	
 	public boolean isNovo() {
 		return this.id == null;
 	}
-	
-	@PrePersist
-	private void prePersist() {
-		this.enderecoEntrega.setUf(this.enderecoEntrega.getEstado().getNome());
-	}
-	
-	@PreUpdate
-	private void preUpdate() {
-		this.enderecoEntrega.setUf(this.enderecoEntrega.getEstado().getNome());
+
+	public boolean isOrcamento() {
+		return StatusPedido.ORCAMENTO.equals(this.getStatus());
 	}
 
-	@PostLoad
-	private void postLoad() {
-		this.enderecoEntrega.setEstado(this.enderecoEntrega.getCidade().getEstado());
-		this.enderecoEntrega.setUf(this.enderecoEntrega.getEstado().getNome());
+	public boolean isEmitido() {
+		return StatusPedido.EMITIDO.equals(this.getStatus());
+	}
+	
+	public boolean isValorTotalNegativo() {
+		return this.getValorTotal().compareTo(BigDecimal.ZERO) < 0;
+	}
+
+	public boolean isEmissivel() {
+		return !this.isNovo() && this.isOrcamento();
+	}
+
+	public boolean isCancelado() {
+		return StatusPedido.CANCELADO.equals(this.getStatus());
+	}
+	
+	public boolean isCancelavel() {
+		return !this.isNovo() && !this.isCancelado();
+	}
+	
+	public boolean isAlteravel() {
+		return this.isOrcamento();
+	}
+	
+	public boolean isEnviavelPorEmail() {
+		return !this.isNovo() && !this.isCancelado();
 	}
 	
 	public BigDecimal getValorSubtotal() {
@@ -220,10 +252,6 @@ public class Pedido implements Serializable {
 		}
 	}
 
-	public boolean isOrcamento() {
-		return StatusPedido.ORCAMENTO.equals(this.getStatus());
-	}
-
 	public void removerItemVazio() {
 		ItemPedido primeiroItem = this.getItens().get(0);
 		if (primeiroItem != null && primeiroItem.getProduto().getId() == null) {
@@ -231,22 +259,6 @@ public class Pedido implements Serializable {
 		}
 	}
 
-	public boolean isValorTotalNegativo() {
-		return this.getValorTotal().compareTo(BigDecimal.ZERO) < 0;
-	}
-
-	public boolean isEmitido() {
-		return StatusPedido.EMITIDO.equals(this.getStatus());
-	}
-
-	public boolean isNaoEmissivel() {
-		return !this.isEmissivel();
-	}
-
-	public boolean isEmissivel() {
-		return !this.isNovo() && this.isOrcamento();
-	}
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -271,5 +283,6 @@ public class Pedido implements Serializable {
 			return false;
 		return true;
 	}
+
 
 }

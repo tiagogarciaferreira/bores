@@ -9,7 +9,7 @@ CREATE TABLE "pedido" (
   "data_entrega" timestamp(0) NOT NULL,
   "cliente_id" int8 NOT NULL,
   "vendedor_id" int8 NOT NULL,
-  "observacao" varchar(100),
+  "observacao" varchar(255),
   "uf" varchar(30) NOT NULL,
   "cep" varchar(12) NOT NULL,
   "cidade_id" int8 NOT NULL,

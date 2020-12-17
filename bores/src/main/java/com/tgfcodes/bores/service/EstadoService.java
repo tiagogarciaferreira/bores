@@ -29,7 +29,7 @@ public class EstadoService {
 	public void excluir(Estado estado) {
 		boolean remover = this.cidadeRepository.existsByEstado(estado);
 		if(remover) { 
-			throw new NegocioException("Estado: Não pode ser excluído. Possue cidades associadas."); 
+			throw new NegocioException("Estado não pode ser excluído. Possue cidades associadas."); 
 		}
 		estado = this.buscarPorId(estado.getId());
 		this.estadoRepository.delete(estado);

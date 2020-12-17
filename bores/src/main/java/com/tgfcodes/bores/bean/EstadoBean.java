@@ -2,11 +2,14 @@ package com.tgfcodes.bores.bean;
 
 import java.io.Serializable;
 import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+
 import org.primefaces.model.LazyDataModel;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import com.tgfcodes.bores.messages.Mensagem;
 import com.tgfcodes.bores.model.Estado;
 import com.tgfcodes.bores.service.EstadoService;
@@ -33,13 +36,13 @@ public class EstadoBean implements Serializable{
 	
 	public void salvar() {
 		this.estadoService.salvar(this.estado);
-		Mensagem.info("Estado: ", "Salvo com sucesso.");
+		Mensagem.info("Estado salvo com sucesso.");
 		this.novo();
 	}
 
 	public void excluir() {
 		this.estadoService.excluir(this.estado);
-		Mensagem.info("Estado: ", "Excluído com sucesso.");
+		Mensagem.info("Estado excluído com sucesso.");
 		this.novo();
 	}
 	

@@ -32,10 +32,10 @@ public class UsuarioService {
 	public void salvar(Usuario usuario) {
 		Usuario usuarioExistente = this.usuarioRepository.findByEmailIgnoreCase(usuario.getEmail());
 		if(usuarioExistente != null && !usuario.equals(usuarioExistente)) {
-			throw new NegocioException("Email: Já esta cadastrado para outro usuário.");
+			throw new NegocioException("Email já esta cadastrado.");
 		}
 		if(usuario.getId() == null && !StringUtils.hasText(usuario.getSenha())) {
-			throw new NegocioException("Senha: Obrigatória a novos usuário.");
+			throw new NegocioException("Senha obrigatória a novos usuário.");
 		}
 		if (usuario.getId() == null || !StringUtils.hasText(usuario.getSenha())) {
 			//TODO: descomentar ao colocar segurança
@@ -48,9 +48,9 @@ public class UsuarioService {
 	
 	@Transactional(readOnly = false)
 	public void excluir(Usuario usuario) {
-		boolean remover = this.pedidoRepository.existsByUsuario(usuario);
+		boolean remover = this.pedidoRepository.existsByVendedor(usuario);
 		if(remover) {
-			throw new NegocioException("Usuário: Não pode ser excluído. Possue pedidos associados.");
+			throw new NegocioException("Usuário(Vendedor) não pode ser excluído. Possue pedidos associados.");
 		}
 		usuario = this.buscarPorId(usuario.getId());
 		this.usuarioRepository.delete(usuario);

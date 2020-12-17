@@ -44,8 +44,7 @@ public class JsfExceptionHandler extends ExceptionHandlerWrapper {
 					this.redirect("/admin/Dashboard.xhtml");
 				} else if (exception instanceof NegocioException) {
 					handled = true;
-					String message[] = exception.getMessage().split(":");
-					Mensagem.error(message[0] + ":", message[1]);
+					Mensagem.error(exception.getMessage());
 				} else {
 					handled = true;
 					this.redirect("/error/500.xhtml");

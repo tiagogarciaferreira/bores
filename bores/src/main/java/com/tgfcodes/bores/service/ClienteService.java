@@ -27,11 +27,11 @@ public class ClienteService {
 		Cliente clienteExistente = this.clienteRepository.porEmailOuCpfCnpj(cliente.getEmail(), TipoPessoa.removerFormatacao(cliente.getCpfOuCnpj()));
 		if(clienteExistente != null) {
 			if(clienteExistente.getEmail().equalsIgnoreCase(cliente.getEmail())) {
-				throw new NegocioException("Email: Já esta cadastrado para outro cliente.");
+				throw new NegocioException("Email já esta cadastrado.");
 			}
 			if(clienteExistente.getCpfOuCnpj().equals(cliente.getCpfOuCnpj())) {
-				String documento = cliente.getTipoPessoa().equals(TipoPessoa.FISICA) ? "CPF: " : "CNPJ: ";
-				throw new NegocioException(documento + "Já esta cadastrado para outro cliente.");
+				String documento = cliente.getTipoPessoa().equals(TipoPessoa.FISICA) ? "CPF " : "CNPJ ";
+				throw new NegocioException(documento + "já esta cadastrado.");
 			}
 		}
 		this.clienteRepository.save(cliente);
@@ -41,7 +41,7 @@ public class ClienteService {
 	public void excluir(Cliente cliente) {
 		boolean remover = this.pedidoRepository.existsByCliente(cliente);
 		if(remover) {
-			throw new NegocioException("Cliente: Não pode ser excluído. Possue pedidos associados.");
+			throw new NegocioException("Cliente não pode ser excluído. Possue pedidos associados.");
 		}
 		cliente = this.buscarPorId(cliente.getId());
 		this.clienteRepository.delete(cliente);

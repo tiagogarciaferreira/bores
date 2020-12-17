@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<body style="font-family: Arial; font-size: 14px;">
+	
+	<p style="text-align: center;">
+		<img src="cid:$logo"/>
+	</p>
+
+	<h1 style="font-size: 22px">Olá Sr(a) $pedido.cliente.nome</h1>
+	
+	<p>
+		Estamos enviando para você a relação de itens de seu pedido em nossa loja de produtos.
+	</p>
+	
+	<table style="width: 100%; border-collapse: collapse;  margin: 20px 0">
+		#foreach ($item in $pedido.itens)
+			#if ($item.produto.id)
+				<tr style="border-bottom: 1px solid #ccc; border-top: 1px solid #ccc">
+					<td style="width: 50px; padding-bottom: 10px; padding-top: 10px">
+						<img style="width: 40px" src="cid:$produto"/>
+					</td>
+					<td style="vertical-align: top; padding-bottom: 10px; padding-top: 10px">
+						<div style="display: block; font-weight: bold; font-size: 16px" >$item.produto.nome</div>
+						<div style="color: #8e8e8e">$item.produto.subcategoria.categoria.nome - $item.produto.subcategoria.nome</div>
+						<div style="color: #8e8e8e">$item.quantidade x $number.format("¤ #0.00", $item.produto.valorUnitario, $locale)</div>
+					</td>
+					<td style="vertical-align: top; text-align: right; padding-bottom: 10px; padding-top: 10px">
+						<span style="display: block; font-weight: bold; font-size: 16px">$number.format("¤ #0.00", $item.valorTotal, $locale)</span>
+					</td>
+				</tr>
+			#end
+		#end
+	</table>
+	
+	<p style="font-size: 12px">
+		* O status de seu pedido é: <strong style="color: red"><span>$pedido.status.descricao</span></strong>.
+	</p>
+	
+	<table style="width: 100%;">
+		<tr>
+			<td style="text-align: right; font-weight: bold">Subtotal:</td>
+			<td style="width: 120px; text-align: right">$number.format("¤ #0.00", $subtotalPedido, $locale)</td>
+		</tr>
+		<tr>
+			<td style="text-align: right; font-weight: bold">Frete:</td>
+			<td style="width: 100px; text-align: right">
+				<span>$number.format("¤ #0.00", $pedido.valorFrete, $locale)</span>
+			</td>
+		</tr>
+		<tr>
+			<td style="text-align: right; font-weight: bold">Desconto:</td>
+			<td style="width: 100px; text-align: right"><span>$number.format("¤ #0.00", $pedido.valorDesconto, $locale)</span></td>
+		</tr>
+		<tr>
+			<td style="text-align: right; font-weight: bold; font-size: 16px">Total final:</td>
+			<td style="width: 100px; text-align: right; font-weight: bold; font-size: 16px">
+				<span>$number.format("¤ #0.00", $pedido.valorTotal, $locale)</span>
+			</td>
+		</tr>
+	</table>
+	
+	<p>Obrigado.</p>
+	<p>Equipe Bores!</p>
+</body>
+</html>

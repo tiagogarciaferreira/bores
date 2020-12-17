@@ -34,7 +34,7 @@ public class CidadeService {
 	public void excluir(Cidade cidade) {
 		boolean remover = this.enderecoRepository.existsByCidade(cidade);
 		if(remover) {
-			throw new NegocioException("Cidade: Não pode ser excluída. Possue endereços associados.");
+			throw new NegocioException("Cidade não pode ser excluída. Possue endereços associados.");
 		}
 		cidade = this.buscarPorId(cidade.getId());
 		this.cidadeRepository.delete(cidade);

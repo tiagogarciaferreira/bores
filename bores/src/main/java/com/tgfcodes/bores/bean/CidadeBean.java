@@ -35,13 +35,13 @@ public class CidadeBean implements Serializable{
 	
 	public void salvar() {
 		this.cidadeService.salvar(this.cidade);
-		Mensagem.info("Cidade: ", "Salva com sucesso.");
+		Mensagem.info("Cidade salva com sucesso.");
 		this.nova();
 	}
 
 	public void excluir() {
 		this.cidadeService.excluir(this.cidade);
-		Mensagem.info("Cidade: ", "Excluída com sucesso.");
+		Mensagem.info("Cidade excluída com sucesso.");
 		this.nova();
 	}
 	

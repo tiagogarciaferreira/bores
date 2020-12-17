@@ -38,13 +38,13 @@ public class UsuarioBean implements Serializable{
 	
 	public void salvar() {
 		this.usuarioService.salvar(this.usuario);
-		Mensagem.info("Usuário: ", "Salvo com sucesso.");
+		Mensagem.info("Usuário salvo com sucesso.");
 		this.novo();
 	}
 
 	public void excluir() {
 		this.usuarioService.excluir(this.usuario);
-		Mensagem.info("Usuário: ", "Excluído com sucesso.");
+		Mensagem.info("Usuário excluído com sucesso.");
 		this.novo();
 	}
 	
@@ -52,7 +52,7 @@ public class UsuarioBean implements Serializable{
 		var usuarioId = (Long) event.getComponent().getAttributes().get("usuario");
 		Boolean novoStatus = (Boolean) ((UIOutput) event.getSource()).getValue();
 		this.usuarioService.updateStatus(usuarioId, novoStatus);
-		Mensagem.info("Usuário: ", "Status atualizado com sucesso.");
+		Mensagem.info("Status atualizado com sucesso.");
 	}
 	
 	public List<Usuario> buscarVendedores() {

@@ -22,6 +22,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.tgfcodes.bores.exception.NegocioException;
 import com.tgfcodes.bores.validation.annotation.Required;
 import com.tgfcodes.bores.validation.annotation.SKU;
 
@@ -131,6 +132,18 @@ public class Produto implements Serializable {
 		return this.id == null;
 	}
 	
+	public void baixarEstoque(Integer quantidade) {
+		int novaQuantidade = this.getQuantidadeEstoque() - quantidade;
+		if(novaQuantidade < 0) {
+			throw new NegocioException("Pedido: Não há disponibilidade de " + novaQuantidade + "un. do item SKU: " + this.sku);
+		}
+		this.setQuantidadeEstoque(novaQuantidade);
+	}
+	
+	public void voltarEstoque(Integer quantidade) {
+		this.setQuantidadeEstoque(this.getQuantidadeEstoque() + quantidade);
+	}
+	
 	@PrePersist
 	@PreUpdate
 	private void prePersistUpdate() {
@@ -161,5 +174,4 @@ public class Produto implements Serializable {
 			return false;
 		return true;
 	}
-
 }

@@ -6,6 +6,9 @@ import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PostLoad;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Transient;
 
 @Embeddable
@@ -79,4 +82,18 @@ public class EnderecoEntrega implements Serializable {
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
+	
+	@PrePersist
+	@PreUpdate
+	private void prePersistOrUpdate() {
+		this.uf = this.cidade.getEstado().getNome();
+		this.estado = this.cidade.getEstado();
+	}
+	
+	@PostLoad
+	private void postLoad() {
+		this.estado = this.cidade.getEstado();
+		this.uf = this.estado.getNome();
+	}
+	
 }

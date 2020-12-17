@@ -48,7 +48,7 @@
 				resizable="false" responsive="true" closeOnEscape="true" blockScroll="true" position="center" positionType="absolute">
 				
 				<f:facet name="header">
-					<p:outputLabel value="#{categoriaBean.categoria.nova eq true ? 'Nova Categoria' : 'Editar Categoria'}"  styleClass="dialog-title"/>
+					<p:outputLabel value="#{categoriaBean.categoria.nova ? 'Nova Categoria' : 'Editar Categoria'}"  styleClass="dialog-title"/>
 				</f:facet>
 	
 				<p:ajax event="close" resetValues="true" process="@this" update="dialogCategoria" listener="#{categoriaBean.nova}"/>
@@ -64,7 +64,7 @@
 					</p:column>
 					<p:column>
 						<p:commandButton validateClient="true" styleClass="btn-primary raised-button" icon="fa fa-fw fa-save" 
-							value="#{categoriaBean.categoria.nova eq true ? 'Salvar':'Salvar alterações'}" 
+							value="#{categoriaBean.categoria.nova ? 'Salvar':'Salvar alterações'}" 
 							process="dialogCategoria" ajax="true" action="#{categoriaBean.salvar}" update="@form"
 							oncomplete="if (!args.validationFailed) PF('dialogCategoria').hide()"/>
 					</p:column>			

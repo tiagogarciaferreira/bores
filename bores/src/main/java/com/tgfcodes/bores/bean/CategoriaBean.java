@@ -2,11 +2,14 @@ package com.tgfcodes.bores.bean;
 
 import java.io.Serializable;
 import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+
 import org.primefaces.model.LazyDataModel;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import com.tgfcodes.bores.messages.Mensagem;
 import com.tgfcodes.bores.model.Categoria;
 import com.tgfcodes.bores.service.CategoriaService;
@@ -33,13 +36,13 @@ public class CategoriaBean implements Serializable{
 	
 	public void salvar() {
 		this.categoriaService.salvar(this.categoria);
-		Mensagem.info("Categoria: ", "Salva com sucesso.");
+		Mensagem.info("Categoria salva com sucesso.");
 		this.nova();
 	}
 
 	public void excluir() {
 		this.categoriaService.excluir(this.categoria);
-		Mensagem.info("Categoria: ", "Excluída com sucesso.");
+		Mensagem.info("Categoria excluída com sucesso.");
 		this.nova();
 	}
 	

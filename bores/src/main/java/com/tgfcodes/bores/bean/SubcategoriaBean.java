@@ -36,13 +36,13 @@ public class SubcategoriaBean implements Serializable {
 
 	public void salvar() {
 		this.subcategoriaService.salvar(this.subcategoria);
-		Mensagem.info("Subcategoria: ", "Salva com sucesso.");
+		Mensagem.info("Subcategoria salva com sucesso.");
 		this.nova();
 	}
 
 	public void excluir() {
 		this.subcategoriaService.excluir(this.subcategoria);
-		Mensagem.info("Subcategoria: ", "Excluída com sucesso.");
+		Mensagem.info("Subcategoria excluída com sucesso.");
 		this.nova();
 	}
 	

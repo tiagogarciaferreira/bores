@@ -29,31 +29,26 @@
 				</p:column>
 
 				<p:column >
-					<p:outputLabel for="username" styleClass="input-label">Usuário</p:outputLabel>
+					<p:outputLabel styleClass="input-label">Usuário</p:outputLabel>
 					<p:inputText id="username" label="Usuário" styleClass="ui-g-12">
 						<p:watermark for="username" value="Informe seu usuário"/>
 					</p:inputText>
 				</p:column>
 				
 				<p:column>
-					<p:outputLabel for="password" styleClass="input-label">Senha</p:outputLabel>
+					<p:outputLabel styleClass="input-label">Senha</p:outputLabel>
 					<p:password id="password" label="Senha" styleClass="ui-g-12">
 						<p:watermark for="password" value="Informe sua senha"/>
 					</p:password>
 				</p:column>
 				
 				<p:column>
-					<p:commandLink value="Esqueceu sua senha?" styleClass="sublinhar"/>
+					<p:link outcome="/publico/PasswordReset" value="Esqueceu sua senha?" styleClass="sublinhar"/>
 				</p:column>
 				
 				<p:column>
-					<p:commandButton value="Entrar" icon="fa fa-fw fa-lock" styleClass="ui-g-12 btn-center btn-primary raised-button"/>
+					<p:commandButton value="Entrar" styleClass="ui-g-12 btn-center btn-primary raised-button"/>
 				</p:column>
-				
-				<p:column>
-					<p:commandLink value="Não tem conta? Cadastre-se"/>
-				</p:column>
-				
 			</p:panelGrid>
 		</div>	
 	</h:form>

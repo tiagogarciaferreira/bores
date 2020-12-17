@@ -76,7 +76,19 @@
 						<p:clientValidator event="keyup" />
 					</p:spinner>
 					<p:message for="quantidadeEstoque" styleClass="msg-invalid"/>
-				</p:column>			
+				</p:column>
+				<p:column>
+					<p:outputLabel styleClass="input-label">Descrição</p:outputLabel>
+					<p:inputTextarea id="descricao" label="Descrição" styleClass="ui-g-12" autocomplete="off"
+						 maxlength="255" counter="display" counterTemplate="{0} caracteres restantes." autoResize="true" 
+						 placeholder="Descreva o produto" value="#{produtoBean.produto.descricao}"
+						 required="true" requiredMessage="Campo obrigatório.">
+					</p:inputTextarea>
+					<br />
+				    <h:outputText id="display" />
+					<p:message for="descricao" styleClass="msg-invalid"/>
+				</p:column>		
+				<p:column><!--marcação--></p:column>	
 				<p:column>
 					<p:commandButton validateClient="true" styleClass="btn-primary raised-button" icon="fa fa-fw fa-save" 
 						value="#{produtoBean.produto.novo eq true ? 'Salvar':'Salvar alterações'}" 

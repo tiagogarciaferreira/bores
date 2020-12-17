@@ -29,7 +29,7 @@ public class CategoriaService {
 	public void excluir(Categoria categoria) {
 		boolean remover =  this.subcategoriaRepository.existsByCategoria(categoria);
 		if(remover) {
-			throw new NegocioException("Categoria: Não pode ser excluída. Possue subcategorias associadas.");
+			throw new NegocioException("Categoria não pode ser excluída. Possue subcategorias associadas.");
 		}
 		categoria = this.buscarPorId(categoria.getId());
 		this.categoriaRepository.delete(categoria);

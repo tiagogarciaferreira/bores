@@ -2318,7 +2318,7 @@ INSERT INTO cidade (nome, estado_id, version) VALUES('Cezarina', 9, 0);
 INSERT INTO cidade (nome, estado_id, version) VALUES('Chapadao do Ceu', 9, 0);
 INSERT INTO cidade (nome, estado_id, version) VALUES('Choupana', 9, 0);
 INSERT INTO cidade (nome, estado_id, version) VALUES('Cibele', 9, 0);
-INSERT INTO cidade (nome, estado_id, version) VALUES('cidade (nome, estado_id, version) Ocidental', 9, 0);
+INSERT INTO cidade (nome, estado_id, version) VALUES('Cidade Ocidental', 9, 0);
 INSERT INTO cidade (nome, estado_id, version) VALUES('Cirilandia', 9, 0);
 INSERT INTO cidade (nome, estado_id, version) VALUES('Cocalzinho de Goias', 9, 0);
 INSERT INTO cidade (nome, estado_id, version) VALUES('Colinas do Sul', 9, 0);
@@ -4399,7 +4399,7 @@ INSERT INTO cidade (nome, estado_id, version) VALUES('Cassununga', 13, 0);
 INSERT INTO cidade (nome, estado_id, version) VALUES('Castanheira', 13, 0);
 INSERT INTO cidade (nome, estado_id, version) VALUES('Catuai', 13, 0);
 INSERT INTO cidade (nome, estado_id, version) VALUES('Chapada dos Guimaraes', 13, 0);
-INSERT INTO cidade (nome, estado_id, version) VALUES('cidade (nome, estado_id, version) Morena', 13, 0);
+INSERT INTO cidade (nome, estado_id, version) VALUES('Cidade Morena', 13, 0);
 INSERT INTO cidade (nome, estado_id, version) VALUES('Claudia', 13, 0);
 INSERT INTO cidade (nome, estado_id, version) VALUES('Cocalinho', 13, 0);
 INSERT INTO cidade (nome, estado_id, version) VALUES('Colider', 13, 0);
@@ -5901,7 +5901,7 @@ INSERT INTO cidade (nome, estado_id, version) VALUES('Cerro Verde', 18, 0);
 INSERT INTO cidade (nome, estado_id, version) VALUES('Ceu Azul', 18, 0);
 INSERT INTO cidade (nome, estado_id, version) VALUES('Chopinzinho', 18, 0);
 INSERT INTO cidade (nome, estado_id, version) VALUES('Cianorte', 18, 0);
-INSERT INTO cidade (nome, estado_id, version) VALUES('cidade (nome, estado_id, version) Gaucha', 18, 0);
+INSERT INTO cidade (nome, estado_id, version) VALUES('Cidade Gaucha', 18, 0);
 INSERT INTO cidade (nome, estado_id, version) VALUES('Cintra Pimentel', 18, 0);
 INSERT INTO cidade (nome, estado_id, version) VALUES('Clevelandia', 18, 0);
 INSERT INTO cidade (nome, estado_id, version) VALUES('Coitinho', 18, 0);
@@ -8803,7 +8803,7 @@ INSERT INTO cidade (nome, estado_id, version) VALUES('Cesario Lange', 26, 0);
 INSERT INTO cidade (nome, estado_id, version) VALUES('Cezar de Souza', 26, 0);
 INSERT INTO cidade (nome, estado_id, version) VALUES('Charqueada', 26, 0);
 INSERT INTO cidade (nome, estado_id, version) VALUES('Chavantes', 26, 0);
-INSERT INTO cidade (nome, estado_id, version) VALUES('cidade (nome, estado_id, version) Kemel', 26, 0);
+INSERT INTO cidade (nome, estado_id, version) VALUES('Cidade Kemel', 26, 0);
 INSERT INTO cidade (nome, estado_id, version) VALUES('Clarinia', 26, 0);
 INSERT INTO cidade (nome, estado_id, version) VALUES('Clementina', 26, 0);
 INSERT INTO cidade (nome, estado_id, version) VALUES('Colina', 26, 0);
@@ -9690,11 +9690,11 @@ INSERT INTO cidade (nome, estado_id, version) VALUES('Venus', 27, 0);
 INSERT INTO cidade (nome, estado_id, version) VALUES('Wanderlandia', 27, 0);
 
 -- BASE DE PRODUTOS
-INSERT INTO produto (nome, descricao, sku, valor_unitario, quantidade_estoque, subcategoria_id, version) VALUES('Cerveja 1', 'Descrição 1', 'AA2327', 10, 10, 5, 0);
-INSERT INTO produto (nome, descricao, sku, valor_unitario, quantidade_estoque, subcategoria_id, version) VALUES('Cerveja 2', 'Descrição 2', 'AA2328', 10, 20, 5, 0);
-INSERT INTO produto (nome, descricao, sku, valor_unitario, quantidade_estoque, subcategoria_id, version) VALUES('Cerveja 3', 'Descrição 3', 'AA2329', 10, 30, 5, 0);
-INSERT INTO produto (nome, descricao, sku, valor_unitario, quantidade_estoque, subcategoria_id, version) VALUES('Cerveja 4', 'Descrição 4', 'AA2330', 10, 40, 5, 0);
-INSERT INTO produto (nome, descricao, sku, valor_unitario, quantidade_estoque, subcategoria_id, version) VALUES('Cerveja 5', 'Descrição 5', 'AA2331', 10, 50, 5, 0);
+INSERT INTO produto (nome, descricao, sku, valor_unitario, quantidade_estoque, subcategoria_id, version) VALUES('Cerveja', 'Descrição cerveja', 'AA1111', 10, 10, 5, 0);
+INSERT INTO produto (nome, descricao, sku, valor_unitario, quantidade_estoque, subcategoria_id, version) VALUES('Refrigerante', 'Descrição refrigerante', 'BB2222', 10, 20, 5, 0);
+INSERT INTO produto (nome, descricao, sku, valor_unitario, quantidade_estoque, subcategoria_id, version) VALUES('Cadeira', 'Descrição cadeira', 'CC3333', 10, 30, 5, 0);
+INSERT INTO produto (nome, descricao, sku, valor_unitario, quantidade_estoque, subcategoria_id, version) VALUES('Mesa', 'Descrição mesa', 'DD4444', 10, 40, 5, 0);
+INSERT INTO produto (nome, descricao, sku, valor_unitario, quantidade_estoque, subcategoria_id, version) VALUES('Computador', 'Descrição computador', 'EE5555', 10, 50, 5, 0);
 INSERT INTO produto (nome, descricao, sku, valor_unitario, quantidade_estoque, subcategoria_id, version) VALUES('Cerveja 6', 'Descrição 6', 'AA2332', 10, 60, 5, 0);
 INSERT INTO produto (nome, descricao, sku, valor_unitario, quantidade_estoque, subcategoria_id, version) VALUES('Cerveja 7', 'Descrição 7', 'AA2333', 10, 70, 5, 0);
 INSERT INTO produto (nome, descricao, sku, valor_unitario, quantidade_estoque, subcategoria_id, version) VALUES('Cerveja 8', 'Descrição 8', 'AA2334', 10, 80, 5, 0);
@@ -9722,11 +9722,11 @@ INSERT INTO produto (nome, descricao, sku, valor_unitario, quantidade_estoque, s
 INSERT INTO produto (nome, descricao, sku, valor_unitario, quantidade_estoque, subcategoria_id, version) VALUES('Cerveja 30', 'Descrição 30', 'AA2356', 10, 300, 10, 0);
 
 --BASE DE CLIENTES
-INSERT INTO cliente (nome, email, telefone, cpf_cnpj, tipo_pessoa, version) VALUES('Cliente 1', 'cliente1@gmail.com', '(55)98427-8000', '44436520005', 'FISICA', 0);
-INSERT INTO cliente (nome, email, telefone, cpf_cnpj, tipo_pessoa, version) VALUES('Cliente 2', 'cliente2@gmail.com', '(55)3251-4597', '41538641000181', 'JURIDICA', 0);
-INSERT INTO cliente (nome, email, telefone, cpf_cnpj, tipo_pessoa, version) VALUES('Cliente 3', 'cliente3@gmail.com', '(55)98427-8000', '02414697083', 'FISICA', 0);
-INSERT INTO cliente (nome, email, telefone, cpf_cnpj, tipo_pessoa, version) VALUES('Cliente 4', 'cliente4@gmail.com', '(55)3251-4597', '41538641000181', 'JURIDICA', 0);
-INSERT INTO cliente (nome, email, telefone, cpf_cnpj, tipo_pessoa, version) VALUES('Cliente 5', 'cliente5@gmail.com', '(55)98427-8000', '02414697083', 'FISICA', 0);
+INSERT INTO cliente (nome, email, telefone, cpf_cnpj, tipo_pessoa, version) VALUES('Bores', 'tiagogarciaferreira@gmail.com', '(55)98427-8000', '44436520005', 'FISICA', 0);
+INSERT INTO cliente (nome, email, telefone, cpf_cnpj, tipo_pessoa, version) VALUES('Rambo', 'rambo@gmail.com', '(55)3251-4597', '41538641000181', 'JURIDICA', 0);
+INSERT INTO cliente (nome, email, telefone, cpf_cnpj, tipo_pessoa, version) VALUES('Pirata', 'pirata@gmail.com', '(55)98427-8000', '02414697083', 'FISICA', 0);
+INSERT INTO cliente (nome, email, telefone, cpf_cnpj, tipo_pessoa, version) VALUES('Lucifer', 'lucifer@gmail.com', '(55)3251-4597', '41538641000181', 'JURIDICA', 0);
+INSERT INTO cliente (nome, email, telefone, cpf_cnpj, tipo_pessoa, version) VALUES('Constantine', 'constantine@gmail.com', '(55)98427-8000', '02414697083', 'FISICA', 0);
 INSERT INTO cliente (nome, email, telefone, cpf_cnpj, tipo_pessoa, version) VALUES('Cliente 6', 'cliente6@gmail.com', '(55)3251-4597', '41538641000181', 'JURIDICA', 0);
 INSERT INTO cliente (nome, email, telefone, cpf_cnpj, tipo_pessoa, version) VALUES('Cliente 7', 'cliente7@gmail.com', '(55)98427-8000', '02414697083', 'FISICA', 0);
 INSERT INTO cliente (nome, email, telefone, cpf_cnpj, tipo_pessoa, version) VALUES('Cliente 8', 'cliente8@gmail.com', '(55)3251-4597', '41538641000181', 'JURIDICA', 0);
@@ -9791,11 +9791,11 @@ INSERT INTO grupo (nome, version) VALUES ('Vendedor', 0);
 INSERT INTO grupo (nome, version) VALUES ('Auxiliar', 0);
 
 --BASE DE USUARIOS
-INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Tiago', 'tiago30@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'true', 0);
-INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Marcos', 'tiago29@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'true', 0);
-INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Pedro', 'tiago28@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'true', 0);
-INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Luis', 'tiago27@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'true', 0);
-INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Felipe', 'tiago26@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'true', 0);
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Tiago', 'tiagogarciaferreira@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'true', 0);
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Marcos', 'marcos@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'true', 0);
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Pedro', 'pedro@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'true', 0);
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Luis', 'luis@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'true', 0);
+INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Felipe', 'felipe@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'true', 0);
 
 INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Tiago2', 'tiago25@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'false', 0);
 INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Marcos2', 'tiago24@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'false', 0);

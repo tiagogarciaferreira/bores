@@ -4,38 +4,64 @@
 	  xmlns:f="http://java.sun.com/jsf/core"
 	  xmlns:p="http://primefaces.org/ui">
 
-	<p:dataTable id="tblItens" reflow="true" value="#{pedidoBean.listaInit}"
-	   rows="10" paginator="true" lazy="true" paginatorTemplate="{PageLinks}"
+	<p:dataTable id="tblItens" reflow="true" value="#{pedidoBean.pedido.itens}" var="item"
+	   rows="10" paginator="true" lazy="true" paginatorTemplate="{PageLinks}" rowIndexVar="linha"
 	    emptyMessage="Nenhum item encontrado." paginatorAlwaysVisible="false" paginatorPosition="bottom" >
 	    
 	    <p:column headerText="SKU">
-			<p:inputText value="45"/>
+	    	<h:outputText value="#{item.produto.sku}" rendered="#{item.produtoAssociado}" />
+			<p:inputText rendered="#{not item.produtoAssociado}" label="SKU" >
+				<p:ajax event="valueChange" process="@this" listener="#{pedidoBean.carregarProdutoSku}" 
+				 update="tblItens :frm:totalPedido :frm:subtotal"/>	
+			</p:inputText>
 	    </p:column>
 
 		<p:column headerText="Produto">
-			<p:autoComplete id="produto" styleClass="ui-g-12" dropdown="true" value="#{autoCompleteView.txt6}" completeMethod="#{autoCompleteView.completeText}" />
+			<h:outputText value="#{item.produto.nome}" rendered="#{item.produtoAssociado}" />
+			<p:autoComplete styleClass="ui-g-12" dropdown="false" value="#{pedidoBean.produtoEditavel.id}" 
+				completeMethod="#{produtoBean.completarProduto}" var="produto" 
+				itemLabel="#{produto.nome}" itemValue="#{produto.id}" queryDelay="1000"
+				forceSelection="true" converter="#{produtoConverter}" maxResults="10"
+				rendered="#{not item.produtoAssociado}">
+				<p:ajax event="itemSelect" process="@this" listener="#{pedidoBean.carregarProdutoEditavel}" update="tblItens :frm:totalPedido :frm:subtotal"/>	
+			</p:autoComplete>	
 		</p:column>
 
 	    <p:column headerText="Valor/Unitário">
-			<h:outputText value="R$: 45,74" styleClass="text-center"/>
+			<h:outputText value="#{item.valorUnitario}">
+				<f:convertNumber type="currency" locale="pt_BR"/>
+			</h:outputText>
 	    </p:column>
 	    
 	    <p:column headerText="Quantidade">
-			<p:inputText value="1000" styleClass="text-center"/>
+			<p:inputText value="#{item.quantidade}" disabled="#{not pedidoBean.pedido.alteravel}">
+				<p:ajax event="change" process="@this" listener="#{pedidoBean.updateQuantidade(item, linha)}" update="tblItens :frm:totalPedido :frm:subtotal"/>	
+			</p:inputText>
 	    </p:column>
 	    
 	    <p:column headerText="Estoque" >
-			<h:outputText value="100un" styleClass="text-center"/>
+			<h:outputText rendered="#{item.produtoAssociado}" value="#{item.produto.quantidadeEstoque+='un.'}" 
+				styleClass="#{item.estoqueSuficiente eq false ? 'text-center status-customer status-cancelado' : 'text-center status-customer status-emitido'}" 
+				title="#{item.estoqueSuficiente eq false ? 'Estoque insuficiente':'Estoque suficiente'}"/>		
+			<h:outputText rendered="#{not item.produtoAssociado}" value="0" styleClass="text-center"/>
 	    </p:column>
 	    
 	    <p:column headerText="Valor/Total">
-			<h:outputText value="R$: 4522,74" styleClass="text-center"/>
+			<h:outputText value="#{item.valorTotal}">
+				<f:convertNumber type="currency" locale="pt_BR"/>
+			</h:outputText>
 	    </p:column>
 
 		<p:columnGroup type="footer">
 			<p:row styleClass="footer-table-item">
 				<p:column footerText="Subtotal" colspan="5"/>
-				<p:column footerText="R$: 548,78" styleClass="col-total" colspan="5"/>
+				<p:column  styleClass="col-total" colspan="5">
+					<!-- <f:facet name="footerText"> -->
+						<h:outputText value="#{pedidoBean.pedido.valorSubtotal}">
+							<!-- <f:cconvertNumber type="currency" locale="pt_BR"/> -->
+						</h:outputText>
+					<!-- </f:facet> -->
+				</p:column>
 			</p:row>
 		</p:columnGroup>
     

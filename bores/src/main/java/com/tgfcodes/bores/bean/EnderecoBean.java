@@ -50,7 +50,7 @@ public class EnderecoBean implements Serializable {
 
 	public void salvar() {
 		this.enderecoService.salvar(this.endereco);
-		Mensagem.info("Endereço: ", "Salvo com sucesso.");
+		Mensagem.info("Endereço salvo com sucesso.");
 		this.enderecos.remove(this.endereco);
 		this.enderecos.add(this.endereco);
 		this.novo();
@@ -59,7 +59,7 @@ public class EnderecoBean implements Serializable {
 	public void excluir() {
 		this.enderecoService.excluir(this.endereco);
 		this.enderecos.remove(this.endereco);
-		Mensagem.info("Endereço: ", "Excluído com sucesso.");
+		Mensagem.info("Endereço excluído com sucesso.");
 		this.novo();
 	}
 	

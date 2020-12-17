@@ -28,7 +28,7 @@ public class PedidoRepositoryImpl implements PedidoQueries {
 		return new LazyDataModel<Pedido>() {
 			private static final long serialVersionUID = 1L;
 			@Override
-			public List<Pedido> load(int first, int pageSize, String sortField, SortOrder sortOrder,	Map<String, FilterMeta> filterBy) {
+			public List<Pedido> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, FilterMeta> filterBy) {
 				TypedQuery<Pedido> queryPedido = (TypedQuery<Pedido>) adicionarFiltro(sortField, sortOrder, filterBy);
 				setPageSize(pageSize);
 				Integer totalRegistros = total(filterBy).intValue();
@@ -59,13 +59,23 @@ public class PedidoRepositoryImpl implements PedidoQueries {
 			for (FilterMeta meta : filterBy.values()) {
 				if(meta.getFilterValue() !=  null) {
 					var pesquisarPor = meta.getFilterValue().toString().toLowerCase();
-					//TODO: aplicar os filtros para pesquisa
 					if (meta.getFilterField().equals("id")) {
 						criteriaQuery.where(builder.equal(pedidoRoot.get("id"), pesquisarPor));
 					}
-					else if(meta.getFilterField().equals("nome")) {
-						criteriaQuery.where(builder.like(builder.lower(pedidoRoot.get("nome")), "%"+pesquisarPor+"%"));
+					else if(meta.getFilterField().equals("cliente")) {
+						criteriaQuery.where(builder.like(builder.lower(pedidoRoot.get("cliente").get("nome")), "%"+pesquisarPor+"%"));
 					}
+					else if(meta.getFilterField().equals("vendedor")) {
+						criteriaQuery.where(builder.like(builder.lower(pedidoRoot.get("vendedor").get("nome")), "%"+pesquisarPor+"%"));
+					}
+					else if(meta.getFilterField().equals("dataCriacao")) {
+						//TODO: verficar busca por data do pedido
+						criteriaQuery.where(builder.like(builder.lower(pedidoRoot.get("dataCriacao")), pesquisarPor));
+					}
+					else if(meta.getFilterField().equals("status")) {
+						criteriaQuery.where(builder.equal(pedidoRoot.get("status"), pesquisarPor));
+					}
+
 				}
 			}
 		}

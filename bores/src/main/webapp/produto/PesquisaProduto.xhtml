@@ -78,6 +78,10 @@
 						<p:outputLabel styleClass="status-customer status-pendente" value="Estoque baixo" rendered="#{produtoBean.produto.quantidadeEstoque != 0 and produtoBean.produto.quantidadeEstoque lt produtoBean.estoqueNormal}"/>
 						<p:outputLabel styleClass="status-customer status-cancelado" value="Estoque em falta" rendered="#{produtoBean.produto.quantidadeEstoque eq 0}"/>			
 					</p:column>
+					<p:column>
+						<p:outputLabel styleClass="label-info" value="Descrição: "/>
+						<h:outputText value="#{produtoBean.produto.descricao}" />
+					</p:column>
 				</p:panelGrid>
 			</p:dialog>
 		</div>

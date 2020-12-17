@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 @Entity
 @Table(name = "item_pedido")
@@ -31,6 +32,8 @@ public class ItemPedido implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "pedido_id")
 	private Pedido pedido = new Pedido();
+	@Version
+	private Integer version;
 
 	public ItemPedido() {
 	}
@@ -74,22 +77,26 @@ public class ItemPedido implements Serializable {
 	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
 	}
+	
+	public Integer getVersion() {
+		return version;
+	}
+	
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
 
 	public BigDecimal getValorTotal() {
 		return this.getValorUnitario().multiply(new BigDecimal(this.getQuantidade()));
 	}
 
-	public boolean isProdutoAssociado() { // TODO: verificar isProdutoAssociado
+	public boolean isProdutoAssociado() {
 		return this.getProduto() != null && this.getProduto().getId() != null;
 	}
 
 	public boolean isEstoqueSuficiente() {
 		return this.getPedido().isEmitido() || this.getProduto().getId() == null
 				|| this.getProduto().getQuantidadeEstoque() >= this.getQuantidade();
-	}
-
-	public boolean isEstoqueInsuficiente() {
-		return !this.isEstoqueSuficiente();
 	}
 
 	@Override

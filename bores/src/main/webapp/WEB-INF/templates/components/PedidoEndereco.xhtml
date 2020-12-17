@@ -8,7 +8,7 @@
 			<p:outputLabel styleClass="input-label">Estado</p:outputLabel>
 			<p:selectOneMenu id="estado" label="Estado" styleClass="ui-g-12" converter="#{estadoConverter}"
 							 filter="true" filterMatchMode="startsWith" value="#{pedidoBean.pedido.enderecoEntrega.estado.id}"
-							 required="true" requiredMessage="Campo obrigatório.">
+							 required="true" requiredMessage="Campo obrigatório." disabled="#{not pedidoBean.pedido.alteravel}">
 				<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
 				<f:selectItems value="#{estadoBean.listar()}" var="estado" itemValue="#{estado.id}" itemLabel="#{estado.nome}"  />
 				<p:ajax event="itemSelect" process="@this" listener="#{pedidoBean.buscarCidades}" update="cidade"/>
@@ -19,7 +19,7 @@
 			<p:outputLabel styleClass="input-label">Cidade</p:outputLabel>
 			<p:selectOneMenu id="cidade" label="Cidade" styleClass="ui-g-12" converter="#{cidadeConverter}"
 							 filter="true" filterMatchMode="startsWith" value="#{pedidoBean.pedido.enderecoEntrega.cidade.id}"
-							 required="true" requiredMessage="Campo obrigatório.">
+							 required="true" requiredMessage="Campo obrigatório." disabled="#{not pedidoBean.pedido.alteravel}">
 				<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
 				<f:selectItems value="#{pedidoBean.listarCidades()}" var="cidade" itemValue="#{cidade.id}" itemLabel="#{cidade.nome}"  />
 			</p:selectOneMenu>
@@ -28,34 +28,47 @@
 		<p:column>
 			<p:outputLabel styleClass="input-label">Cep</p:outputLabel>
 			<p:inputMask id="cep" label="Cep" styleClass="ui-g-12" type="text" value="#{pedidoBean.pedido.enderecoEntrega.cep}"
-				 required="true" requiredMessage="Campo obrigatório." autocomplete="off" mask="99999-999" placeholder="Cep do local" >
+				 required="true" requiredMessage="Campo obrigatório." autocomplete="off" mask="99999-999" placeholder="Cep do local" 
+				 disabled="#{not pedidoBean.pedido.alteravel}">
 				<p:clientValidator event="keyup" />
 			</p:inputMask>
 			<p:message for="cep" styleClass="msg-invalid"/>
 		</p:column>
 		<p:column>
 			<p:outputLabel styleClass="input-label">Logradouro</p:outputLabel>
-			<p:inputText id="logradouro" label="Logradouro" styleClass="ui-g-12" type="text" value="#{enderecoBean.endereco.logradouro}"
-				 required="true" requiredMessage="Campo obrigatório." autocomplete="off" placeholder="Endereço de entrega">
+			<p:inputText id="logradouro" label="Logradouro" styleClass="ui-g-12" type="text" value="#{pedidoBean.pedido.enderecoEntrega.logradouro}"
+				 required="true" requiredMessage="Campo obrigatório." autocomplete="off" placeholder="Endereço de entrega"
+				 disabled="#{not pedidoBean.pedido.alteravel}">
 				<p:clientValidator event="keyup" />
 			</p:inputText>
 			<p:message for="logradouro" styleClass="msg-invalid"/>
 		</p:column>					
 		<p:column>
 			<p:outputLabel styleClass="input-label">Numero</p:outputLabel>
-			<p:inputText id="numero" label="Numero" styleClass="ui-g-12" type="text" value="#{enderecoBean.endereco.numero}"
-				 required="true" requiredMessage="Campo obrigatório." autocomplete="off" placeholder="Numero do local">
+			<p:inputText id="numero" label="Numero" styleClass="ui-g-12" type="text" value="#{pedidoBean.pedido.enderecoEntrega.numero}"
+				 required="true" requiredMessage="Campo obrigatório." autocomplete="off" placeholder="Numero do local"
+				 disabled="#{not pedidoBean.pedido.alteravel}">
 				<p:clientValidator event="keyup" />
 			</p:inputText>
 			<p:message for="numero" styleClass="msg-invalid"/>
 		</p:column>
 		<p:column>
 			<p:outputLabel styleClass="input-label-not-obriga">Complemento</p:outputLabel>
-			<p:inputText id="complemento" label="Complemento" styleClass="ui-g-12" type="text" value="#{enderecoBean.endereco.complemento}"
-				 required="true" requiredMessage="Campo obrigatório." autocomplete="off" placeholder="Complemente o endereço" >
+			<p:inputText id="complemento" label="Complemento" styleClass="ui-g-12" type="text" value="#{pedidoBean.pedido.enderecoEntrega.complemento}"
+				 autocomplete="off" placeholder="Complemente o endereço" 
+				 disabled="#{not pedidoBean.pedido.alteravel}">
 				<p:clientValidator event="keyup" />
 			</p:inputText>
 			<p:message for="complemento" styleClass="msg-invalid"/>
+		</p:column>
+		<p:column>
+			<p:outputLabel styleClass="input-label">Data/Entrega</p:outputLabel>
+			<p:datePicker id="data_entrega" label="Data/Entrega" styleClass="ui-g-12" value="#{pedidoBean.pedido.dataEntrega}"
+				 required="true" requiredMessage="Campo obrigatório." autocomplete="off" placeholder="Data de entrega" 
+				 pattern="dd/MM/yyyy HH:mm:ss" locale="pt_BR" timeZone="GMT-03:00" showTime="true" hourFormat="24"
+				 disabled="#{not pedidoBean.pedido.alteravel}">
+			</p:datePicker>
+			<p:message for="data_entrega" styleClass="msg-invalid"/>
 		</p:column>
 	</p:panelGrid>
 	

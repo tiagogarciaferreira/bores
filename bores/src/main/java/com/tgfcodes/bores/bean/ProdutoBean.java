@@ -43,13 +43,13 @@ public class ProdutoBean implements Serializable {
 
 	public void salvar() {
 		this.produtoService.salvar(this.produto);
-		Mensagem.info("Produto: ", "Salvo com sucesso.");
+		Mensagem.info("Produto salvo com sucesso.");
 		this.novo();
 	}
 
 	public void excluir() {
 		this.produtoService.excluir(this.produto);
-		Mensagem.info("Produto: ", "Excluído com sucesso.");
+		Mensagem.info("Produto excluído com sucesso.");
 		this.novo();
 	}
 
@@ -69,13 +69,18 @@ public class ProdutoBean implements Serializable {
 		this.subcategorias = this.subcategoriaService.listar(Long.parseLong(categoriaId));
 	}
 
+	public List<Produto> completarProduto(String nome){
+		return this.produtoService.completar(nome);
+	} 
+	
+	public void selecionar(Produto produto) {
+		this.produto = produto;
+	}
+
 	public Produto getProduto() {
 		return produto;
 	}
 
-	public void selecionar(Produto produto) {
-		this.produto = produto;
-	}
 	
 	public void setProduto(Produto produto) {
 		this.produto = produto;

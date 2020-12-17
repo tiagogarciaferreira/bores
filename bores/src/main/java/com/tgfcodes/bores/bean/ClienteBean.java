@@ -6,8 +6,10 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+
 import org.primefaces.model.LazyDataModel;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import com.tgfcodes.bores.messages.Mensagem;
 import com.tgfcodes.bores.model.Cliente;
 import com.tgfcodes.bores.model.enumeration.TipoPessoa;
@@ -36,13 +38,13 @@ public class ClienteBean implements Serializable{
 	
 	public void salvar() {
 		this.clienteService.salvar(this.cliente);
-		Mensagem.info("Cliente: ", "Salvo com sucesso.");
+		Mensagem.info("Cliente salvo com sucesso.");
 		this.novo();
 	}
 
 	public void excluir() {
 		this.clienteService.excluir(this.cliente);
-		Mensagem.info("Cliente: ", "Excluído com sucesso.");
+		Mensagem.info("Cliente excluído com sucesso.");
 		this.novo();
 	}
 	
