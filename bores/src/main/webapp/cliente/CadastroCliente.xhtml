@@ -10,7 +10,7 @@
 	<h:form id="frm">
 		<div class="card-page">
 			<p:panel styleClass="panel-padrao">
-				<h2><h:outputText value="#{clienteBean.cliente.novo eq true ? 'Novo Cliente' : 'Editar Cliente'}"/></h2>
+				<h2><h:outputText value="#{clienteBean.cliente.novo ? 'Novo Cliente' : 'Editar Cliente'}"/></h2>
 				<p:messages for="msg" showDetail="true" closable="true" globalOnly="true">
 					<p:autoUpdate/>
 				</p:messages>
@@ -96,15 +96,15 @@
 						     </div>
 						</p:column>
 						<p:column>
-							<p:commandButton styleClass="btn-info raised-button" icon="fa fa-fw fa-plus-circle" rendered="#{clienteBean.cliente.novo eq true}"
+							<p:commandButton styleClass="btn-info raised-button" icon="fa fa-fw fa-plus-circle" rendered="#{clienteBean.cliente.novo}"
 								value="Novo" process="gridCliente" ajax="true" actionListener="#{clienteBean.novo}" update="@form"/>
 							<p:commandButton validateClient="true" styleClass="btn-primary raised-button" icon="fa fa-fw fa-save" 
-								value="#{clienteBean.cliente.novo eq true ? 'Salvar':'Salvar alterações'}" 
+								value="#{clienteBean.cliente.novo ? 'Salvar':'Salvar alterações'}" 
 								process="gridCliente" ajax="true" action="#{clienteBean.salvar}" update="@form"/>
 						</p:column>			
 					</p:panelGrid>
 		        </p:tab>
-		        <p:tab id="endereco" title="Endereço" disabled="#{clienteBean.cliente.novo eq true}" >
+		        <p:tab id="endereco" title="Endereço" disabled="#{clienteBean.cliente.novo}" >
 					<p:panelGrid id="gridEndereco" layout="grid" columns="2">
 						<p:column>
 							<p:outputLabel styleClass="input-label">Estado</p:outputLabel>
@@ -164,7 +164,7 @@
 								value="Novo" process="gridEndereco" ajax="true" actionListener="#{enderecoBean.novo}" update="@form"/>
 								
 							<p:commandButton validateClient="true" styleClass="btn-primary raised-button" icon="fa fa-fw fa-save" 
-								value="#{enderecoBean.endereco.novo eq true ? 'Salvar':'Salvar alterações'}" 
+								value="#{enderecoBean.endereco.novo ? 'Salvar':'Salvar alterações'}" 
 								process="gridEndereco" ajax="true" action="#{enderecoBean.salvar}" update="@form"/>
 								
 						</p:column>	

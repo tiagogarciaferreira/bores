@@ -21,7 +21,7 @@
 					</f:facet>
 				</p:toolbar>
 				<p:dataTable id="tblPedido" reflow="true" var="pedido" value="#{pedidoBean.lazyDataModel}"
-				    rowKey="#{pedido.id}" rows="10" paginator="true" lazy="true" filterDelay="1000"
+				    rowKey="#{pedido.id}" rows="10" paginator="true" lazy="true" filterDelay="1000" widgetVar="varTblPedido"
 					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 				    emptyMessage="Nenhum pedido encontrado." paginatorAlwaysVisible="false" paginatorPosition="bottom">
 				    
@@ -42,11 +42,11 @@
 							<f:convertDateTime type="localDateTime" pattern="dd/MM/yyyy HH:mm:ss" locale="pt_BR" timeZone="GMT-03:00"/>
 						</h:outputText>
 						<f:facet name="filter">
-							<p:datePicker styleClass="ui-g-12" placeholder="De data a data" pattern="dd/MM/yyyy" locale="pt_BR" 
-								timeZone="GMT-03:00" selectionMode="multiple" >
+							<p:datePicker styleClass="ui-g-12" placeholder="Desde - até" pattern="dd/MM/yyyy" locale="pt_BR" 
+								timeZone="GMT-03:00" selectionMode="range">
+								<p:ajax event="viewChange" oncomplete="PF('varTblPedido').filter();" />
 							</p:datePicker>
 						</f:facet>
-						
 				    </p:column>
 				    <p:column  headerText="Valor/Total" field="valorTotal" sortBy="#{pedido.valorTotal}">
 						<h:outputText value="#{pedido.valorTotal}">
@@ -58,7 +58,7 @@
 						<p:outputLabel styleClass="status-customer status-pendente" value="#{pedido.status}" rendered="#{pedido.status eq 'ORCAMENTO'}"/>
 						<p:outputLabel styleClass="status-customer status-cancelado" value="#{pedido.status}" rendered="#{pedido.status eq 'CANCELADO'}"/>
 				    	<f:facet name="filter">
-							<p:selectOneMenu styleClass="ui-g-12">
+							<p:selectOneMenu styleClass="ui-g-12" onchange="PF('varTblPedido').filter();">
 								<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
 								<f:selectItems value="#{pedidoBean.statusPedidos()}" var="status" itemValue="#{status}" itemLabel="#{status.descricao}"/>
 							</p:selectOneMenu>

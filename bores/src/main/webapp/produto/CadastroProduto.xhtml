@@ -10,7 +10,7 @@
 	<h:form id="frm">
 		<div class="card-page">
 			<p:panel styleClass="panel-padrao">
-				<h2><h:outputText value="#{produtoBean.produto.novo eq true ? 'Novo produto' : 'Editar produto'}"/></h2>
+				<h2><h:outputText value="#{produtoBean.produto.novo ? 'Novo produto' : 'Editar produto'}"/></h2>
 				<p:messages for="msg" showDetail="true" closable="true" globalOnly="true">
 					<p:autoUpdate/>
 				</p:messages>
@@ -91,7 +91,7 @@
 				<p:column><!--marcação--></p:column>	
 				<p:column>
 					<p:commandButton validateClient="true" styleClass="btn-primary raised-button" icon="fa fa-fw fa-save" 
-						value="#{produtoBean.produto.novo eq true ? 'Salvar':'Salvar alterações'}" 
+						value="#{produtoBean.produto.novo ? 'Salvar':'Salvar alterações'}" 
 						process="gridProduto" ajax="true" action="#{produtoBean.salvar}" update="@form"/>
 				</p:column>			
 			</p:panelGrid>

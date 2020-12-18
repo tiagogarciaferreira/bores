@@ -24,10 +24,13 @@
 					<f:facet name="right">
 				        <p:splitButton styleClass="btn-option" value="Salvar" icon="fa fa-fw fa-save" action="#{pedidoBean.salvar}"
 				         	process="@form" ajax="true" update="@form" disabled="#{not pedidoBean.pedido.alteravel}">
+				        
 				         <p:menuitem value="Emitir"  icon="fa fa-fw fa-file-text" action="#{pedidoBean.emitir}"
 				        	process="@form" ajax="true" update="@form" disabled="#{not pedidoBean.pedido.emissivel}"/>
+				        
 				         <p:menuitem value="Enviar por e-mail" icon="fa fa-fw fa-paper-plane" action="#{pedidoBean.enviarPorEmail}"
 				         	process="@this" ajax="true" disabled="#{not pedidoBean.pedido.enviavelPorEmail}"/>
+				        
 				         <p:menuitem value="Cancelar" icon="fa fa-fw fa-times-circle" action="#{pedidoBean.cancelar}"
 				         	process="@this" ajax="true" disabled="#{not pedidoBean.pedido.cancelavel}"/>
 				        </p:splitButton>
@@ -49,7 +52,7 @@
 		      	     <div class="ui-g-4 pad-zero">
 						<p:outputLabel styleClass="input-label-not-obriga">Data/Criação</p:outputLabel>
 						<h:outputText styleClass="ui-g-12 text-left" value="#{pedidoBean.pedido.dataCriacao}" >
-						    <f:convertDateTime type="localDateTime" pattern="#{pedidoBean.pedido.novo eq true ? 'dd/MM/yyyy' : 'dd/MM/yyyy HH:mm:ss'}" 
+						    <f:convertDateTime type="localDateTime" pattern="#{pedidoBean.pedido.novo ? 'dd/MM/yyyy' : 'dd/MM/yyyy HH:mm:ss'}" 
 						    locale="pt_BR" timeZone="GMT-03:00"/>
 						</h:outputText>	
 				     </div>

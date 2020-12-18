@@ -1,4 +1,4 @@
-package com.tgfcodes.bores.bean;
+package com.tgfcodes.bores.controller;
 
 import java.io.Serializable;
 import java.util.List;
@@ -43,35 +43,40 @@ public class PedidoBean implements Serializable {
 	private LazyDataModel<Pedido> lazyDataModel;
 	private Produto produtoEditavel = new Produto();
 	private Pedido pedido;
+	private static final String PAGINA = "/pedido/PesquisaPedido.xhtml?faces-redirect=true";
 
 	@PostConstruct
 	public void inicializar() {
 		this.verificarAcao();
 	}
 	
-	public void salvar() {
+	public String salvar() {
 		this.pedido.removerItemVazio();
 		this.pedidoService.salvar(this.pedido);
-		Mensagem.info("Pedido salvo com sucesso.");
+		Mensagem.infoFlash("Pedido salvo com sucesso.");
 		this.novo();
+		return PAGINA;
 	}
 	
-	public void emitir() {
+	public String emitir() {
 		this.pedido.removerItemVazio();
 		this.pedidoService.emitir(this.pedido);
-		Mensagem.info("Pedido emitido com sucesso.");
+		Mensagem.infoFlash("Pedido emitido com sucesso.");
 		this.novo();
+		return PAGINA;
 	}
 
-	public void cancelar() {
+	public String cancelar() {
 		this.pedidoService.cancelar(this.pedido);
-		Mensagem.info("Pedido cancelado com sucesso.");
+		Mensagem.infoFlash("Pedido cancelado com sucesso.");
 		this.novo();
+		return PAGINA;
 	}
 	
-	public void enviarPorEmail() {
+	public String enviarPorEmail() {
 		this.pedidoService.enviarEmail(this.pedido);
-		Mensagem.info("Pedido enviado com sucesso.");
+		Mensagem.infoFlash("Pedido enviado com sucesso.");
+		return PAGINA;
 	}
 	
 	public void novo() {

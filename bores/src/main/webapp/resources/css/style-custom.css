@@ -1073,7 +1073,7 @@ body table tr.footer-table-item td {
 }
 
 body table tr.footer-table-item td.col-total {
-	text-align: center;
+	text-align: right;
 	border-left: 0 solid #dbdbdb;
 	border-left-width: 1px;
 }

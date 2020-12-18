@@ -1,20 +1,28 @@
 package com.tgfcodes.bores.repository.helper.pedido;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
+
 import org.primefaces.model.FilterMeta;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
+import com.tgfcodes.bores.dto.GraficoPedidoDTO;
 import com.tgfcodes.bores.model.Pedido;
+import com.tgfcodes.bores.model.enumeration.StatusPedido;
 
 @Repository
 public class PedidoRepositoryImpl implements PedidoQueries {
@@ -51,10 +59,16 @@ public class PedidoRepositoryImpl implements PedidoQueries {
 		Root<Pedido> pedidoRoot = criteriaQuery.from(Pedido.class);
 		criteriaQuery = (sortOrder == null) ? criteriaQuery.select(builder.count(pedidoRoot)) : criteriaQuery.select(pedidoRoot);
 		
+		if(sortOrder != null) {
+			pedidoRoot.fetch("vendedor", JoinType.LEFT);
+			pedidoRoot.fetch("cliente", JoinType.LEFT);
+			criteriaQuery = criteriaQuery.select(pedidoRoot);
+		}else {
+			criteriaQuery = criteriaQuery.select(builder.count(pedidoRoot));
+		}
 		if (sortOrder != null && !sortOrder.equals(SortOrder.UNSORTED) && StringUtils.hasText(sortField)) {
 			criteriaQuery.orderBy(sortOrder.equals(SortOrder.ASCENDING) ? builder.asc(pedidoRoot.get(sortField)) : builder.desc(pedidoRoot.get(sortField)));
 		}
-		
 		if (filterBy.size() > 0) {
 			for (FilterMeta meta : filterBy.values()) {
 				if(meta.getFilterValue() !=  null) {
@@ -69,16 +83,28 @@ public class PedidoRepositoryImpl implements PedidoQueries {
 						criteriaQuery.where(builder.like(builder.lower(pedidoRoot.get("vendedor").get("nome")), "%"+pesquisarPor+"%"));
 					}
 					else if(meta.getFilterField().equals("dataCriacao")) {
-						//TODO: verficar busca por data do pedido
-						criteriaQuery.where(builder.like(builder.lower(pedidoRoot.get("dataCriacao")), pesquisarPor));
+						pesquisarPor = pesquisarPor.toString().replaceAll("[^0-9\\-\\,]","");
+						String[] datas = pesquisarPor.split(",");
+						LocalDateTime desde = LocalDateTime.of(LocalDate.parse(datas[0]), LocalTime.of(0,0,0));
+						LocalDateTime ate = LocalDateTime.of(LocalDate.parse(datas[1]), LocalTime.of(23,59,59));
+						criteriaQuery.where(builder.greaterThanOrEqualTo(pedidoRoot.get("dataCriacao").as(LocalDateTime.class), desde),
+											builder.lessThanOrEqualTo(pedidoRoot.get("dataCriacao").as(LocalDateTime.class), ate));
 					}
 					else if(meta.getFilterField().equals("status")) {
-						criteriaQuery.where(builder.equal(pedidoRoot.get("status"), pesquisarPor));
+						criteriaQuery.where(builder.equal(pedidoRoot.get("status"), StatusPedido.valueOf(pesquisarPor.toUpperCase())));
 					}
-
 				}
 			}
 		}
 		return entityManager.createQuery(criteriaQuery);
 	}
+	
+	@Override
+	public List<GraficoPedidoDTO> pedidosGrafico() {
+		// TODO gerar consulta para pegar os dados e montar o grafico
+		
+		
+		return null;
+	}
+	
 }

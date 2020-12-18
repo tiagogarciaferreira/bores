@@ -33,7 +33,7 @@ public class PedidoService {
 	
 
 	@Transactional(readOnly = false)
-	public Pedido salvar(Pedido pedido) {
+	public void salvar(Pedido pedido) {
 		if(pedido.isNovo()) {
 			pedido.setCliente(this.clienteRepository.getOne(pedido.getCliente().getId()));
 			pedido.setVendedor(this.usuarioRepository.getOne(pedido.getVendedor().getId()));
@@ -48,18 +48,18 @@ public class PedidoService {
 		if(pedido.isValorTotalNegativo()) {
 			throw new NegocioException("Pedido o valor total está negativo.");
 		}
-		return this.pedidoRepository.saveAndFlush(pedido);
+		this.pedidoRepository.save(pedido);
 	}
 	
 	@Transactional(readOnly = false)
 	public void emitir(Pedido pedido) {
-		pedido = this.salvar(pedido);
+		pedido = this.pedidoRepository.save(pedido);
 		if(!pedido.isEmissivel()) {
 			throw new NegocioException("Pedido não pode ser emitido com status " + pedido.getStatus().getDescricao() + ".");
 		}
 		this.estoqueService.baixarItensEstoque(pedido);
 		pedido.setStatus(StatusPedido.EMITIDO);
-		this.salvar(pedido);
+		this.pedidoRepository.save(pedido);
 		this.publisher.publishEvent(new PedidoEvent(pedido));
 	}
 	
@@ -72,7 +72,7 @@ public class PedidoService {
 			this.estoqueService.voltarItensEstoque(pedido);
 		}
 		pedido.setStatus(StatusPedido.CANCELADO);
-		this.salvar(pedido);
+		this.pedidoRepository.save(pedido);
 		this.publisher.publishEvent(new PedidoEvent(pedido));
 	}	
 	

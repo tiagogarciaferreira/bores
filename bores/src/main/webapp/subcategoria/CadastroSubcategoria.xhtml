@@ -51,7 +51,7 @@
 				resizable="false" responsive="true" closeOnEscape="true" blockScroll="true" position="center" positionType="absolute">
 				
 				<f:facet name="header">
-					<p:outputLabel value="#{subcategoriaBean.subcategoria.nova eq true ? 'Nova Subcategoria' : 'Editar Subcategoria'}"  styleClass="dialog-title"/>
+					<p:outputLabel value="#{subcategoriaBean.subcategoria.nova ? 'Nova Subcategoria' : 'Editar Subcategoria'}"  styleClass="dialog-title"/>
 				</f:facet>
 	
 				<p:ajax event="close" resetValues="true" process="@this" update="dialogSubcategoria" listener="#{subcategoriaBean.nova}"/>
@@ -77,7 +77,7 @@
 					</p:column>
 					<p:column>
 						<p:commandButton validateClient="true" styleClass="btn-primary raised-button" icon="fa fa-fw fa-save" 
-						    value="#{subcategoriaBean.subcategoria.nova eq true ? 'Salvar':'Salvar alterações'}"  
+						    value="#{subcategoriaBean.subcategoria.nova ? 'Salvar':'Salvar alterações'}"  
 							process="dialogSubcategoria" ajax="true" action="#{subcategoriaBean.salvar}" update="@form"
 							oncomplete="if (!args.validationFailed) PF('dialogSubcategoria').hide()"/>
 					</p:column>			

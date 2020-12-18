@@ -56,11 +56,11 @@
 			<p:row styleClass="footer-table-item">
 				<p:column footerText="Subtotal" colspan="5"/>
 				<p:column  styleClass="col-total" colspan="5">
-					<!-- <f:facet name="footerText"> -->
+					<f:facet name="footer">
 						<h:outputText value="#{pedidoBean.pedido.valorSubtotal}">
-							<!-- <f:cconvertNumber type="currency" locale="pt_BR"/> -->
+							<f:convertNumber type="currency" locale="pt_BR"/>
 						</h:outputText>
-					<!-- </f:facet> -->
+					</f:facet>
 				</p:column>
 			</p:row>
 		</p:columnGroup>

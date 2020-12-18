@@ -1,4 +1,4 @@
-package com.tgfcodes.bores.bean;
+package com.tgfcodes.bores.controller;
 
 import java.io.Serializable;
 import java.util.List;

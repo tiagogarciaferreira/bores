@@ -51,7 +51,7 @@
 				resizable="false" responsive="true" closeOnEscape="true" blockScroll="true" position="center" positionType="absolute">
 				
 				<f:facet name="header">
-					<p:outputLabel value="#{cidadeBean.cidade.nova eq true ? 'Nova Cidade' : 'Editar Cidade'}"  styleClass="dialog-title"/>
+					<p:outputLabel value="#{cidadeBean.cidade.nova ? 'Nova Cidade' : 'Editar Cidade'}"  styleClass="dialog-title"/>
 				</f:facet>
 	
 				<p:ajax event="close" resetValues="true" process="@this" update="dialogCidade" listener="#{cidadeBean.nova}"/>
@@ -77,7 +77,7 @@
 					</p:column>
 					<p:column>
 						<p:commandButton validateClient="true" styleClass="btn-primary raised-button" icon="fa fa-fw fa-save"
-							 value="#{cidadeBean.cidade.nova eq true ? 'Salvar':'Salvar alterações'}" 
+							 value="#{cidadeBean.cidade.nova ? 'Salvar':'Salvar alterações'}" 
 							 process="dialogCidade" ajax="true" action="#{cidadeBean.salvar}" update="@form"
 							 oncomplete="if (!args.validationFailed) PF('dialogCidade').hide()"/>
 					</p:column>			

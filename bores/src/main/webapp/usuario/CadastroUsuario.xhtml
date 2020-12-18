@@ -13,7 +13,7 @@
 	<h:form id="frm">
 		<div class="card-page">
 			<p:panel styleClass="panel-padrao">
-				<h2><h:outputText value="#{usuarioBean.usuario.novo eq true ? 'Novo usuário' : 'Editar usuário'}"/></h2>
+				<h2><h:outputText value="#{usuarioBean.usuario.novo ? 'Novo usuário' : 'Editar usuário'}"/></h2>
 				<p:messages for="msg" showDetail="true" closable="true" globalOnly="true">
 					<p:autoUpdate/>
 				</p:messages>
@@ -43,9 +43,9 @@
 					<p:message for="email" styleClass="msg-invalid"/>
 				</p:column>
 				<p:column>
-					<p:outputLabel styleClass="#{usuarioBean.usuario.novo eq true ? 'input-label' : 'input-label-not-obriga'}">Senha</p:outputLabel>
+					<p:outputLabel styleClass="#{usuarioBean.usuario.novo ? 'input-label' : 'input-label-not-obriga'}">Senha</p:outputLabel>
 					<p:password id="senha" label="Senha" styleClass="ui-g-12" type="text" value="#{usuarioBean.usuario.senha}"
-						  required="#{usuarioBean.usuario.novo eq true ? true : false}" 
+						  required="#{usuarioBean.usuario.novo ? true : false}" 
 						  requiredMessage="Campo obrigatório." autocomplete="off" feedback="true" match="confirmeSenha"
 						  promptLabel="Força da senha" weakLabel="Fraca" strongLabel="Forte" goodLabel="Média" inline="true"
 						  placeholder="Senha do usuário">
@@ -54,9 +54,9 @@
 					<p:message for="senha" styleClass="msg-invalid"/>
 				</p:column>
 				<p:column>
-					<p:outputLabel styleClass="#{usuarioBean.usuario.novo eq true ? 'input-label' : 'input-label-not-obriga'}">Confirmação/Senha</p:outputLabel>
+					<p:outputLabel styleClass="#{usuarioBean.usuario.novo ? 'input-label' : 'input-label-not-obriga'}">Confirmação/Senha</p:outputLabel>
 					<p:password id="confirmeSenha" label="Confirmação/Senha" styleClass="ui-g-12" type="text" value="#{usuarioBean.usuario.confirmacaoSenha}"
-						  required="#{usuarioBean.usuario.novo eq true ? true : false}" 
+						  required="#{usuarioBean.usuario.novo ? true : false}" 
 						  requiredMessage="Campo obrigatório." autocomplete="off" feedback="true"  
 						  promptLabel="Força da senha" weakLabel="Fraca" strongLabel="Forte" goodLabel="Média"  inline="true"
 						  placeholder="Confirme a senha">

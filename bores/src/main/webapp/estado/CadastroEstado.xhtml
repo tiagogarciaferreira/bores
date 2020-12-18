@@ -51,7 +51,7 @@
 				resizable="false" responsive="true" closeOnEscape="true" blockScroll="true" position="center" positionType="absolute">
 				
 				<f:facet name="header">
-					<p:outputLabel value="#{estadoBean.estado.novo eq true ? 'Novo Estado' : 'Editar Estado'}"  styleClass="dialog-title"/>
+					<p:outputLabel value="#{estadoBean.estado.novo ? 'Novo Estado' : 'Editar Estado'}"  styleClass="dialog-title"/>
 				</f:facet>
 	
 				<p:ajax event="close" resetValues="true" process="@this" update="dialogEstado" listener="#{estadoBean.novo}"/>
@@ -75,7 +75,7 @@
 					</p:column>
 					<p:column>
 						<p:commandButton validateClient="true" styleClass="btn-primary raised-button" icon="fa fa-fw fa-save" 
-						     value="#{estadoBean.estado.novo eq true ? 'Salvar':'Salvar alterações'}" 
+						     value="#{estadoBean.estado.novo ? 'Salvar':'Salvar alterações'}" 
 							 process="dialogEstado" ajax="true" action="#{estadoBean.salvar}" update="@form"
 							 oncomplete="if (!args.validationFailed) PF('dialogEstado').hide()"/>
 					</p:column>			
