@@ -16,6 +16,7 @@ import org.primefaces.model.SortOrder;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
+import com.tgfcodes.bores.dto.EstatisticasEstoqueDTO;
 import com.tgfcodes.bores.model.Produto;
 
 @Repository
@@ -74,5 +75,15 @@ public class ProdutoRepositoryImpl implements ProdutoQueries {
 			}
 		}
 		return entityManager.createQuery(criteriaQuery);
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	public EstatisticasEstoqueDTO totalEstoque() {
+		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+     	CriteriaQuery criteriaQuery = builder.createQuery(EstatisticasEstoqueDTO.class);
+		Root<Produto> produtoRoot = criteriaQuery.from(Produto.class);
+		criteriaQuery.multiselect(builder.sum(produtoRoot.get("quantidadeEstoque")), builder.sum(builder.prod(produtoRoot.get("quantidadeEstoque"), produtoRoot.get("valorUnitario"))));
+		return (EstatisticasEstoqueDTO) entityManager.createQuery(criteriaQuery).getSingleResult();
 	}
 }

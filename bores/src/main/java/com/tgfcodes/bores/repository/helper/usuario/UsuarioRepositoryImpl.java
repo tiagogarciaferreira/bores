@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 
@@ -17,6 +18,7 @@ import org.primefaces.model.SortOrder;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
+import com.tgfcodes.bores.model.Grupo;
 import com.tgfcodes.bores.model.Usuario;
 
 @Repository
@@ -24,6 +26,7 @@ public class UsuarioRepositoryImpl implements UsuarioQueries {
 	
 	@PersistenceContext
 	private EntityManager entityManager;
+	
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -76,5 +79,17 @@ public class UsuarioRepositoryImpl implements UsuarioQueries {
 			}
 		}
 		return entityManager.createQuery(criteriaQuery);
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	public Long contar(Grupo grupo) {
+		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+     	CriteriaQuery criteriaQuery = builder.createQuery(Long.class);
+		Root<Usuario> usuarioRoot = criteriaQuery.from(Usuario.class);
+		Join<Usuario, Grupo> join = usuarioRoot.join("grupos");
+		criteriaQuery.multiselect(builder.count(usuarioRoot.get("id")));
+		criteriaQuery.where(builder.equal(join.get("id"), grupo.getId()));
+		return (Long) entityManager.createQuery(criteriaQuery).getSingleResult();		
 	}
 }

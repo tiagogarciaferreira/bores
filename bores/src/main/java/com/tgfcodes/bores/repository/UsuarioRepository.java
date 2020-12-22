@@ -5,12 +5,10 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.tgfcodes.bores.model.Usuario;
 import com.tgfcodes.bores.repository.helper.usuario.UsuarioQueries;
 
-@Transactional
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>, UsuarioQueries {
 

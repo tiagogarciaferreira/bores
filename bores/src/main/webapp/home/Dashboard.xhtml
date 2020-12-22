@@ -1,0 +1,132 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui"
+				template="/WEB-INF/templates/LayoutPadrao.xhtml">
+
+<ui:define name="conteudo">
+
+	<div class="card-page dashboard">
+		<p:panelGrid layout="grid" columns="4">
+			<p:column>
+            	<div class="card-page total">
+					<div>
+						<h6>Total de pedidos</h6>
+						<i class="fa fa-fw fa-money"></i> 
+						<h3><h:outputText value="#{dashboardCardBean.totalPedidos().quantidade}"/></h3>
+						<h3>
+							<h:outputText value="#{dashboardCardBean.totalPedidos().valor}">
+								<f:convertNumber type="currency" locale="pt_BR"/>
+							</h:outputText>
+						</h3>
+					</div>
+           		</div>
+			</p:column>
+			<p:column>
+            	<div class="card-page orcamento">
+					<div>
+						<h6>Pedidos em orçamento</h6>
+						<i class="fa fa-fw fa-money"></i>   
+						<h3><h:outputText value="#{dashboardCardBean.totalPedidosOrcamento().quantidade}"/></h3>
+						<h3>
+							<h:outputText value="#{dashboardCardBean.totalPedidosOrcamento().valor}">
+								<f:convertNumber type="currency" locale="pt_BR"/>
+							</h:outputText>
+						</h3>
+					</div>
+           		</div>
+			</p:column>
+			<p:column>
+            	<div class="card-page emitido">
+					<div>
+						<h6>Pedidos emitidos</h6>
+						<i class="fa fa-fw fa-money"></i>   
+						<h3><h:outputText value="#{dashboardCardBean.totalPedidosEmitidos().quantidade}"/></h3>
+						<h3>
+							<h:outputText value="#{dashboardCardBean.totalPedidosEmitidos().valor}">
+								<f:convertNumber type="currency" locale="pt_BR"/>
+							</h:outputText>
+						</h3>
+					</div>
+           		</div>
+			</p:column>
+			<p:column>
+            	<div class="card-page cancelado">
+					<div>
+						<h6>Pedidos cancelados</h6>
+						<i class="fa fa-fw fa-money"></i>   
+						<h3><h:outputText value="#{dashboardCardBean.totalPedidosCancelados().quantidade}"/></h3>
+						<h3>
+							<h:outputText value="#{dashboardCardBean.totalPedidosCancelados().valor}">
+								<f:convertNumber type="currency" locale="pt_BR"/>
+							</h:outputText>
+						</h3>
+					</div>
+           		</div>
+			</p:column>
+		</p:panelGrid>
+	</div>
+
+
+
+	<div class="card-page dashboard">
+		<p:panelGrid layout="grid" columns="4">
+			<p:column>
+            	<div class="card-page total">
+					<div>
+						<h6>Total de estoque</h6>
+						<i class="fa fa-fw fa-heartbeat"></i> 
+						<h3><h:outputText value="#{dashboardCardBean.totalEstoque().quantidade}"/></h3>
+						<h3>
+							<h:outputText value="#{dashboardCardBean.totalEstoque().valor}">
+								<f:convertNumber type="currency" locale="pt_BR"/>
+							</h:outputText>
+						</h3>
+					</div>
+           		</div>
+			</p:column>
+			<p:column>
+            	<div class="card-page orcamento">
+					<div>
+						<h6>Subategorias de produtos</h6>
+						<i class="fa fa-fw fa-list-alt"></i>   
+						<h3><h:outputText value="#{dashboardCardBean.totalSubcategorias()}"/></h3>
+						<h3><br/></h3>
+					</div>
+           		</div>
+			</p:column>
+			<p:column>
+            	<div class="card-page emitido">
+					<div>
+						<h6>Total de clientes</h6>
+						<i class="fa fa-fw fa-briefcase"></i>   
+						<h3><h:outputText value="#{dashboardCardBean.totalClientes()}"/></h3>
+						<h3><br/></h3>
+					</div>
+           		</div>
+			</p:column>
+			<p:column>
+            	<div class="card-page cancelado">
+					<div>
+						<h6>Total de vendedores</h6>
+						<i class="fa fa-fw fa-calculator"></i>   
+						<h3><h:outputText value="#{dashboardCardBean.totalVendedores()}"/></h3>
+						<h3><br/></h3>
+					</div>
+           		</div>
+			</p:column>
+		</p:panelGrid>
+	</div>
+
+
+
+	<div class="card-page">
+		<div class="container-grafic">
+			<p:chart type="line" model="#{dashboardGraficoBean.lineChartModel}" responsive="true" styleClass=""/>
+		</div>
+	</div>	
+</ui:define>
+
+	
+</ui:composition>

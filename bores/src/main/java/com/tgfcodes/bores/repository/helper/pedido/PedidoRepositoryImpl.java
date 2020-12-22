@@ -1,10 +1,13 @@
 package com.tgfcodes.bores.repository.helper.pedido;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,8 +23,10 @@ import org.primefaces.model.SortOrder;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
+import com.tgfcodes.bores.dto.EstatisticasPedidoDTO;
 import com.tgfcodes.bores.dto.GraficoPedidoDTO;
 import com.tgfcodes.bores.model.Pedido;
+import com.tgfcodes.bores.model.Usuario;
 import com.tgfcodes.bores.model.enumeration.StatusPedido;
 
 @Repository
@@ -99,12 +104,50 @@ public class PedidoRepositoryImpl implements PedidoQueries {
 		return entityManager.createQuery(criteriaQuery);
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
-	public List<GraficoPedidoDTO> pedidosGrafico() {
-		// TODO gerar consulta para pegar os dados e montar o grafico
-		
-		
-		return null;
+	public Map<LocalDate, BigDecimal> pedidosGrafico(Integer numeroDias, Usuario usuario) {
+		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+     	CriteriaQuery criteriaQuery = builder.createQuery(GraficoPedidoDTO.class);
+		Root<Pedido> pedidoRoot = criteriaQuery.from(Pedido.class);
+		criteriaQuery.multiselect(pedidoRoot.get("dataCriacao").as(LocalDate.class), builder.sum(pedidoRoot.get("valorTotal")));
+		criteriaQuery.groupBy(pedidoRoot.get("dataCriacao").as(LocalDate.class)).orderBy(builder.asc(pedidoRoot.get("dataCriacao").as(LocalDate.class)));
+		LocalDate apartirDe = LocalDate.now(ZoneId.of("America/Sao_Paulo"));
+		apartirDe = apartirDe.minusDays(numeroDias);
+		criteriaQuery.where(builder.greaterThanOrEqualTo(pedidoRoot.get("dataCriacao").as(LocalDate.class), apartirDe));
+		if(usuario != null) {
+			criteriaQuery.where(builder.equal(pedidoRoot.get("vendedor").get("id"), usuario.getId()));
+		}
+		return this.criarMapResultado(entityManager.createQuery(criteriaQuery).getResultList(), numeroDias);
 	}
 	
+	private Map<LocalDate, BigDecimal> criarMapResultado(List<GraficoPedidoDTO> lista, Integer numeroDias){
+		Map<LocalDate, BigDecimal> mapResultado = this.iniciarMapResultado(numeroDias);
+		for (GraficoPedidoDTO item : lista) {
+			mapResultado.put(item.getData(), item.getValor());
+		}
+		return mapResultado;
+	}
+	
+	private Map<LocalDate, BigDecimal> iniciarMapResultado(Integer numeroDias){
+		Map<LocalDate, BigDecimal> mapInicializado = new TreeMap<>();
+		LocalDate dataIncial = LocalDate.now(ZoneId.of("America/Sao_Paulo")).minusDays(numeroDias);
+		for (int i = 0; i < numeroDias; i++) {
+			mapInicializado.put(dataIncial.plusDays(i), BigDecimal.ZERO);
+		}
+		return mapInicializado;
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	public EstatisticasPedidoDTO totalPedidosPorStatus(StatusPedido status) {
+		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+     	CriteriaQuery criteriaQuery = builder.createQuery(EstatisticasPedidoDTO.class);
+		Root<Pedido> pedidoRoot = criteriaQuery.from(Pedido.class);
+		criteriaQuery.multiselect(builder.count(pedidoRoot.get("id")), builder.sum(pedidoRoot.get("valorTotal")));
+		if(status != null) {
+			criteriaQuery.where(builder.equal(pedidoRoot.get("status"), status));
+		}
+		return (EstatisticasPedidoDTO) entityManager.createQuery(criteriaQuery).getSingleResult();
+	}
 }

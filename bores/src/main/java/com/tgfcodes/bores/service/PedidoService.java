@@ -1,14 +1,20 @@
 package com.tgfcodes.bores.service;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Map;
+
 import org.primefaces.model.LazyDataModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tgfcodes.bores.dto.EstatisticasPedidoDTO;
 import com.tgfcodes.bores.event.PedidoEvent;
 import com.tgfcodes.bores.exception.NegocioException;
 import com.tgfcodes.bores.model.Pedido;
+import com.tgfcodes.bores.model.Usuario;
 import com.tgfcodes.bores.model.enumeration.StatusPedido;
 import com.tgfcodes.bores.repository.CidadeRepository;
 import com.tgfcodes.bores.repository.ClienteRepository;
@@ -83,6 +89,16 @@ public class PedidoService {
 	@Transactional(readOnly = true)
 	public LazyDataModel<Pedido> pesquisar(){
 		return this.pedidoRepository.pesquisar();
+	}
+	
+	@Transactional(readOnly = true)
+	public Map<LocalDate, BigDecimal> pedidosGrafico(Integer numeroDias, Usuario usuario){
+		return this.pedidoRepository.pedidosGrafico(numeroDias, usuario);
+	}
+	
+	@Transactional(readOnly = true)
+	public EstatisticasPedidoDTO totalPedidosPorStatus(StatusPedido status){
+		return this.pedidoRepository.totalPedidosPorStatus(status);
 	}
 	
 	@Transactional(readOnly = true)

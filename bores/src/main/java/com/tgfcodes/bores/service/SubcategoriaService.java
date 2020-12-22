@@ -55,5 +55,10 @@ public class SubcategoriaService {
 	public Subcategoria buscarPorId(Long subcategoriaId) {
 		return this.subcategoriaRepository.findById(subcategoriaId).get();
 	}
+	
+	@Transactional(readOnly = true)
+	public Long contador() {
+		return this.subcategoriaRepository.count();
+	}
 
 }

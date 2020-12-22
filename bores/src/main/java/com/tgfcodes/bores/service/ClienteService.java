@@ -62,4 +62,9 @@ public class ClienteService {
 		return this.clienteRepository.findById(id).get();
 	}
 	
+	@Transactional(readOnly = true)
+	public Long contador() {
+		return this.clienteRepository.count();
+	}
+	
 }

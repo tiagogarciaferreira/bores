@@ -1078,11 +1078,56 @@ body table tr.footer-table-item td.col-total {
 	border-left-width: 1px;
 }
 
+/* GRAFICO */
+body div.card-page div.container-grafic{
+	width: calc(100% - 0.5em);
+}
+
+/* DASHBOARD */
+body .dashboard .ui-panelgrid, body .dashboard .ui-panelgrid .ui-panelgrid-content{
+	background-color: transparent;
+} 
+body .dashboard .ui-panelgrid .ui-panelgrid-cell{
+	border-radius: 3px;
+} 
+body .dashboard .ui-panelgrid .ui-panelgrid-cell .card-page{
+	margin-top: -2em;
+    padding-bottom: 2px;
+}
+body .dashboard .ui-panelgrid .ui-panelgrid-cell .card-page > div > i{
+	float: right;
+	padding-right: 5px;
+    font-size: x-large;
+}
+
+body .dashboard .ui-panelgrid .ui-panelgrid-cell .card-page > div{
+	margin-left: 5px;
+	line-height: 0.3;
+	color: #ffffff;
+}
+body .dashboard .ui-panelgrid .ui-panelgrid-cell .card-page div h6{
+    opacity: 0.8;
+	padding-top: 8px;
+    font-size: 14px;
+}
+body .dashboard .ui-panelgrid .ui-panelgrid-cell .card-page.total{
+    background-color: #2f8ee5;
+    padding-bottom: 2px;
+}
+body .dashboard .ui-panelgrid .ui-panelgrid-cell .card-page.orcamento{
+	background-color: #f1b263;
+}
+body .dashboard .ui-panelgrid .ui-panelgrid-cell .card-page.emitido{
+	background-color: #02acac;
+}
+body .dashboard .ui-panelgrid .ui-panelgrid-cell .card-page.cancelado{
+	background-color: #f16383;
+}
+
 /* ### BUTTON ### */
 body table .ui-button.btn-distancia {
 	margin-right: 1px;
 }
-
 body .ui-button.ui-button-text-icon-left .ui-icon {
 	margin-top: none;
 }

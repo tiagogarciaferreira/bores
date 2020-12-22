@@ -79,4 +79,10 @@ public class UsuarioService {
 		return this.usuarioRepository.findById(id).get();
 	}
 	
+	@Transactional(readOnly = true)
+	public Long contarVendedores() {
+		Grupo grupo = this.grupoRepository.findByNomeIgnoreCase("Vendedor");
+		return this.usuarioRepository.contar(grupo);
+	}
+	
 }
