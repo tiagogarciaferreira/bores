@@ -4,12 +4,12 @@
 
 	<p:panel styleClass="no-border js-content">
 		<p:menu styleClass="dashboard-item">
-			<p:menuitem url="#"  icon="fa fa-fw fa-home">Dashboard</p:menuitem>
+			<p:menuitem outcome="/home/Dashboard"  icon="fa fa-fw fa-home">Dashboard</p:menuitem>
 		</p:menu>
 	    <p:panelMenu >
 	        <p:submenu label="Pedidos" styleClass="no-space" icon="icone-raiz fa fa-fw fa-cart-plus">
-	            <p:menuitem value="Novo" action="#{menuView.save}" icon="fa fa-fw fa-plus-circle" />
-	            <p:menuitem value="Pesquisar" action="#{menuView.update}"  icon="fa fa-fw fa-search" />
+	            <p:menuitem value="Novo" outcome="/pedido/CadastroPedido" icon="fa fa-fw fa-plus-circle" />
+	            <p:menuitem value="Pesquisar" outcome="/pedido/PesquisaPedido"  icon="fa fa-fw fa-search" />
 	        </p:submenu>
 	        <p:submenu label="Produtos" styleClass="no-space" icon="icone-raiz fa fa-fw fa-database">
 	            <p:menuitem value="Novo" outcome="/produto/CadastroProduto"  icon="fa fa-fw fa-plus-circle" />

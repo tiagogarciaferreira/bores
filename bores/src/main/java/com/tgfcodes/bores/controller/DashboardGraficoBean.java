@@ -15,6 +15,7 @@ import org.primefaces.model.chart.LineChartSeries;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tgfcodes.bores.model.Usuario;
+import com.tgfcodes.bores.security.Security;
 import com.tgfcodes.bores.service.PedidoService;
 
 @RequestScoped
@@ -24,9 +25,9 @@ public class DashboardGraficoBean {
 	private LineChartModel lineChartModel;
 	@Autowired
 	private PedidoService pedidoService;
-	// TODO mudar para Usuario sistema que esta logado
-	Usuario usuario = new Usuario();
-
+	@Autowired
+	private Security security;
+	
 	@PostConstruct
 	public void inicializar() {
 		this.criarGrafico();
@@ -42,7 +43,7 @@ public class DashboardGraficoBean {
 		this.lineChartModel.setLegendPosition("e");
 		this.lineChartModel.setAnimate(true);
 		this.adicionarSerie("Todos os pedidos", null);
-		usuario.setId(2L);
+		Usuario usuario = this.security.getUsuarioLogado().getUsuario();
 		this.adicionarSerie("Meus pedidos", usuario);
 	}
 

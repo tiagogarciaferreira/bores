@@ -1,0 +1,59 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui"
+				template="/WEB-INF/templates/LayoutPadrao.xhtml">
+
+<ui:define name="title">Bores - Alterar senha</ui:define>
+<ui:define name="conteudo">
+	<h:form id="frm">
+		<div class="card-page">
+			<p:panel styleClass="panel-padrao">
+				<h2>Alterar senha</h2>
+				<p:messages for="msg" showDetail="true" closable="true" globalOnly="true">
+					<p:autoUpdate/>
+				</p:messages>
+			</p:panel>	
+			<p:panelGrid layout="grid" columns="2">
+				<p:column>
+					<p:outputLabel styleClass="input-label">Email</p:outputLabel>
+					<p:inputText id="email" label="Email" styleClass="ui-g-12" type="text" value="#{alterarSenhaBean.usuario.email}"
+						 required="true" requiredMessage="Campo obrigatório." autocomplete="off" readonly="true"/>
+					<p:message for="email" styleClass="msg-invalid"/>
+				</p:column>
+				<p:column>
+					<p:outputLabel styleClass="input-label">Nome</p:outputLabel>
+					<p:inputText id="nome" label="Nome" styleClass="ui-g-12" type="text" value="#{alterarSenhaBean.usuario.nome}"
+						 required="true" requiredMessage="Campo obrigatório." autocomplete="off" readonly="true"/>
+					<p:message for="nome" styleClass="msg-invalid"/>
+				</p:column>
+				<p:column>
+					<p:outputLabel styleClass="input-label">Senha</p:outputLabel>
+					<p:password id="senha" label="Senha" styleClass="ui-g-12" type="text" value="#{alterarSenhaBean.usuario.senha}"
+						  required="true" requiredMessage="Campo obrigatório." autocomplete="off" feedback="true" match="confirmeSenha"
+						  promptLabel="Força da senha" weakLabel="Fraca" strongLabel="Forte" goodLabel="Média" inline="true"
+						  placeholder="Senha do usuário">
+						<p:clientValidator event="keyup" />
+					</p:password>
+					<p:message for="senha" styleClass="msg-invalid"/>
+				</p:column>
+				<p:column>
+					<p:outputLabel styleClass="input-label">Confirmação/Senha</p:outputLabel>
+					<p:password id="confirmeSenha" label="Confirmação/Senha" styleClass="ui-g-12" type="text" value="#{alterarSenhaBean.usuario.confirmacaoSenha}"
+						  required="true" requiredMessage="Campo obrigatório." autocomplete="off" feedback="true"  
+						  promptLabel="Força da senha" weakLabel="Fraca" strongLabel="Forte" goodLabel="Média"  inline="true"
+						  placeholder="Confirme a senha">
+						<p:clientValidator event="keyup" />
+					</p:password>
+					<p:message for="confirmeSenha" styleClass="msg-invalid"/>
+				</p:column>	
+				<p:column>
+					<p:commandButton validateClient="true" styleClass="btn-primary raised-button" icon="fa fa-fw fa-save" 
+					     value="Salvar alterações" process="@form" ajax="true" action="#{alterarSenhaBean.alterar}" update="@form"/>
+				</p:column>			
+			</p:panelGrid>
+		</div>
+	</h:form>
+</ui:define>
+</ui:composition>

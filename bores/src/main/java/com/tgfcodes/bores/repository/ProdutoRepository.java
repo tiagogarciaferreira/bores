@@ -17,5 +17,6 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long>, Produto
 	public Produto findBySkuIgnoreCase(String sku);
 	@Query("from Produto p where lower(p.nome) like lower(concat(?1,'%'))")
 	public List<Produto> porNome(String nome);
+	public List<Produto> findByQuantidadeEstoqueLessThan(Integer quantidadeEstoque);
 	
 }

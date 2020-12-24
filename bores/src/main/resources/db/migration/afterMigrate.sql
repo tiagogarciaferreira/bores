@@ -9785,11 +9785,6 @@ INSERT INTO endereco (cep, uf, cidade_id, logradouro, numero, complemento, clien
 INSERT INTO endereco (cep, uf, cidade_id, logradouro, numero, complemento, cliente_id, version) VALUES ('97700-029)', 'Pernambuco', 5082, 'Logradoura BV', 'Numero BV', 'Complemnto BV', 16, 0);
 INSERT INTO endereco (cep, uf, cidade_id, logradouro, numero, complemento, cliente_id, version) VALUES ('97700-030)', 'Pernambuco', 5082, 'Logradoura AK', 'Numero AK', 'Complemnto AK', 16, 0);
 
---BASE DE GRUPOS
-INSERT INTO grupo (nome, version) VALUES ('Administrador', 0);
-INSERT INTO grupo (nome, version) VALUES ('Vendedor', 0);
-INSERT INTO grupo (nome, version) VALUES ('Auxiliar', 0);
-
 --BASE DE USUARIOS
 INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Tiago', 'tiagogarciaferreira@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'true', 0);
 INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Marcos', 'marcos@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'true', 0);
@@ -9827,10 +9822,91 @@ INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Pedro7', 'tiag
 INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Luis0', 'tiago2@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'false', 0);
 INSERT INTO usuario (nome, email, senha, ativo, version) VALUES ('Felipe3', 'tiago1@gmail.com', '$2y$04$JKjMBWItW8z5fdt85msSU.sKdcQOrNB8nMTaVw2MPjlK21ZyPTqsK', 'false', 0);
 
+--BASE DE GRUPOS
+INSERT INTO grupo (nome, version) VALUES ('Administrador', 0);
+INSERT INTO grupo (nome, version) VALUES ('Vendedor', 0);
+INSERT INTO grupo (nome, version) VALUES ('Auxiliar', 0);
 
 -- BASE USUARIO GRUPO
+INSERT INTO usuario_grupo(grupo_id, usuario_id) VALUES (1, 1);
 INSERT INTO usuario_grupo(grupo_id, usuario_id) VALUES (2, 1);
+INSERT INTO usuario_grupo(grupo_id, usuario_id) VALUES (3, 1);
 INSERT INTO usuario_grupo(grupo_id, usuario_id) VALUES (2, 2);
 INSERT INTO usuario_grupo(grupo_id, usuario_id) VALUES (2, 3);
 INSERT INTO usuario_grupo(grupo_id, usuario_id) VALUES (2, 4);
 INSERT INTO usuario_grupo(grupo_id, usuario_id) VALUES (2, 5);
+
+-- BASE PERMISSOES
+INSERT INTO permissao(nome, version) VALUES ('CADASTRAR_PRODUTO', 0);
+INSERT INTO permissao(nome, version) VALUES ('EDITAR_PRODUTO', 0);
+INSERT INTO permissao(nome, version) VALUES ('REMOVER_PRODUTO', 0);
+
+INSERT INTO permissao(nome, version) VALUES ('CADASTRAR_CATEGORIA', 0);
+INSERT INTO permissao(nome, version) VALUES ('EDITAR_CATEGORIA', 0);
+INSERT INTO permissao(nome, version) VALUES ('REMOVER_CATEGORIA', 0);
+
+INSERT INTO permissao(nome, version) VALUES ('CADASTRAR_SUBCATEGORIA', 0);
+INSERT INTO permissao(nome, version) VALUES ('EDITAR_SUBCATEGORIA', 0);
+INSERT INTO permissao(nome, version) VALUES ('REMOVER_SUBCATEGORIA', 0);
+
+INSERT INTO permissao(nome, version) VALUES ('CADASTRAR_ESTADO', 0);
+INSERT INTO permissao(nome, version) VALUES ('EDITAR_ESTADO', 0);
+INSERT INTO permissao(nome, version) VALUES ('REMOVER_ESTADO', 0);
+
+INSERT INTO permissao(nome, version) VALUES ('CADASTRAR_CIDADE', 0);
+INSERT INTO permissao(nome, version) VALUES ('EDITAR_CIDADE', 0);
+INSERT INTO permissao(nome, version) VALUES ('REMOVER_CIDADE', 0);
+
+INSERT INTO permissao(nome, version) VALUES ('CADASTRAR_CLIENTE', 0);
+INSERT INTO permissao(nome, version) VALUES ('EDITAR_CLIENTE', 0);
+INSERT INTO permissao(nome, version) VALUES ('REMOVER_CLIENTE', 0);
+
+INSERT INTO permissao(nome, version) VALUES ('CADASTRAR_USUARIO', 0);
+INSERT INTO permissao(nome, version) VALUES ('EDITAR_USUARIO', 0);
+INSERT INTO permissao(nome, version) VALUES ('REMOVER_USUARIO', 0);
+
+INSERT INTO permissao(nome, version) VALUES ('CADASTRAR_PEDIDO', 0);
+INSERT INTO permissao(nome, version) VALUES ('EDITAR_PEDIDO', 0);
+INSERT INTO permissao(nome, version) VALUES ('CANCELAR_PEDIDO', 0);
+
+INSERT INTO permissao(nome, version) VALUES ('GERAR_RELATORIO', 0);
+
+-- BASE GRUPO PERMISSAO
+
+-- VENDEDORES
+INSERT INTO grupo_permissao(grupo_id, permissao_id) VALUES (2, 16);
+INSERT INTO grupo_permissao(grupo_id, permissao_id) VALUES (2, 22);
+INSERT INTO grupo_permissao(grupo_id, permissao_id) VALUES (2, 23);
+INSERT INTO grupo_permissao(grupo_id, permissao_id) VALUES (2, 24);
+
+-- ADMIN
+INSERT INTO grupo_permissao(grupo_id, permissao_id) VALUES (1, 1);
+INSERT INTO grupo_permissao(grupo_id, permissao_id) VALUES (1, 2);
+INSERT INTO grupo_permissao(grupo_id, permissao_id) VALUES (1, 3);
+
+INSERT INTO grupo_permissao(grupo_id, permissao_id) VALUES (1, 5);
+INSERT INTO grupo_permissao(grupo_id, permissao_id) VALUES (1, 6);
+
+INSERT INTO grupo_permissao(grupo_id, permissao_id) VALUES (1, 8);
+INSERT INTO grupo_permissao(grupo_id, permissao_id) VALUES (1, 9);
+
+INSERT INTO grupo_permissao(grupo_id, permissao_id) VALUES (1, 11);
+INSERT INTO grupo_permissao(grupo_id, permissao_id) VALUES (1, 12);
+
+INSERT INTO grupo_permissao(grupo_id, permissao_id) VALUES (1, 14);
+INSERT INTO grupo_permissao(grupo_id, permissao_id) VALUES (1, 15);
+
+INSERT INTO grupo_permissao(grupo_id, permissao_id) VALUES (1, 17);
+INSERT INTO grupo_permissao(grupo_id, permissao_id) VALUES (1, 18);
+
+INSERT INTO grupo_permissao(grupo_id, permissao_id) VALUES (1, 19);
+INSERT INTO grupo_permissao(grupo_id, permissao_id) VALUES (1, 20);
+INSERT INTO grupo_permissao(grupo_id, permissao_id) VALUES (1, 21);
+
+INSERT INTO grupo_permissao(grupo_id, permissao_id) VALUES (1, 25);
+
+-- AUXILIAR
+INSERT INTO grupo_permissao(grupo_id, permissao_id) VALUES (3, 4);
+INSERT INTO grupo_permissao(grupo_id, permissao_id) VALUES (3, 7);
+INSERT INTO grupo_permissao(grupo_id, permissao_id) VALUES (3, 10);
+INSERT INTO grupo_permissao(grupo_id, permissao_id) VALUES (3, 13);

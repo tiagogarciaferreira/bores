@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.primefaces.model.LazyDataModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -24,8 +25,8 @@ public class UsuarioService {
 	private GrupoRepository grupoRepository;
 	@Autowired
 	private PedidoRepository pedidoRepository;
-	//@Autowired
-	//private PasswordEncoder passwordEncoder;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	
 	@Transactional(readOnly = false)
@@ -38,8 +39,7 @@ public class UsuarioService {
 			throw new NegocioException("Senha obrigatória a novos usuário.");
 		}
 		if (usuario.getId() == null || !StringUtils.hasText(usuario.getSenha())) {
-			//TODO: descomentar ao colocar segurança
-			//usuario.setSenha(this.passwordEncoder.encode(usuario.getSenha()));
+			usuario.setSenha(this.passwordEncoder.encode(usuario.getSenha()));
 		} else if (StringUtils.hasText(usuario.getSenha())) {
 			usuario.setSenha(usuarioExistente.getSenha());
 		}
@@ -63,6 +63,13 @@ public class UsuarioService {
 		this.usuarioRepository.save(usuario);
 	}
 	
+	@Transactional(readOnly = false)
+	public void alterarSenha(Usuario usuario) {
+		Usuario usuarioAtual = this.usuarioRepository.findByEmailIgnoreCase(usuario.getEmail());
+		usuarioAtual.setSenha(passwordEncoder.encode(usuario.getSenha()));
+		this.usuarioRepository.save(usuarioAtual);
+	}
+	
 	@Transactional(readOnly = true)
 	public List<Usuario> buscarPorGrupo(Boolean status, String nameGrupo){
 		Grupo grupo = this.grupoRepository.findByNomeIgnoreCase(nameGrupo);
@@ -84,5 +91,4 @@ public class UsuarioService {
 		Grupo grupo = this.grupoRepository.findByNomeIgnoreCase("Vendedor");
 		return this.usuarioRepository.contar(grupo);
 	}
-	
 }

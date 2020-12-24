@@ -24,6 +24,7 @@ public class ServletInitializer implements ServletContextInitializer {
         servletContext.setInitParameter("primefaces.THEME", "nova-light");
         servletContext.setInitParameter("primefaces.UPLOADER", "auto");
 		servletContext.setInitParameter("primefaces.SUBMIT", "partial");
+		servletContext.setInitParameter("primefaces.CSP", "true");
 	}
 
 }

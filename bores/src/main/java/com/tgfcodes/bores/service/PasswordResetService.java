@@ -2,6 +2,7 @@ package com.tgfcodes.bores.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,8 @@ public class PasswordResetService {
 	private UsuarioRepository usuarioRepository;
 	@Autowired
 	private ApplicationEventPublisher publisher;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@Transactional(readOnly = false)
 	public void salvar(PasswordReset passwordReset, String url) {
@@ -82,8 +85,7 @@ public class PasswordResetService {
 			throw new NegocioException("Nenhum usuário foi encontrado.");
 		}
 		else if(usuario.getId().equals(passwordReset.getUsuario().getId())) {
-			//TODO: passar encrypt quando colocar a segurança.
-			usuario.setSenha(passwordReset.getUsuario().getSenha());
+			usuario.setSenha(passwordEncoder.encode(passwordReset.getUsuario().getSenha()));
 			this.usuarioRepository.save(usuario);
 			this.excluir(passwordReset);
 		}

@@ -92,4 +92,11 @@ public class UsuarioRepositoryImpl implements UsuarioQueries {
 		criteriaQuery.where(builder.equal(join.get("id"), grupo.getId()));
 		return (Long) entityManager.createQuery(criteriaQuery).getSingleResult();		
 	}
+	
+	@Override
+	public List<String> permissoes(Usuario usuario) {
+		return entityManager.createQuery(
+				"select distinct p.nome from Usuario u inner join u.grupos g inner join g.permissoes p where u = :usuario",
+				String.class).setParameter("usuario", usuario).getResultList();
+	}
 }
