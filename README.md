@@ -1,8 +1,9 @@
 # bores
 
-PAUSADO
+**PAUSADO**
 
-Gerenciador de pedidos com Java + Primefaces + Jsf + Spring Boot + JoinFaces + Css + Spring Data/JPA + Spring Security + Flyway + PostgreSQL + Hibernate Bean Validator + Apache Tomcat + IDE Eclipse
+Este é um sistema completo para gerenciamento de pedidos, combinando a robustez do Java com o ecossistema Spring Boot. A interface foi desenvolvida com JSF e PrimeFaces, garantindo uma experiência de usuário rica e interativa, estilizada com CSS.
 
+No backend, o projeto se beneficia do Spring Boot, Spring Data/JPA para persistência de dados, e Spring Security para autenticação e autorização, tudo integrado perfeitamente via JoinFaces. A validação dos dados é feita com Hibernate Bean Validator.
 
-<img src="https://github.com/tiagogarciaferreira/portfolio/blob/main/portfolio/src/main/resources/static/images/bores.png"/>
+Para o banco de dados, utilizamos PostgreSQL com Flyway para controle de migrações e versionamento. O sistema é deployado no Apache Tomcat e todo o desenvolvimento foi realizado na IDE Eclipse. Uma solução eficiente para gerenciar pedidos de forma segura e organizada.
